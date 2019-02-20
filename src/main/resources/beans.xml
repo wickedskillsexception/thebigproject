@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="imDAO" class="com.siit.thebigproject.dao.sql.IMEmployeeDAO"/>
+	<bean id="employeeService" class="com.siit.thebigproject.service.EmployeeService" >
+	    <property name="dao" ref="imDAO" />
+		<!--<constructor-arg index="0" ref="imDAO"/>-->
+	</bean>
+	<bean id="imActivityDAO" class="com.siit.thebigproject.dao.sql.IMActivityDAO"/>
+	<bean id="activityService" class="com.siit.thebigproject.service.ActivityService" >
+		<property name="acDao" ref="imActivityDAO" />
+	</bean>
+</beans>
