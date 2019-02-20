@@ -6,6 +6,7 @@ public class User extends ObjectId {
     private String email;
     private int desiredCalories;
     private String desiredRecipeType;
+    private Fridge fridge;
 
     //add fridge by composition, user can have 0 ingredients and just wants recipes
 
