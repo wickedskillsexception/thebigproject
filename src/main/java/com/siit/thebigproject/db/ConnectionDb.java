@@ -19,7 +19,7 @@ public class ConnectionDb {
                     .append(":")
                     .append(5432)
                     .append("/")
-                    .append("bookings")
+                    .append("project")
                     .append("?user=")
                     .append("postgres")
                     .append("&password=")
