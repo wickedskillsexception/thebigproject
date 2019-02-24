@@ -1,8 +1,31 @@
 package com.siit.thebigproject.base;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class Ingredient {
+    @NotEmpty
+    @Size(max = 50)
+    private String name;
+
+    @NotEmpty
+    private MeasurmentUnit unit;
+
+    @NotEmpty
+    @Max(10)
+    private int quantity;
+
+    public Ingredient(String name, MeasurmentUnit unit, int quantity) {
+
+        this.name = name;
+
+        this.unit = unit;
+
+        this.quantity = quantity;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,9 +59,6 @@ public class Ingredient {
         this.quantity = quantity;
     }
 
-    private String name;
-    private MeasurmentUnit unit;
-    private int quantity;
 
     @Override
     public boolean equals(Object o) {
@@ -55,9 +75,5 @@ public class Ingredient {
         return Objects.hash(name, unit, quantity);
     }
 
-    public Ingredient(String name, MeasurmentUnit unit, int quantity) {
-        this.name = name;
-        this.unit = unit;
-        this.quantity = quantity;
-    }
+
 }

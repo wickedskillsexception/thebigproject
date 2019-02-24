@@ -3,6 +3,7 @@ package com.siit.thebigproject.base;
 import java.util.Set;
 
 public class Suggestion {
+
     private Recipe recipe;
     private boolean hasAllIngredients;
     private double matchPercent;
