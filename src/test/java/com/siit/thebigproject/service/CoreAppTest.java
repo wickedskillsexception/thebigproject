@@ -25,18 +25,18 @@ public class CoreAppTest extends CoreApp {
 
         Recipe sarmale = new Recipe();
         sarmale.setName("Sarmale");
-        sarmale.setRecipeTypes(Arrays.asList(VEGAN,VEGETARIAN));
+        sarmale.setRecipeTypes(Arrays.asList("Vegan"));
         List<Ingredient> ingredienteSarmale = new ArrayList<>();
-        ingredienteSarmale.add(new Ingredient("ceapa", PCS, 1));
-        ingredienteSarmale.add(new Ingredient("carne porc", GRAMS, 500));
-        ingredienteSarmale.add(new Ingredient("orez", GRAMS, 200));
+        ingredienteSarmale.add(new Ingredient("ceapa", "grams", 1));
+        ingredienteSarmale.add(new Ingredient("carne porc", "grams", 500));
+        ingredienteSarmale.add(new Ingredient("orez", "grams", 200));
         sarmale.setIngredientsList(ingredienteSarmale);
 
         Recipe pilaf = new Recipe();
         pilaf.setName("Pilaf");
         List<Ingredient> ingredientePilaf = new ArrayList<>();
-        ingredientePilaf.add(new Ingredient("carne porc", GRAMS, 500));
-        ingredientePilaf.add(new Ingredient("orez", GRAMS, 200));
+        ingredientePilaf.add(new Ingredient("carne porc", "grams", 500));
+        ingredientePilaf.add(new Ingredient("orez", "grams", 200));
         pilaf.setIngredientsList(ingredientePilaf);
 
 

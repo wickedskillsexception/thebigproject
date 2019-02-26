@@ -1,28 +1,17 @@
 package com.siit.thebigproject.base;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class Ingredient {
-    @NotEmpty
-    @Size(max = 50)
+
     private String name;
+    private String unit;
+    private Double quantity;
 
-    @NotEmpty
-    private MeasurmentUnit unit;
-
-    @NotEmpty
-    @Max(10)
-    private int quantity;
-
-    public Ingredient(String name, MeasurmentUnit unit, int quantity) {
+    public Ingredient(String name, String unit, double quantity) {
 
         this.name = name;
-
         this.unit = unit;
-
         this.quantity = quantity;
     }
 
@@ -34,7 +23,7 @@ public class Ingredient {
         this.name = name;
     }
 
-    public MeasurmentUnit getUnit() {
+    public String getUnit() {
         return unit;
     }
 
@@ -47,15 +36,15 @@ public class Ingredient {
                 '}';
     }
 
-    public void setUnit(MeasurmentUnit unit) {
+    public void setUnit(String unit) {
         this.unit = unit;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
