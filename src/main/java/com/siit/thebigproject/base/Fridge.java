@@ -2,7 +2,8 @@ package com.siit.thebigproject.base;
 
 import java.util.List;
 
-public class Fridge extends ObjectId{
+public class Fridge extends ObjectId {
+
     private List<Ingredient> ingredientSet;
 
     public List<Ingredient> getIngredientList() {

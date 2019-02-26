@@ -2,12 +2,15 @@ package com.siit.thebigproject.base;
 
 import java.util.Objects;
 
-public class Ingredient {
+public class Ingredient extends ObjectId{
 
     private String name;
     private String unit;
     private Double quantity;
 
+    public Ingredient (){
+
+    }
     public Ingredient(String name, String unit, double quantity) {
 
         this.name = name;

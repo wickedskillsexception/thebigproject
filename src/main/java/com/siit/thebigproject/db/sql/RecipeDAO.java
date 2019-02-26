@@ -1,6 +1,7 @@
-package com.siit.thebigproject.db;
+package com.siit.thebigproject.db.sql;
 
 import com.siit.thebigproject.base.Recipe;
+import com.siit.thebigproject.db.Crud;
 
 import java.util.Collection;
 

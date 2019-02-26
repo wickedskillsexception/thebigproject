@@ -1,4 +1,4 @@
-package com.siit.thebigproject.db;
+package com.siit.thebigproject.db.sql;
 
 public class Db {
 

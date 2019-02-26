@@ -1,6 +1,6 @@
 package com.siit.thebigproject.base;
 
-//add fridge by composition, user can have 0 ingredients and just wants recipes
+//add fridge by composition, templates can have 0 ingredients and just wants recipes
 
 import java.util.Objects;
 

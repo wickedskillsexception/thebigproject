@@ -12,7 +12,7 @@ public class CoreApp {
 
     /// compute and send reply to servlet
 
-    /// Adi todo: receive user Fridge return List<Suggestion>
+    /// Adi todo: receive templates Fridge return List<Suggestion>
 
     public void recipeMatcher(Fridge userFridge, List<Recipe> recipeList) {
 
