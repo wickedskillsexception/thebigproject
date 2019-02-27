@@ -1,11 +1,11 @@
-package com.siit.thebigproject.db.sql;
+package com.siit.thebigproject.dao.sql;
 
-import com.siit.thebigproject.base.User;
-import com.siit.thebigproject.db.Crud;
+import com.siit.thebigproject.domain.User;
+import com.siit.thebigproject.dao.Crud;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class IMUserDAO extends BaseDAO<User> implements Crud<User> {
+public class SQLUsersDAO extends SQLBaseDAO<User> implements Crud<User> {
 //    @Override
 //    public void create(User object) {
 //

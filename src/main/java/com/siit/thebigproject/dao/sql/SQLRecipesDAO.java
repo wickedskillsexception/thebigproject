@@ -1,11 +1,11 @@
-package com.siit.thebigproject.db.sql;
+package com.siit.thebigproject.dao.sql;
 
-import com.siit.thebigproject.base.Recipe;
-import com.siit.thebigproject.db.Crud;
+import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.dao.Crud;
 
 import java.util.Collection;
 
-public class RecipeDAO implements Crud<Recipe> {
+public class SQLRecipesDAO implements Crud<Recipe> {
     @Override
     public void create(Recipe object) {
 

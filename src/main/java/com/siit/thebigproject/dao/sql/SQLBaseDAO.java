@@ -1,15 +1,14 @@
-package com.siit.thebigproject.db.sql;
+package com.siit.thebigproject.dao.sql;
 
-import com.siit.thebigproject.base.ObjectId;
-import com.siit.thebigproject.base.Recipe;
-import com.siit.thebigproject.db.Crud;
+import com.siit.thebigproject.domain.ObjectId;
+import com.siit.thebigproject.dao.Crud;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class BaseDAO<T extends ObjectId> implements Crud<T> {
+public class SQLBaseDAO<T extends ObjectId> implements Crud<T> {
 
     private Map<Long, T> models = new HashMap<Long, T>();
 

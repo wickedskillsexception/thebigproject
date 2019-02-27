@@ -1,11 +1,11 @@
-package com.siit.thebigproject.db.sql;
+package com.siit.thebigproject.dao.sql;
 
-import com.siit.thebigproject.base.Ingredient;
-import com.siit.thebigproject.db.Crud;
+import com.siit.thebigproject.domain.Ingredient;
+import com.siit.thebigproject.dao.Crud;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class IngredientDAO extends BaseDAO<Ingredient> implements Crud<Ingredient> {
+public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements Crud<Ingredient> {
 //    @Override
 //    public void create(Ingredient object) {
 //

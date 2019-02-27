@@ -1,6 +1,6 @@
-package com.siit.thebigproject.db;
+package com.siit.thebigproject.dao;
 
-import com.siit.thebigproject.base.ObjectId;
+import com.siit.thebigproject.domain.ObjectId;
 
 import java.util.Collection;
 
