@@ -5,6 +5,7 @@ import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.dao.BaseDAO;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Repository
 public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
 
     ConnectionDb db = new ConnectionDb();

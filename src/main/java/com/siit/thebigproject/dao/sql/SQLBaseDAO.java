@@ -3,6 +3,7 @@ package com.siit.thebigproject.dao.sql;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.ObjectId;
 import com.siit.thebigproject.dao.BaseDAO;
+import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class SQLBaseDAO<T extends ObjectId> implements BaseDAO<T> {
 
     private Map<Long, T> models = new HashMap<Long, T>();
