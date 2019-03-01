@@ -3,8 +3,8 @@ package com.siit.thebigproject.dao.sql;
 import com.siit.thebigproject.dao.RecipesDAO;
 import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
+import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;
-import com.siit.thebigproject.dao.BaseDAO;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
@@ -38,7 +39,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
                     recipes.add(recipe);
                 }
                 return recipes;
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 System.err.println("Cannot retrieve all recipes: " + e.getMessage());
             } finally {
                 if (selectPs != null) {
@@ -58,7 +59,9 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
         recipe.setId(resultSet.getInt("id"));
         recipe.setName(resultSet.getString("name"));
         recipe.setPreparation(resultSet.getString("preparation"));
-        recipe.setCalories(resultSet.getInt("calories"));
+        recipe.setPreparationTime(resultSet.getInt("preparation_time"));
+        recipe.setSmartPoints(resultSet.getInt("smart_points"));
+        recipe.setImage(resultSet.getString("image"));
         return recipe;
     }
 
@@ -69,10 +72,13 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
             PreparedStatement crtValPs = null;
 
             try {
-                insertionPs = connection.prepareStatement("INSERT INTO recipes(name, preparation, calories) values( ?, ?)");
+                insertionPs = connection.prepareStatement("INSERT INTO recipes(name, preparation, preparation_time," +
+                        "smart_points, image) values( ?, ?, ?, ?, ?)");
                 insertionPs.setString(1, recipe.getName());
                 insertionPs.setString(2, recipe.getPreparation());
-                insertionPs.setInt(2, recipe.getCalories());
+                insertionPs.setInt(3, recipe.getPreparationTime());
+                insertionPs.setInt(4, recipe.getSmartPoints());
+                insertionPs.setString(2, recipe.getImage());
                 insertionPs.executeUpdate();
 
                 crtValPs = connection.prepareStatement("SELECT CURRVAL('recipes_ids')");
@@ -82,7 +88,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
             } catch (SQLException e) {
                 System.err.println("Cannot insert recipe: " + e.getMessage());
             } finally {
-                if (insertionPs != null && crtValPs!= null) {
+                if (insertionPs != null && crtValPs != null) {
                     try {
                         insertionPs.close();
                         crtValPs.close();
@@ -104,11 +110,11 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
                 selectPs.setLong(1, id);
                 ResultSet resultSet = selectPs.executeQuery();
 
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     Recipe recipe = mapResultSetToRecipe(resultSet);
                     return recipe;
                 }
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 System.err.println("Cannot retrieve recipe with specified user ID: " + e.getMessage());
             } finally {
                 if (selectPs != null) {
@@ -123,6 +129,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
         }
     }
 
+
     @Override
     public Recipe update(Recipe recipe) throws DbException, SQLException {
         try (Connection connection = db.connectToMyDb()) {
@@ -130,11 +137,13 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
 
             try {
                 updatePs = connection.prepareStatement("UPDATE recipes SET name = ?," +
-                        " preparation = ?, calories = ? WHERE id = ? ;");
+                        " preparation = ?, preparation_time = ?, image = ?, smartPoints = ?  WHERE id = ? ;");
                 updatePs.setString(1, recipe.getName());
                 updatePs.setString(2, recipe.getPreparation());
-                updatePs.setInt(3, recipe.getCalories());
-                updatePs.setLong(4, recipe.getId());
+                updatePs.setInt(3, recipe.getPreparationTime());
+                updatePs.setString(4, recipe.getImage());
+                updatePs.setInt(5, recipe.getSmartPoints());
+                updatePs.setLong(6, recipe.getId());
                 updatePs.executeUpdate();
 
                 return recipe;
@@ -160,7 +169,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
 
             try {
                 insertionPs = connection.prepareStatement("DELETE from recipes WHERE name = ?;");
-                insertionPs.setString(1,name);
+                insertionPs.setString(1, name);
                 insertionPs.executeUpdate();
                 return true;
             } catch (SQLException e) {
