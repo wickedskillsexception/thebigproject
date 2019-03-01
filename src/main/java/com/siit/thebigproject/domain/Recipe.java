@@ -1,4 +1,4 @@
-package com.siit.thebigproject.base;
+package com.siit.thebigproject.domain;
 
 import java.util.List;
 
@@ -26,52 +26,60 @@ public class Recipe extends ObjectId {
 
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setIngredientsList(List<Ingredient> ingredientsList) {
-        this.ingredientsList = ingredientsList;
-    }
-
-    public void setPreparation(String preparation) {
-        this.preparation = preparation;
-    }
-
-    public void setCalories(int calories) {
-        this.smartPoints = smartPoints;
-    }
-
-    public void setRecipeTypes(List<String> recipeTypes) {
-        this.recipeTypes = recipeTypes;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Ingredient> getIngredientsList() {
         return ingredientsList;
     }
 
+    public void setIngredientsList(List<Ingredient> ingredientsList) {
+        this.ingredientsList = ingredientsList;
+    }
+
     public String getPreparation() {
         return preparation;
     }
 
-    public int getCalories() {
-        return smartPoints;
+    public void setPreparation(String preparation) {
+        this.preparation = preparation;
+    }
+
+    public int getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
     }
 
     public List<String> getRecipeTypes() {
         return recipeTypes;
     }
 
+    public void setRecipeTypes(List<String> recipeTypes) {
+        this.recipeTypes = recipeTypes;
+    }
+
     public String getImage() {
         return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getSmartPoints() {
+        return smartPoints;
+    }
+
+    public void setSmartPoints(int smartPoints) {
+        this.smartPoints = smartPoints;
     }
 
     @Override
