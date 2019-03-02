@@ -14,7 +14,17 @@ public class Ingredient extends ObjectId{
     @NotEmpty
     private MeasurementUnit unit;
 
-    public Ingredient(String name, String unit, int quantity) {
+    private int quantity;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Ingredient(String name, String unit, double quantity) {
         this.name = name;
         this.unit = MeasurementUnit.valueOf(unit);
 
