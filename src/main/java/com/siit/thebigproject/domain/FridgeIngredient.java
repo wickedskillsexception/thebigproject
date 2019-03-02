@@ -14,7 +14,7 @@ public class FridgeIngredient extends ObjectId {
 
     @NotEmpty
     @Max(10)
-    private int quantity;
+    private double quantity;
 
     public FridgeIngredient() {
     }
@@ -41,11 +41,11 @@ public class FridgeIngredient extends ObjectId {
         this.ingredientId = ingredientId;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 }
