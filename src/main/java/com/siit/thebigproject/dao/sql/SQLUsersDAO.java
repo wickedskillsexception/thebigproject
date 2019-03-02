@@ -5,6 +5,7 @@ import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.User;
 import com.siit.thebigproject.dao.BaseDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -17,6 +18,7 @@ import java.util.Collection;
 @Repository
 public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
 
+    @Autowired
     private ConnectionDb db;
 
     public SQLUsersDAO(ConnectionDb db) {

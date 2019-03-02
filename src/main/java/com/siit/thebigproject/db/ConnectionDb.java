@@ -1,10 +1,13 @@
 package com.siit.thebigproject.db;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+@Service
 public class ConnectionDb {
 
     public void setup() throws DbException, SQLException {
@@ -29,7 +32,7 @@ public class ConnectionDb {
 
             builder.append("CREATE SEQUENCE recipes_ids;");
             builder.append("CREATE TABLE recipes(id INT PRIMARY KEY DEFAULT NEXTVAL('recipes_ids'), " +
-                    "name VARCHAR(32), preparation TEXT, calories INTEGER, recipe_type VARCHAR(32));");
+                    "name VARCHAR(32), preparation TEXT, preparation_time INTEGER, image VARCHAR(32), smart_points INTEGER);");
 
             builder.append("CREATE SEQUENCE users_ids;");
             builder.append("CREATE TABLE users(id INT PRIMARY KEY DEFAULT NEXTVAL('users_ids'), " +
@@ -77,6 +80,20 @@ public class ConnectionDb {
             return DriverManager.getConnection(url);
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             throw new DbException("Could not load DB driver.", e);
+        }
+    }
+
+    public void dropDb() throws DbException, SQLException {
+        ConnectionDb db = new ConnectionDb();
+        try (
+                Connection connection = db.connectToMyDb()) {
+
+            StringBuilder builder = new StringBuilder();
+
+            builder.append("DROP DATABASE the_big_project;");
+
+            Statement statement = connection.createStatement();
+            statement.execute(builder.toString());
         }
     }
 
