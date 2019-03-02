@@ -1,12 +1,12 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.base.Fridge;
-import com.siit.thebigproject.base.Ingredient;
-import com.siit.thebigproject.base.Recipe;
+import com.siit.thebigproject.domain.Fridge;
+import com.siit.thebigproject.domain.Ingredient;
+import com.siit.thebigproject.domain.Recipe;
 
 import java.util.*;
 
-import static com.siit.thebigproject.base.ApplicationConstants.MINIMUM_RECIPE_MATCH_PERCENT;
+import static com.siit.thebigproject.domain.ApplicationConstants.MINIMUM_RECIPE_MATCH_PERCENT;
 
 public class CoreApp {
 

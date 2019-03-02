@@ -1,8 +1,8 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.base.Ingredient;
-import com.siit.thebigproject.base.Recipe;
-import com.siit.thebigproject.base.RecipeType;
+import com.siit.thebigproject.domain.Ingredient;
+import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.RecipeType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

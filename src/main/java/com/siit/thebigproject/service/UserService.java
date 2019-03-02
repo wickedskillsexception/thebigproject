@@ -1,8 +1,8 @@
 package com.siit.thebigproject.service;
 
+import com.siit.thebigproject.dao.sql.SQLUsersDAO;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.User;
-import com.siit.thebigproject.dao.sql.SQLUsersDAO;
 import com.siit.thebigproject.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,42 +21,75 @@ public class UserService {
     @Autowired
     private SQLUsersDAO usersDAO;
 
-    public Collection <User> listAll() throws DbException, SQLException {
-        return usersDAO.getAll();
+    public Collection<User> listAll() {
+        try {
+            return usersDAO.getAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
-    public boolean delete(Long id) throws DbException, SQLException {
+    public boolean delete(Long id) {
         LOGGER.debug("Deleting templates for id: " + id);
-        User usr = usersDAO.getById(id);
+        User usr = null;
+        try {
+            usr = usersDAO.getById(id);
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         if (usr != null) {
-            usersDAO.delete(usr);
+            try {
+                usersDAO.delete(usr);
+            } catch (DbException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 
         return false;
     }
 
-    public User get(Long id) throws DbException, SQLException {
+    public User get(Long id) {
 
         LOGGER.debug("Getting templates for id: " + id);
-        return usersDAO.getById(id);
-
+        try {
+            return usersDAO.getById(id);
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public void save(User user) throws ValidationException, DbException, SQLException {
+    public void save(User user) throws ValidationException {
         LOGGER.debug("Saving: " + user);
 //        validate(User);
 
-        usersDAO.update(user);
+        try {
+            usersDAO.update(user);
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public SQLUsersDAO getUsersDAO() {
+    public SQLUsersDAO getIMUserDAO() {
+
         return usersDAO;
     }
 
-    public void setUsersDAO(SQLUsersDAO usersDAO) {
-        this.usersDAO = usersDAO;
+    public void setIMUserDAO(SQLUsersDAO imUserDAO) {
+
+        this.usersDAO = imUserDAO;
     }
 }
-

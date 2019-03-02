@@ -1,14 +1,15 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.base.Ingredient;
-
-import com.siit.thebigproject.db.sql.IngredientDAO;
+import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
+import com.siit.thebigproject.db.DbException;
+import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
 @Service
@@ -16,18 +17,39 @@ public class IngredientService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    private IngredientDAO ingredientDAO;
+    private SQLIngredientsDAO ingredientDAO;
 
     public Collection<Ingredient> listAll() {
-        return ingredientDAO.readAll();
+        try {
+            return ingredientDAO.getAll();
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
 
     public boolean delete(Long id) {
         LOGGER.debug("Deleting templates for id: " + id);
-        Ingredient usr = ingredientDAO.getById(id);
+        Ingredient usr = null;
+        try {
+            usr = ingredientDAO.getById(id);
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         if (usr != null) {
-            ingredientDAO.delete(usr);
+            try {
+                ingredientDAO.delete(usr);
+            } catch (DbException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 
@@ -37,23 +59,35 @@ public class IngredientService {
     public Ingredient get(Long id) {
 
         LOGGER.debug("Getting templates for id: " + id);
-        return ingredientDAO.getById(id);
-
+        try {
+            return ingredientDAO.getById(id);
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void save(Ingredient ingredient) throws ValidationException {
         LOGGER.debug("Saving: " + ingredient);
 //        validate(User);
 
-        ingredientDAO.update(ingredient);
+        try {
+            ingredientDAO.update(ingredient);
+        } catch (DbException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public IngredientDAO getIngredientDAO() {
+    public SQLIngredientsDAO getIngredientDAO() {
 
         return ingredientDAO;
     }
 
-    public void setUserDAO(IngredientDAO userDAO) {
+    public void setUserDAO(SQLIngredientsDAO userDAO) {
 
         this.ingredientDAO = userDAO;
     }
