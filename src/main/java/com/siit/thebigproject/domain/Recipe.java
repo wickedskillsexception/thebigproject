@@ -5,7 +5,7 @@ import java.util.List;
 public class Recipe extends ObjectId {
 
     private String name;
-    private List<Ingredient> ingredientsList;
+    private List<RecipeIngredient> ingredientsList;
     private String preparation;
     private int preparationTime;
     private List<String> recipeTypes;
@@ -15,7 +15,7 @@ public class Recipe extends ObjectId {
     public Recipe() {
     }
 
-    public Recipe(String name, List<Ingredient> ingredientsList, String preparation, int preparationTime, List<String> recipeTypes, String image, int smartPoints) {
+    public Recipe(String name, List<RecipeIngredient> ingredientsList, String preparation, int preparationTime, List<String> recipeTypes, String image, int smartPoints) {
         this.name = name;
         this.ingredientsList = ingredientsList;
         this.preparation = preparation;
@@ -34,11 +34,11 @@ public class Recipe extends ObjectId {
         this.name = name;
     }
 
-    public List<Ingredient> getIngredientsList() {
+    public List<RecipeIngredient> getIngredientsList() {
         return ingredientsList;
     }
 
-    public void setIngredientsList(List<Ingredient> ingredientsList) {
+    public void setIngredientsList(List<RecipeIngredient> ingredientsList) {
         this.ingredientsList = ingredientsList;
     }
 
