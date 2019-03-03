@@ -1,6 +1,6 @@
 package com.siit.mvc;
 
-import com.siit.thebigproject.base.User;
+import com.siit.thebigproject.domain.User;
 import com.siit.thebigproject.exceptions.ValidationException;
 import com.siit.thebigproject.service.UserService;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
 package com.siit.mvc;
 
-import com.siit.thebigproject.base.Ingredient;
+import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import com.siit.thebigproject.service.IngredientService;
 import org.slf4j.Logger;
