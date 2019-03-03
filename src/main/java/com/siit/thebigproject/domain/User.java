@@ -1,4 +1,4 @@
-package com.siit.thebigproject.base;
+package com.siit.thebigproject.domain;
 
 //add fridge by composition, templates can have 0 ingredients and just wants recipes
 

@@ -1,6 +1,6 @@
-package com.siit.thebigproject.base;
+package com.siit.thebigproject.domain;
 
-public enum  MeasurmentUnit {
+public enum MeasurementUnit {
     GRAMS, MILLILITERS, PCS
 
     //transform everything else to this

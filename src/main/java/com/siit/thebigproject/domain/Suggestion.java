@@ -1,4 +1,4 @@
-package com.siit.thebigproject.base;
+package com.siit.thebigproject.domain;
 
 import java.util.Set;
 
