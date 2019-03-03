@@ -4,13 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Max;
 
-public class FridgeIngredient extends ObjectId {
-
-    @NotEmpty
-    private long fridgeId;
-
-    @NotEmpty
-    private long ingredientId;
+public class FridgeIngredient extends Ingredient {
 
     @NotEmpty
     @Max(10)
@@ -19,26 +13,9 @@ public class FridgeIngredient extends ObjectId {
     public FridgeIngredient() {
     }
 
-    public FridgeIngredient(long fridgeId, long ingredientId, int quantity) {
-        this.fridgeId = fridgeId;
-        this.ingredientId = ingredientId;
+    public FridgeIngredient(String name, String unit, double quantity) {
+        super(name, unit);
         this.quantity = quantity;
-    }
-
-    public long getFridgeId() {
-        return fridgeId;
-    }
-
-    public void setFridgeId(long fridgeId) {
-        this.fridgeId = fridgeId;
-    }
-
-    public long getIngredientId() {
-        return ingredientId;
-    }
-
-    public void setIngredientId(long ingredientId) {
-        this.ingredientId = ingredientId;
     }
 
     public double getQuantity() {
