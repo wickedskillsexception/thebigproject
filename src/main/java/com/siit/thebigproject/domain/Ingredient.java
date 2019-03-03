@@ -16,12 +16,9 @@ public class Ingredient extends ObjectId{
 
     private int quantity;
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public Ingredient(String name, MeasurementUnit unit) {
+        this.name = name;
+        this.unit = unit;
     }
 
     public Ingredient(String name, String unit, double quantity) {
@@ -46,9 +43,16 @@ public class Ingredient extends ObjectId{
         return unit.toString();
     }
 
-
     public void setUnit(String unit) {
         this.unit = MeasurementUnit.valueOf(unit);
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
