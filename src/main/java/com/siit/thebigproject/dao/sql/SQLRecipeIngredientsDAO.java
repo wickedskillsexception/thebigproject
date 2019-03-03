@@ -1,5 +1,6 @@
 package com.siit.thebigproject.dao.sql;
 
+import com.siit.thebigproject.dao.RecipeIngredientsDAO;
 import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Repository
-public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
+public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implements RecipeIngredientsDAO {
 
     @Autowired
     ConnectionDb db;
@@ -123,6 +124,37 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
     }
 
     @Override
+    public Collection<RecipeIngredient> getByRecipeId(long recipeId) throws DbException, SQLException {
+        try (Connection conn = db.connectToMyDb()) {
+            PreparedStatement selectPs = null;
+
+            try {
+                selectPs = conn.prepareStatement("SELECT * from recipe_ingredients WHERE recipe_id = ?;");
+                selectPs.setLong(1, recipeId);
+                ResultSet resultSet = selectPs.executeQuery();
+                ArrayList<RecipeIngredient> ingredients = new ArrayList<>();
+
+                while (resultSet.next()) {
+                    RecipeIngredient ingredient = mapResultSetToFridge(resultSet);
+                    ingredients.add(ingredient);
+                }
+                return ingredients;
+            }catch (SQLException e) {
+                System.err.println("Cannot retrieve ingredients for recipe with ID = " + recipeId + ": " + e.getMessage());
+            } finally {
+                if (selectPs != null) {
+                    try {
+                        selectPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+    @Override
     public RecipeIngredient update(RecipeIngredient ingredient) throws DbException, SQLException {
         try (Connection connection = db.connectToMyDb()) {
             PreparedStatement updatePs = null;
@@ -177,4 +209,28 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
         return false;
     }
 
+    @Override
+    public boolean deleteByRecipeId(long recipeId) throws DbException, SQLException {
+        try (Connection connection = db.connectToMyDb()) {
+            PreparedStatement insertionPs = null;
+
+            try {
+                insertionPs = connection.prepareStatement("DELETE from recipe_ingredients WHERE recipe_id = ?;");
+                insertionPs.setLong(1, recipeId);
+                insertionPs.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                System.err.println("Cannot delete ingredients for recipe with ID = " + recipeId + ": " + e.getMessage());
+            } finally {
+                if (insertionPs != null) {
+                    try {
+                        insertionPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
