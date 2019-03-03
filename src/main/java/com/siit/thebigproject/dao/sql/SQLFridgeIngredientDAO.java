@@ -6,6 +6,7 @@ import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.FridgeIngredient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Repository
 public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> implements FridgeIngredientsDAO {
 
     @Autowired

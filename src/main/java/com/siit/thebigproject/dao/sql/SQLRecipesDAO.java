@@ -3,7 +3,6 @@ package com.siit.thebigproject.dao.sql;
 import com.siit.thebigproject.dao.RecipesDAO;
 import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
-import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Repository
 public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {

@@ -4,7 +4,6 @@ import com.siit.thebigproject.dao.FridgesDAO;
 import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
-import com.siit.thebigproject.dao.BaseDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
