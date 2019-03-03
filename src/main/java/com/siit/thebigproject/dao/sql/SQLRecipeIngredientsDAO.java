@@ -4,6 +4,7 @@ import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.RecipeIngredient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -16,8 +17,11 @@ import java.util.Collection;
 @Repository
 public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
 
+    @Autowired
+    ConnectionDb db;
+
     @Override
- public void add(RecipeIngredient ingredient) throws DbException, SQLException {
+    public void add(RecipeIngredient ingredient) throws DbException, SQLException {
         try (Connection connection = db.connectToMyDb()) {
             PreparedStatement insertionPs = null;
             PreparedStatement crtValPs = null;
@@ -36,7 +40,7 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
             } catch (SQLException e) {
                 System.err.println("Cannot insert recipe ingredient: " + e.getMessage());
             } finally {
-                if (insertionPs != null && crtValPs!= null) {
+                if (insertionPs != null && crtValPs != null) {
                     try {
                         insertionPs.close();
                         crtValPs.close();
@@ -47,8 +51,6 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
             }
         }
     }
-
-    ConnectionDb db = new ConnectionDb();
 
     @Override
     public Collection<RecipeIngredient> getAll() throws DbException, SQLException {
@@ -65,7 +67,7 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
                     ingredients.add(ingredient);
                 }
                 return ingredients;
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 System.err.println("Cannot retrieve all recipe ingredients: " + e.getMessage());
             } finally {
                 if (selectPs != null) {
@@ -103,7 +105,7 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
                 resultSet.next();
                 RecipeIngredient ingredient = mapResultSetToFridge(resultSet);
                 return ingredient;
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 System.err.println("Cannot retrieve ingredient with specified ID: " + e.getMessage());
             } finally {
                 if (selectPs != null) {
