@@ -27,10 +27,11 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
             PreparedStatement crtValPs = null;
 
             try {
-                insertionPs = connection.prepareStatement("INSERT INTO recipe_ingredients(recipe_id, ingredient_id, quantity) values( ?, ?, ?)");
+                insertionPs = connection.prepareStatement("INSERT INTO recipe_ingredients(recipe_id, name, measurement_unit, quantity) values( ?, ?, ?, ?)");
                 insertionPs.setLong(1, ingredient.getRecipeId());
-                insertionPs.setLong(1, ingredient.getIngredientId());
-                insertionPs.setDouble(1, ingredient.getQuantity());
+                insertionPs.setString(2, ingredient.getName());
+                insertionPs.setString(3, ingredient.getUnit());
+                insertionPs.setDouble(4, ingredient.getQuantity());
                 insertionPs.executeUpdate();
 
                 crtValPs = connection.prepareStatement("SELECT CURRVAL('recipe_ingredients_ids')");
@@ -86,7 +87,8 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
         RecipeIngredient ingredient = new RecipeIngredient();
         ingredient.setId(resultSet.getInt("id"));
         ingredient.setRecipeId(resultSet.getInt("recipe_id"));
-        ingredient.setIngredientId(resultSet.getInt("ingredient_id"));
+        ingredient.setName(resultSet.getString("name"));
+        ingredient.setUnit(resultSet.getString("measurement_unit"));
         ingredient.setQuantity(resultSet.getDouble("quantity"));
         return ingredient;
     }
@@ -126,10 +128,12 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> {
             PreparedStatement updatePs = null;
 
             try {
-                updatePs = connection.prepareStatement("UPDATE recipe_ingredients SET recipe_id = ?, ingredient_id = ?, quantity = ? WHERE id = ?");
+                updatePs = connection.prepareStatement("UPDATE recipe_ingredients SET recipe_id = ?, name = ?, measurement_unit = ?, quantity = ? WHERE id = ?");
                 updatePs.setLong(1, ingredient.getRecipeId());
-                updatePs.setLong(2, ingredient.getIngredientId());
-                updatePs.setDouble(1, ingredient.getQuantity());
+                updatePs.setString(2, ingredient.getName());
+                updatePs.setString(3, ingredient.getUnit());
+                updatePs.setDouble(4, ingredient.getQuantity());
+                updatePs.setLong(5, ingredient.getId());
                 updatePs.executeUpdate();
 
                 return ingredient;

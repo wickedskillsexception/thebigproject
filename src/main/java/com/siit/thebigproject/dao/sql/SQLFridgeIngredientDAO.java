@@ -1,5 +1,6 @@
 package com.siit.thebigproject.dao.sql;
 
+import com.siit.thebigproject.dao.FridgeIngredientsDAO;
 import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> {
+public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> implements FridgeIngredientsDAO {
 
     @Autowired
     ConnectionDb db;
@@ -25,10 +26,11 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> {
             PreparedStatement crtValPs = null;
 
             try {
-                insertionPs = connection.prepareStatement("INSERT INTO fridge_ingredients(fridge_id, ingredient_id, quantity) values( ?, ?, ?)");
+                insertionPs = connection.prepareStatement("INSERT INTO fridge_ingredients(fridge_id, name, measurement_unit, quantity) values( ?, ?, ?, ?)");
                 insertionPs.setLong(1, ingredient.getFridgeId());
-                insertionPs.setLong(1, ingredient.getIngredientId());
-                insertionPs.setDouble(1, ingredient.getQuantity());
+                insertionPs.setString(2, ingredient.getName());
+                insertionPs.setString(3, ingredient.getUnit());
+                insertionPs.setDouble(4, ingredient.getQuantity());
                 insertionPs.executeUpdate();
 
                 crtValPs = connection.prepareStatement("SELECT CURRVAL('fridge_ingredients_ids')");
@@ -83,8 +85,9 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> {
     private FridgeIngredient mapResultSetToFridge(ResultSet resultSet) throws SQLException {
         FridgeIngredient ingredient = new FridgeIngredient();
         ingredient.setId(resultSet.getInt("id"));
-        ingredient.setFridgeId(resultSet.getInt("fridge_id"));
-        ingredient.setIngredientId(resultSet.getInt("ingredient_id"));
+        ingredient.setFridgeId(resultSet.getInt("recipe_id"));
+        ingredient.setName(resultSet.getString("name"));
+        ingredient.setUnit(resultSet.getString("measurement_unit"));
         ingredient.setQuantity(resultSet.getDouble("quantity"));
         return ingredient;
     }
@@ -119,15 +122,47 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> {
     }
 
     @Override
+    public Collection<FridgeIngredient> getByFridgeId(long fridgeId) throws DbException, SQLException {
+        try (Connection conn = db.connectToMyDb()) {
+            PreparedStatement selectPs = null;
+
+            try {
+                selectPs = conn.prepareStatement("SELECT * from fridge_ingredients WHERE fridge_id = ?;");
+                selectPs.setLong(1, fridgeId);
+                ResultSet resultSet = selectPs.executeQuery();
+                ArrayList<FridgeIngredient> ingredients = new ArrayList<>();
+
+                while (resultSet.next()) {
+                    FridgeIngredient ingredient = mapResultSetToFridge(resultSet);
+                    ingredients.add(ingredient);
+                }
+                return ingredients;
+            }catch (SQLException e) {
+                System.err.println("Cannot retrieve ingredients for fridge with ID = " + fridgeId + ": " + e.getMessage());
+            } finally {
+                if (selectPs != null) {
+                    try {
+                        selectPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+    @Override
     public FridgeIngredient update(FridgeIngredient ingredient) throws DbException, SQLException {
         try (Connection connection = db.connectToMyDb()) {
             PreparedStatement updatePs = null;
 
             try {
-                updatePs = connection.prepareStatement("UPDATE fridge_ingredients SET fridge_id = ?, ingredient_id = ?, quantity = ? WHERE id = ?");
+                updatePs = connection.prepareStatement("UPDATE fridge_ingredients SET fridge_id = ?, name = ?, measurement_unit = ?, quantity = ? WHERE id = ?");
                 updatePs.setLong(1, ingredient.getFridgeId());
-                updatePs.setLong(2, ingredient.getIngredientId());
-                updatePs.setDouble(1, ingredient.getQuantity());
+                updatePs.setString(2, ingredient.getName());
+                updatePs.setString(3, ingredient.getUnit());
+                updatePs.setDouble(4, ingredient.getQuantity());
                 updatePs.executeUpdate();
 
                 return ingredient;
@@ -158,6 +193,31 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> {
                 return true;
             } catch (SQLException e) {
                 System.err.println("Cannot delete ingredient: " + e.getMessage());
+            } finally {
+                if (insertionPs != null) {
+                    try {
+                        insertionPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteByFridgeId(long fridgeId) throws DbException, SQLException {
+        try (Connection connection = db.connectToMyDb()) {
+            PreparedStatement insertionPs = null;
+
+            try {
+                insertionPs = connection.prepareStatement("DELETE from fridge_ingredients WHERE fridge_id = ?;");
+                insertionPs.setLong(1, fridgeId);
+                insertionPs.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                System.err.println("Cannot delete ingredients for Fridge with ID = " + fridgeId + ": " + e.getMessage());
             } finally {
                 if (insertionPs != null) {
                     try {

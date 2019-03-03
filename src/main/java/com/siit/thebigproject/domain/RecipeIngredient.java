@@ -11,8 +11,15 @@ public class RecipeIngredient extends Ingredient {
     @Max(10)
     private double quantity;
 
-    public RecipeIngredient(String name, String unit, double quantity) {
+    @NotEmpty
+    private long recipeId;
+
+    public RecipeIngredient() {
+    }
+
+    public RecipeIngredient(long recipeId, String name, String unit, double quantity) {
         super(name, unit);
+        this.recipeId = recipeId;
         this.quantity = quantity;
     }
 
@@ -22,6 +29,14 @@ public class RecipeIngredient extends Ingredient {
 
     public void setQuantity(double quantity) {
         this.quantity = quantity;
+    }
+
+    public long getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(long recipeId) {
+        this.recipeId = recipeId;
     }
 }
 
