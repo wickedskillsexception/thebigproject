@@ -1,8 +1,6 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.domain.Fridge;
-import com.siit.thebigproject.domain.Ingredient;
-import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.*;
 
 import java.util.*;
 
@@ -17,7 +15,7 @@ public class CoreApp {
     public void recipeMatcher(Fridge userFridge, List<Recipe> recipeList) {
 
 
-        List<Ingredient> usersIngredients = userFridge.getIngredientList();
+        List<FridgeIngredient> usersIngredients = userFridge.getIngredientList();
 
         Iterator<Recipe> recipeIterator = recipeList.listIterator();
 
@@ -28,12 +26,12 @@ public class CoreApp {
 
 
             Recipe currentRecipe = recipeIterator.next();
-            List<Ingredient> recipeIngredients = currentRecipe.getIngredientsList();
+            List<RecipeIngredient> recipeIngredients = currentRecipe.getIngredientsList();
 
             double userIgredientListSize = usersIngredients.size();
 
-            for (Ingredient recipeIngredient : recipeIngredients) {
-                for (Ingredient userIngredient : usersIngredients) {
+            for (RecipeIngredient recipeIngredient : recipeIngredients) {
+                for (FridgeIngredient userIngredient : usersIngredients) {
                     if (recipeIngredient.equals(userIngredient)) {
                         matchPercent += 100 / userIgredientListSize * 0.7;
 
