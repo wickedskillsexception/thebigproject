@@ -16,9 +16,9 @@ public class Ingredient extends ObjectId{
 
     private int quantity;
 
-    public Ingredient(String name, MeasurementUnit unit) {
+    public Ingredient(String name, String unit) {
         this.name = name;
-        this.unit = unit;
+        this.unit = MeasurementUnit.valueOf(unit);
     }
 
     public Ingredient(String name, String unit, double quantity) {
