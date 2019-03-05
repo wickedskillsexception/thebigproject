@@ -60,8 +60,8 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
         recipe.setName(resultSet.getString("name"));
         recipe.setPreparation(resultSet.getString("preparation"));
         recipe.setPreparationTime(resultSet.getInt("preparation_time"));
-        recipe.setSmartPoints(resultSet.getInt("smart_points"));
         recipe.setImage(resultSet.getString("image"));
+        recipe.setSmartPoints(resultSet.getInt("smart_points"));
         return recipe;
     }
 
@@ -78,7 +78,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
                 insertionPs.setString(2, recipe.getPreparation());
                 insertionPs.setInt(3, recipe.getPreparationTime());
                 insertionPs.setInt(4, recipe.getSmartPoints());
-                insertionPs.setString(2, recipe.getImage());
+                insertionPs.setString(5, recipe.getImage());
                 insertionPs.executeUpdate();
 
                 crtValPs = connection.prepareStatement("SELECT CURRVAL('recipes_ids')");
@@ -193,7 +193,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
             PreparedStatement insertionPs = null;
 
             try {
-                insertionPs = connection.prepareStatement("DELETE from users WHERE id = ?;");
+                insertionPs = connection.prepareStatement("DELETE from recipes WHERE id = ?;");
                 insertionPs.setLong(1, recipe.getId());
                 insertionPs.executeUpdate();
                 return true;
