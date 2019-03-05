@@ -48,11 +48,11 @@ public class ConnectionDb {
 
             builder.append("CREATE SEQUENCE recipe_ingredients_ids;");
             builder.append("CREATE TABLE recipe_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('recipe_ingredients_ids'), " +
-                    " recipe_id INT REFERENCES recipes(id), ingredient_id INT REFERENCES ingredients(id), quantity DOUBLE PRECISION);");
+                    " recipe_id INT REFERENCES recipes(id), name VARCHAR(32), measurement_unit VARCHAR(32), quantity DOUBLE PRECISION);");
 
             builder.append("CREATE SEQUENCE fridge_ingredients_ids;");
             builder.append("CREATE TABLE fridge_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('fridge_ingredients_ids'), " +
-                    " fridge_id INT REFERENCES fridges(id), ingredient_id INT REFERENCES ingredients(id), quantity DOUBLE PRECISION);");
+                    " fridge_id INT REFERENCES fridges(id), name VARCHAR(32), measurement_unit VARCHAR(32), quantity DOUBLE PRECISION);");
 
             Statement statement = connection.createStatement();
             statement.execute(builder.toString());
