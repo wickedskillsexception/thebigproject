@@ -10,7 +10,6 @@ public class FridgeIngredient extends Ingredient {
     @Max(10)
     private double quantity;
 
-    @NotEmpty
     private long fridgeId;
 
     public FridgeIngredient() {
