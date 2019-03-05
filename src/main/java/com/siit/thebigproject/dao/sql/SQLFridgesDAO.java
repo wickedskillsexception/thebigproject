@@ -4,6 +4,7 @@ import com.siit.thebigproject.dao.FridgesDAO;
 import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
+import com.siit.thebigproject.domain.FridgeIngredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,9 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
     @Autowired
     ConnectionDb db = new ConnectionDb();
 
+    @Autowired
+    private SQLFridgeIngredientDAO sqlFridgeIngredientDAO;
+
     @Override
     public void add(Fridge fridge) throws DbException, SQLException {
         try (Connection connection = db.connectToMyDb()) {
@@ -35,6 +39,11 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
                 ResultSet resultSet = crtValPs.executeQuery();
                 resultSet.next();
                 fridge.setId(resultSet.getInt(1));
+
+                for (FridgeIngredient ingredient: fridge.getIngredientList()) {
+                    ingredient.setFridgeId(fridge.getId());
+                    sqlFridgeIngredientDAO.add(ingredient);
+                }
             } catch (SQLException e) {
                 System.err.println("Cannot insert Fridge: " + e.getMessage());
             } finally {
@@ -62,6 +71,7 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
 
                 while (resultSet.next()) {
                     Fridge fridge = mapResultSetToFridge(resultSet);
+                    fridge.setIngredientList(sqlFridgeIngredientDAO.getByFridgeId(fridge.getId()));
                     fridges.add(fridge);
                 }
                 return fridges;
@@ -93,12 +103,6 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
     }
 
     @Override
-    public Collection<Fridge> getAllWithIngredients(){
-        //TODO!!!
-        return null;
-    }
-
-    @Override
     public Fridge getById(Long id) throws DbException, SQLException {
         try (Connection conn = db.connectToMyDb()) {
             PreparedStatement selectPs = null;
@@ -107,11 +111,12 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
                 selectPs = conn.prepareStatement("SELECT * from fridges WHERE id = ?;");
                 selectPs.setLong(1, id);
                 ResultSet resultSet = selectPs.executeQuery();
-                ArrayList<Fridge> fridges = new ArrayList<>();
 
                 resultSet.next();
                 Fridge fridge = mapResultSetToFridge(resultSet);
+                fridge.setIngredientList(sqlFridgeIngredientDAO.getByFridgeId(id));
                 return fridge;
+
             }catch (SQLException e) {
                 System.err.println("Cannot retrieve all Fridges: " + e.getMessage());
             } finally {
@@ -142,7 +147,7 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
                 String s = mapResultSetToString(resultSet);
                 return s;
             }catch (SQLException e) {
-                System.err.println("Cannot retrieve all Fridges: " + e.getMessage());
+                System.err.println("Cannot retrieve fridge with specified ID: " + e.getMessage());
             } finally {
                 if (selectPs != null) {
                     try {
@@ -220,6 +225,8 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
             PreparedStatement insertionPs = null;
 
             try {
+                sqlFridgeIngredientDAO.deleteByFridgeId(fridge.getId());
+
                 insertionPs = connection.prepareStatement("DELETE from fridges WHERE id = ?;");
                 insertionPs.setLong(1, fridge.getId());
                 insertionPs.executeUpdate();
