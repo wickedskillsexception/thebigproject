@@ -1,5 +1,6 @@
 package com.siit.thebigproject.db;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -10,24 +11,23 @@ import java.sql.Statement;
 @Service
 public class ConnectionDb {
 
+    @Autowired
+    private ConnectionDb db;
+
     public void setup() throws DbException, SQLException {
         setupDb();
         setupTables();
     }
 
     public void setupDb() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connect()) {
+        try (Connection connection = db.connect()) {
             Statement statement = connection.createStatement();
             statement.execute("CREATE DATABASE the_big_project;");
         }
     }
 
     public void setupTables() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-
-        try (Connection connection = db.connectToMyDb()) {
+             try (Connection connection = db.connectToMyDb()) {
             StringBuilder builder = new StringBuilder();
 
             builder.append("CREATE SEQUENCE recipes_ids;");
@@ -72,7 +72,6 @@ public class ConnectionDb {
                     .append(":")
                     .append(5432)
                     .append("/")
-//                    .append("the_big_project")
                     .append("?user=")
                     .append("postgres")
                     .append("&password=")
@@ -84,9 +83,7 @@ public class ConnectionDb {
     }
 
     public void dropDb() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
@@ -99,9 +96,7 @@ public class ConnectionDb {
 
 
     public void dropTablesAndSeq() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
@@ -147,9 +142,7 @@ public class ConnectionDb {
     }
 
     public void populateUsers() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
@@ -166,9 +159,7 @@ public class ConnectionDb {
     }
 
     public void populateRecipes() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
@@ -185,9 +176,7 @@ public class ConnectionDb {
     }
 
     public void populateIngredients() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
@@ -206,8 +195,7 @@ public class ConnectionDb {
 
     public void populateRecipeIngredients() throws DbException, SQLException {
         ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
@@ -221,9 +209,7 @@ public class ConnectionDb {
     }
 
     public void populateFridges() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
@@ -235,9 +221,7 @@ public class ConnectionDb {
     }
 
     public void populateFridgeIngredients() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (
-                Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
 
             StringBuilder builder = new StringBuilder();
 
