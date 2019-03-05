@@ -7,6 +7,6 @@ import java.sql.SQLException;
 
 public interface RecipesDAO extends BaseDAO<Recipe> {
 
-    public boolean deleteByName(String name) throws DbException, SQLException;
+    public boolean deleteById(long recipeId) throws DbException, SQLException;
 
 }
