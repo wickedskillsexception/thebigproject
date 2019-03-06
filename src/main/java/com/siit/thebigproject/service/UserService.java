@@ -83,13 +83,13 @@ public class UserService {
         }
     }
 
-    public SQLUsersDAO getIMUserDAO() {
+    public SQLUsersDAO getUserDAO() {
 
         return usersDAO;
     }
 
-    public void setIMUserDAO(SQLUsersDAO imUserDAO) {
+    public void setUserDAO(SQLUsersDAO userDAO) {
 
-        this.usersDAO = imUserDAO;
+        this.usersDAO = userDAO;
     }
 }

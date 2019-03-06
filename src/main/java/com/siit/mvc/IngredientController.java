@@ -1,5 +1,6 @@
 package com.siit.mvc;
 
+
 import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import com.siit.thebigproject.service.IngredientService;
@@ -29,7 +30,7 @@ public class IngredientController {
 
     @RequestMapping("")
     public ModelAndView list() {
-        ModelAndView result = new ModelAndView("templates/listIngredient");
+        ModelAndView result = new ModelAndView("ingredient/list");
 
 
         Collection<Ingredient> ingredients = ingredientService.listAll();
@@ -40,7 +41,7 @@ public class IngredientController {
 
     @RequestMapping("/add")
     public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("addIngredient");
+        ModelAndView modelAndView = new ModelAndView("ingredient/add");
         modelAndView.addObject("ingredient", new Ingredient());
         return modelAndView;
     }
@@ -49,7 +50,7 @@ public class IngredientController {
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
         Ingredient ingredient = ingredientService.get(id);
-        ModelAndView modelAndView = new ModelAndView("addIngredient");
+        ModelAndView modelAndView = new ModelAndView("ingredient/add");
         modelAndView.addObject("ingredient", ingredient);
         return modelAndView;
     }
@@ -76,7 +77,7 @@ public class IngredientController {
 
                 List<String> errors = new LinkedList<>();
                 errors.add(ex.getMessage());
-                modelAndView = new ModelAndView("addIngredient");
+                modelAndView = new ModelAndView("ingredient/add");
                 modelAndView.addObject("errors", errors);
                 modelAndView.addObject("ingredient", ingredient);
             }
@@ -89,7 +90,7 @@ public class IngredientController {
                 errors.add(error.getField() + ":" + error.getCode());
             }
 
-            modelAndView = new ModelAndView("addIngredient");
+            modelAndView = new ModelAndView("ingredient/add");
             modelAndView.addObject("errors", errors);
             modelAndView.addObject("ingredient", ingredient);
         }

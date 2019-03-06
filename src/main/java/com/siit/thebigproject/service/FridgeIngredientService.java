@@ -1,8 +1,10 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
+import com.siit.thebigproject.dao.sql.SQLFridgeIngredientDAO;
+import com.siit.thebigproject.dao.sql.SQLFridgesDAO;
 import com.siit.thebigproject.db.DbException;
-import com.siit.thebigproject.domain.Ingredient;
+import com.siit.thebigproject.domain.Fridge;
+import com.siit.thebigproject.domain.FridgeIngredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,38 +15,38 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 @Service
-public class IngredientService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IngredientService.class);
+public class FridgeIngredientService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FridgeIngredientService.class);
 
     @Autowired
-    private SQLIngredientsDAO ingredientDAO;
+    private SQLFridgeIngredientDAO fridgeIngredientDAO;
 
-    public Collection<Ingredient> listAll() {
+    public Collection<FridgeIngredient> listAll() {
+
         try {
-            return ingredientDAO.getAll();
+            return fridgeIngredientDAO.getAll();
         } catch (DbException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
-
     }
 
 
     public boolean delete(Long id) {
         LOGGER.debug("Deleting templates for id: " + id);
-        Ingredient usr = null;
+        FridgeIngredient frd = null;
         try {
-            usr = ingredientDAO.getById(id);
+            frd = fridgeIngredientDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (usr != null) {
+        if (frd != null) {
             try {
-                ingredientDAO.delete(usr);
+                fridgeIngredientDAO.delete(frd);
             } catch (DbException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
@@ -56,11 +58,11 @@ public class IngredientService {
         return false;
     }
 
-    public Ingredient get(Long id) {
+    public FridgeIngredient get(Long id) {
 
         LOGGER.debug("Getting templates for id: " + id);
         try {
-            return ingredientDAO.getById(id);
+            return fridgeIngredientDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -69,12 +71,12 @@ public class IngredientService {
         return null;
     }
 
-    public void save(Ingredient ingredient) throws ValidationException {
-        LOGGER.debug("Saving: " + ingredient);
+    public void save(FridgeIngredient fridgeIngredient) throws ValidationException {
+        LOGGER.debug("Saving: " + fridgeIngredient);
 //        validate(User);
 
         try {
-            ingredientDAO.update(ingredient);
+            fridgeIngredientDAO.update(fridgeIngredient);
         } catch (DbException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -82,13 +84,13 @@ public class IngredientService {
         }
     }
 
-    public SQLIngredientsDAO getIngredientDAO() {
+    public SQLFridgeIngredientDAO getFridgeIngredientDAO() {
 
-        return ingredientDAO;
+        return fridgeIngredientDAO;
     }
 
-    public void setIngredientDAO(SQLIngredientsDAO ingredientDAO) {
+    public void SQLFridgeIngredientDAO(SQLFridgeIngredientDAO fridgeIngredientDAO) {
 
-        this.ingredientDAO = ingredientDAO;
+        this.fridgeIngredientDAO = fridgeIngredientDAO;
     }
 }

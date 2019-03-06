@@ -2,14 +2,35 @@ package com.siit.thebigproject.domain;
 
 //add fridge by composition, templates can have 0 ingredients and just wants recipes
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class User extends ObjectId {
+    @NotEmpty(message = "Please insert the username")
+    @Length(max = 50)
     private String username;
+
+    @NotNull
+    @Length (min = 6)
     private String password;
+
+    @NotNull
+    @Email
     private String email;
+
+    @NotNull
+    @Max(5000)
     private int desiredCalories;
+
+
     private String desiredRecipeType;
+
+    @NotNull
     private Fridge fridge;
 
     public String getUsername() {

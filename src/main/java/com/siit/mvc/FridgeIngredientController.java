@@ -1,8 +1,8 @@
 package com.siit.mvc;
 
-import com.siit.thebigproject.domain.User;
+import com.siit.thebigproject.domain.FridgeIngredient;
 import com.siit.thebigproject.exceptions.ValidationException;
-import com.siit.thebigproject.service.UserService;
+import com.siit.thebigproject.service.FridgeIngredientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,56 +19,55 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
-
-    private static Logger LOGGER = LoggerFactory.getLogger("UserController");
+@RequestMapping("/fridgeingredient")
+public class FridgeIngredientController {
+    private static Logger LOGGER = LoggerFactory.getLogger("FridgeIngredientController");
 
     @Autowired
-    private UserService userService;
+    private FridgeIngredientService fridgeIngredientService;
 
     @RequestMapping("")
     public ModelAndView list() {
-        ModelAndView result = new ModelAndView("user/list");
+        ModelAndView result = new ModelAndView("fridgeIngredient/list");
 
 
-        Collection<User> users = userService.listAll();
-        result.addObject("users", users);
+        Collection<FridgeIngredient> fridgeIngredients = fridgeIngredientService.listAll();
+        result.addObject("fridgeIngredients", fridgeIngredients);
 
         return result;
     }
 
     @RequestMapping("/add")
     public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("user/add");
-        modelAndView.addObject("user", new User());
+        ModelAndView modelAndView = new ModelAndView("fridgeIngredient/add");
+        modelAndView.addObject("fridgeIngredient", new FridgeIngredient());
         return modelAndView;
     }
 
 
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
-        User user = userService.get(id);
-        ModelAndView modelAndView = new ModelAndView("user/add");
-        modelAndView.addObject("user", user);
+        FridgeIngredient fridgeIngredient = fridgeIngredientService.get(id);
+        ModelAndView modelAndView = new ModelAndView("fridgeIngredient/add");
+        modelAndView.addObject("fridgeIngredient", fridgeIngredient);
         return modelAndView;
     }
 
     @RequestMapping("/delete")
     public String delete(long id) {
-        userService.delete(id);
-        return "redirect:/user";
+        fridgeIngredientService.delete(id);
+        return "redirect:/fridge";
     }
 
     @RequestMapping("/save")
-    public ModelAndView save(@Valid User user,
+    public ModelAndView save(@Valid FridgeIngredient fridgeIngredient,
                              BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView();
         if (!bindingResult.hasErrors()) {
             try {
-                userService.save(user);
-                RedirectView redirectView = new RedirectView("/user");
+                fridgeIngredientService.save(fridgeIngredient);
+                RedirectView redirectView = new RedirectView("/fridgeingredient");
                 modelAndView.setView(redirectView);
             } catch (ValidationException ex) {
 
@@ -76,9 +75,9 @@ public class UserController {
 
                 List<String> errors = new LinkedList<>();
                 errors.add(ex.getMessage());
-                modelAndView = new ModelAndView("user/add");
+                modelAndView = new ModelAndView("fridgeIngredient/add");
                 modelAndView.addObject("errors", errors);
-                modelAndView.addObject("user", user);
+                modelAndView.addObject("fridgeIngredient", fridgeIngredient);
             }
 
         } else {
@@ -89,12 +88,11 @@ public class UserController {
                 errors.add(error.getField() + ":" + error.getCode());
             }
 
-            modelAndView = new ModelAndView("user/add");
+            modelAndView = new ModelAndView("fridgeIngredient/add");
             modelAndView.addObject("errors", errors);
-            modelAndView.addObject("user", user);
+            modelAndView.addObject("fridgeIngredient", fridgeIngredient);
         }
 
         return modelAndView;
     }
-
 }

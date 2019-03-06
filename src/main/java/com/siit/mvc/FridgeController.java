@@ -1,8 +1,8 @@
 package com.siit.mvc;
 
-import com.siit.thebigproject.domain.User;
+import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.exceptions.ValidationException;
-import com.siit.thebigproject.service.UserService;
+import com.siit.thebigproject.service.FridgeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,56 +19,57 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/fridge")
+public class FridgeController {
 
-    private static Logger LOGGER = LoggerFactory.getLogger("UserController");
+
+    private static Logger LOGGER = LoggerFactory.getLogger("FridgeController");
 
     @Autowired
-    private UserService userService;
+    private FridgeService fridgeService;
 
     @RequestMapping("")
     public ModelAndView list() {
-        ModelAndView result = new ModelAndView("user/list");
+        ModelAndView result = new ModelAndView("fridge/list");
 
 
-        Collection<User> users = userService.listAll();
-        result.addObject("users", users);
+        Collection<Fridge> fridges = fridgeService.listAll();
+        result.addObject("fridges", fridges);
 
         return result;
     }
 
     @RequestMapping("/add")
     public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("user/add");
-        modelAndView.addObject("user", new User());
+        ModelAndView modelAndView = new ModelAndView("fridge/add");
+        modelAndView.addObject("fridge", new Fridge());
         return modelAndView;
     }
 
 
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
-        User user = userService.get(id);
-        ModelAndView modelAndView = new ModelAndView("user/add");
-        modelAndView.addObject("user", user);
+        Fridge fridge = fridgeService.get(id);
+        ModelAndView modelAndView = new ModelAndView("fridge/add");
+        modelAndView.addObject("fridge", fridge);
         return modelAndView;
     }
 
     @RequestMapping("/delete")
     public String delete(long id) {
-        userService.delete(id);
-        return "redirect:/user";
+        fridgeService.delete(id);
+        return "redirect:/fridge";
     }
 
     @RequestMapping("/save")
-    public ModelAndView save(@Valid User user,
+    public ModelAndView save(@Valid Fridge fridge,
                              BindingResult bindingResult) {
 
         ModelAndView modelAndView = new ModelAndView();
         if (!bindingResult.hasErrors()) {
             try {
-                userService.save(user);
-                RedirectView redirectView = new RedirectView("/user");
+                fridgeService.save(fridge);
+                RedirectView redirectView = new RedirectView("/fridge");
                 modelAndView.setView(redirectView);
             } catch (ValidationException ex) {
 
@@ -76,9 +77,9 @@ public class UserController {
 
                 List<String> errors = new LinkedList<>();
                 errors.add(ex.getMessage());
-                modelAndView = new ModelAndView("user/add");
+                modelAndView = new ModelAndView("fridge/add");
                 modelAndView.addObject("errors", errors);
-                modelAndView.addObject("user", user);
+                modelAndView.addObject("fridge", fridge);
             }
 
         } else {
@@ -89,12 +90,13 @@ public class UserController {
                 errors.add(error.getField() + ":" + error.getCode());
             }
 
-            modelAndView = new ModelAndView("user/add");
+            modelAndView = new ModelAndView("fridge/add");
             modelAndView.addObject("errors", errors);
-            modelAndView.addObject("user", user);
+            modelAndView.addObject("fridge", fridge);
         }
 
         return modelAndView;
     }
 
 }
+

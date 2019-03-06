@@ -2,13 +2,11 @@ package com.siit.thebigproject.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class Ingredient extends ObjectId{
 
     @NotEmpty
-    @Size(max = 50)
     private String name;
 
     @NotEmpty

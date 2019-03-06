@@ -1,16 +1,14 @@
 package com.siit.thebigproject.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 public class FridgeIngredient extends Ingredient {
 
-    @NotEmpty
-    @Max(10)
+    @NotNull(message = "Please insert the quantity")
     private double quantity;
 
-    @NotEmpty
+    @NotNull
     private long fridgeId;
 
     public FridgeIngredient() {

@@ -1,5 +1,6 @@
 package com.siit.thebigproject.domain;
 
+import com.siit.thebigproject.domain.ObjectId;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Max;
@@ -8,7 +9,6 @@ public class RecipeIngredient extends Ingredient {
 
 
     @NotEmpty
-    @Max(10)
     private double quantity;
 
     @NotEmpty

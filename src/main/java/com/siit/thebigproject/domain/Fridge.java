@@ -5,6 +5,7 @@ import java.util.List;
 public class Fridge extends ObjectId {
 
     private int userId;
+
     private List<FridgeIngredient> ingredientList;
 
     public int getUserId() {
