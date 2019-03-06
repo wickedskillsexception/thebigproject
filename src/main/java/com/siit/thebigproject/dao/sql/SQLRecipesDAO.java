@@ -4,6 +4,7 @@ import com.siit.thebigproject.dao.RecipesDAO;
 import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.RecipeIngredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,9 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
         this.db = db;
     }
 
+    @Autowired
+    private SQLRecipeIngredientsDAO sqlRecipeIngredientsDAO;
+
     @Override
     public Collection<Recipe> getAll() throws DbException, SQLException {
         try (Connection conn = db.connectToMyDb()) {
@@ -36,6 +40,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
 
                 while (resultSet.next()) {
                     Recipe recipe = mapResultSetToRecipe(resultSet);
+                    recipe.setIngredientsList(sqlRecipeIngredientsDAO.getByRecipeId(recipe.getId()));
                     recipes.add(recipe);
                 }
                 return recipes;
@@ -60,8 +65,8 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
         recipe.setName(resultSet.getString("name"));
         recipe.setPreparation(resultSet.getString("preparation"));
         recipe.setPreparationTime(resultSet.getInt("preparation_time"));
-        recipe.setSmartPoints(resultSet.getInt("smart_points"));
         recipe.setImage(resultSet.getString("image"));
+        recipe.setSmartPoints(resultSet.getInt("smart_points"));
         return recipe;
     }
 
@@ -78,13 +83,19 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
                 insertionPs.setString(2, recipe.getPreparation());
                 insertionPs.setInt(3, recipe.getPreparationTime());
                 insertionPs.setInt(4, recipe.getSmartPoints());
-                insertionPs.setString(2, recipe.getImage());
+                insertionPs.setString(5, recipe.getImage());
                 insertionPs.executeUpdate();
 
                 crtValPs = connection.prepareStatement("SELECT CURRVAL('recipes_ids')");
                 ResultSet resultSet = crtValPs.executeQuery();
                 resultSet.next();
                 recipe.setId(resultSet.getInt(1));
+
+                for (RecipeIngredient ingredient : recipe.getIngredientsList()) {
+                    ingredient.setRecipeId(recipe.getId());
+                    sqlRecipeIngredientsDAO.add(ingredient);
+                }
+
             } catch (SQLException e) {
                 System.err.println("Cannot insert recipe: " + e.getMessage());
             } finally {
@@ -112,6 +123,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
 
                 if (resultSet.next()) {
                     Recipe recipe = mapResultSetToRecipe(resultSet);
+                    recipe.setIngredientsList(sqlRecipeIngredientsDAO.getByRecipeId(id));
                     return recipe;
                 }
             } catch (SQLException e) {
@@ -163,13 +175,15 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
     }
 
     @Override
-    public boolean deleteByName(String name) throws DbException, SQLException {
+    public boolean deleteById(long recipeId) throws DbException, SQLException {
         try (Connection connection = db.connectToMyDb()) {
             PreparedStatement insertionPs = null;
 
             try {
-                insertionPs = connection.prepareStatement("DELETE from recipes WHERE name = ?;");
-                insertionPs.setString(1, name);
+                sqlRecipeIngredientsDAO.deleteByRecipeId(recipeId);
+
+                insertionPs = connection.prepareStatement("DELETE from recipes WHERE id = ?;");
+                insertionPs.setLong(1, recipeId);
                 insertionPs.executeUpdate();
                 return true;
             } catch (SQLException e) {
@@ -193,7 +207,9 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
             PreparedStatement insertionPs = null;
 
             try {
-                insertionPs = connection.prepareStatement("DELETE from users WHERE id = ?;");
+                sqlRecipeIngredientsDAO.deleteByRecipeId(recipe.getId());
+
+                insertionPs = connection.prepareStatement("DELETE from recipes WHERE id = ?;");
                 insertionPs.setLong(1, recipe.getId());
                 insertionPs.executeUpdate();
                 return true;

@@ -1,11 +1,10 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.base.Fridge;
-import com.siit.thebigproject.base.Ingredient;
-import com.siit.thebigproject.base.Recipe;
-import static com.siit.thebigproject.base.MeasurmentUnit.*;
-import static com.siit.thebigproject.base.RecipeType.*;
+import com.siit.thebigproject.domain.Fridge;
+import com.siit.thebigproject.domain.Ingredient;
+import com.siit.thebigproject.domain.Recipe;
 
+import com.siit.thebigproject.domain.RecipeIngredient;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,19 +25,20 @@ public class CoreAppTest extends CoreApp {
         Recipe sarmale = new Recipe();
         sarmale.setName("Sarmale");
         sarmale.setRecipeTypes(Arrays.asList("Vegan"));
-        List<Ingredient> ingredienteSarmale = new ArrayList<>();
-        ingredienteSarmale.add(new Ingredient("ceapa", "grams", 1));
-        ingredienteSarmale.add(new Ingredient("carne porc", "grams", 500));
-        ingredienteSarmale.add(new Ingredient("orez", "grams", 200));
+        List<RecipeIngredient> ingredienteSarmale = new ArrayList<>();
+
+        ingredienteSarmale.add(new RecipeIngredient(1, "ceapa","grams", 1));
+        ingredienteSarmale.add(new RecipeIngredient(1, "carne porc","grams", 500));
+        ingredienteSarmale.add(new RecipeIngredient(1, "orez","grams", 200));
         sarmale.setIngredientsList(ingredienteSarmale);
 
         Recipe pilaf = new Recipe();
         pilaf.setName("Pilaf");
-        List<Ingredient> ingredientePilaf = new ArrayList<>();
-        ingredientePilaf.add(new Ingredient("carne porc", "grams", 500));
-        ingredientePilaf.add(new Ingredient("orez", "grams", 200));
-        pilaf.setIngredientsList(ingredientePilaf);
+        List<RecipeIngredient> ingredientePilaf = new ArrayList<>();
 
+        ingredientePilaf.add(new RecipeIngredient(2, "carne porc", "grams", 500));
+        ingredientePilaf.add(new RecipeIngredient(2, "orez", "grams", 200));
+        pilaf.setIngredientsList(ingredientePilaf);
 
         recipeList.add(sarmale);
         recipeList.add(pilaf);

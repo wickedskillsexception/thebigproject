@@ -1,18 +1,16 @@
 package com.siit.thebigproject.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-@Service
-public class ConnectionDb {
+public class TestConnectionDb {
 
     @Autowired
-    private ConnectionDb db;
+    ConnectionDb db;
 
     public void setup() throws DbException, SQLException {
         setupDb();
@@ -22,12 +20,12 @@ public class ConnectionDb {
     public void setupDb() throws DbException, SQLException {
         try (Connection connection = db.connect()) {
             Statement statement = connection.createStatement();
-            statement.execute("CREATE DATABASE the_big_project;");
+            statement.execute("CREATE DATABASE the_big_project_test;");
         }
     }
 
     public void setupTables() throws DbException, SQLException {
-             try (Connection connection = db.connectToMyDb()) {
+        try (Connection connection = db.connectToMyDb()) {
             StringBuilder builder = new StringBuilder();
 
             builder.append("CREATE SEQUENCE recipes_ids;");
@@ -87,7 +85,7 @@ public class ConnectionDb {
 
             StringBuilder builder = new StringBuilder();
 
-            builder.append("DROP DATABASE the_big_project;");
+            builder.append("DROP DATABASE the_big_project_test;");
 
             Statement statement = connection.createStatement();
             statement.execute(builder.toString());
@@ -121,7 +119,7 @@ public class ConnectionDb {
                     .append(":")
                     .append(5432)
                     .append("/")
-                    .append("the_big_project")
+                    .append("the_big_project_test")
                     .append("?user=")
                     .append("postgres")
                     .append("&password=")
@@ -131,108 +129,5 @@ public class ConnectionDb {
             throw new DbException("Could not load DB driver.", e);
         }
     }
-
-    public void populateDb() throws DbException, SQLException {
-        populateUsers();
-        populateRecipes();
-        populateIngredients();
-        populateFridges();
-        populateFridgeIngredients();
-        populateRecipeIngredients();
-    }
-
-    public void populateUsers() throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("INSERT INTO users(username, password, email, desired_calories)\n" +
-                    "VALUES \n" +
-                    "('user1', 'parola1', 'user1@gmail.com', 2000), \n" +
-                    "('user2', 'parola2', 'user2@gmail.com', 2002),\n" +
-                    "('user3', 'parola3', 'user3@gmail.com', 2003),\n" +
-                    "('user4', 'parola4', 'user4@gmail.com', 2000);");
-
-            Statement statement = connection.createStatement();
-            statement.execute(builder.toString());
-        }
-    }
-
-    public void populateRecipes() throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("insert into recipes(name, preparation, calories, recipe_type)\n" +
-                    "values \n" +
-                    "('tocanita de vita', 'aaaaaaaaaaaa', 500, 'meal'), \n" +
-                    "('paste cu somon', 'bbbbbbbbbbbbbbb', 700, ''),\n" +
-                    "('supa de pui', 'cccccccccccccc', 200, 'baby friendly, low calories'),\n" +
-                    "('cheesy hamburger', 'ddddddddddd', 1000, 'cheat-day');");
-
-            Statement statement = connection.createStatement();
-            statement.execute(builder.toString());
-        }
-    }
-
-    public void populateIngredients() throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("insert into ingredients(name, measurement_unit, quantity)\n" +
-                    "values ('potato', 'PCS'), ('tomato', 'PCS'),('beaf meat', 'GRAMS'),\n" +
-                    "('onion', 'PCS'), ('carrot', 'PCS'),\n" +
-                    "('salmon', 'MILILITRES'), ('heavy cream', 'PCS'), ('onion', 'PCS'),\n" +
-                    "('chicken breast', 'PCS'), ('onion', 'PCS'), ('carrot', 'PCS'),\n" +
-                    "('burger buns', 'PCS'), ('hamburger meat', 'PCS'), ('lettuce', 'GRAMS'),\n" +
-                    "('tomato', 'PCS'), ('bacon', 'GRAMS'0), ('onion', 'PCS');");
-
-            Statement statement = connection.createStatement();
-            statement.execute(builder.toString());
-        }
-    }
-
-    public void populateRecipeIngredients() throws DbException, SQLException {
-        ConnectionDb db = new ConnectionDb();
-        try (Connection connection = db.connectToMyDb()) {
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("insert into recipe_ingredients (recipe_id, ingredient_id, quantity) values (1,1, 5), (1,2, 2), " +
-                    "(1,3, 700), (1,4, 1), (1,5, 1), (2,6, 100), (2,7, 1), (2,8, 1), (3,9, 1), (3, 10, 1), (3,11, 1), (4, 12, 2), (4, 13, 2), " +
-                    "(4, 14, 50), (4, 15, 1), (4,16, 2), (4, 17, 1);");
-
-            Statement statement = connection.createStatement();
-            statement.execute(builder.toString());
-        }
-    }
-
-    public void populateFridges() throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("INSERT INTO fridges (user_id) values (1), (2), (3), (4);");
-
-            Statement statement = connection.createStatement();
-            statement.execute(builder.toString());
-        }
-    }
-
-    public void populateFridgeIngredients() throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("insert into fridge_ingredients (fridge_id, ingredient_id, quantity) values (1,1, 5), (1,2, 2), " +
-                    "(1,3, 700), (1,4, 1), (1,5, 1), (2,6, 100), (2,7, 1), (2,8, 1), (3,9, 1), (3, 10, 1), (3,11, 1), (4, 12, 2), (4, 13, 2), " +
-                    "(4, 14, 50), (4, 15, 1), (4,16, 2), (4, 17, 1);");
-
-            Statement statement = connection.createStatement();
-            statement.execute(builder.toString());
-        }
-    }
-
 
 }

@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> implements FridgeIngredientsDAO {
@@ -55,7 +55,7 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> impleme
     }
 
     @Override
-    public Collection<FridgeIngredient> getAll() throws DbException, SQLException {
+    public List<FridgeIngredient> getAll() throws DbException, SQLException {
         try (Connection conn = db.connectToMyDb()) {
             PreparedStatement selectPs = null;
 
@@ -124,7 +124,7 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> impleme
     }
 
     @Override
-    public Collection<FridgeIngredient> getByFridgeId(long fridgeId) throws DbException, SQLException {
+    public List<FridgeIngredient> getByFridgeId(long fridgeId) throws DbException, SQLException {
         try (Connection conn = db.connectToMyDb()) {
             PreparedStatement selectPs = null;
 

@@ -11,7 +11,6 @@ public class RecipeIngredient extends Ingredient {
     @NotEmpty
     private double quantity;
 
-    @NotEmpty
     private long recipeId;
 
     public RecipeIngredient() {

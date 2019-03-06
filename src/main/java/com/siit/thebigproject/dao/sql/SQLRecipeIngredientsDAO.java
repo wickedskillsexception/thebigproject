@@ -13,13 +13,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implements RecipeIngredientsDAO {
 
     @Autowired
     ConnectionDb db;
+
+    public SQLRecipeIngredientsDAO(ConnectionDb db) {
+        this.db = db;
+    }
 
     @Override
     public void add(RecipeIngredient ingredient) throws DbException, SQLException {
@@ -55,7 +59,7 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implem
     }
 
     @Override
-    public Collection<RecipeIngredient> getAll() throws DbException, SQLException {
+    public List<RecipeIngredient> getAll() throws DbException, SQLException {
         try (Connection conn = db.connectToMyDb()) {
             PreparedStatement selectPs = null;
 
@@ -124,7 +128,7 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implem
     }
 
     @Override
-    public Collection<RecipeIngredient> getByRecipeId(long recipeId) throws DbException, SQLException {
+    public List<RecipeIngredient> getByRecipeId(long recipeId) throws DbException, SQLException {
         try (Connection conn = db.connectToMyDb()) {
             PreparedStatement selectPs = null;
 
