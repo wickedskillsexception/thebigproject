@@ -1,41 +1,35 @@
-package com.siit.thebigproject.domain;
+package com.siit.thebigproject.base;
 
-import com.siit.thebigproject.domain.ObjectId;
-import org.hibernate.validator.constraints.NotEmpty;
+public class RecipeIngredient {
 
-import javax.validation.constraints.Max;
+    private Integer recipeID;
+    private Integer ingredientID;
+    private Double quantity;
 
-public class RecipeIngredient extends Ingredient {
-
-
-    @NotEmpty
-    private double quantity;
-
-    private long recipeId;
-
-    public RecipeIngredient() {
-    }
-
-    public RecipeIngredient(long recipeId, String name, String unit, double quantity) {
-        super(name, unit);
-        this.recipeId = recipeId;
+    public RecipeIngredient(Integer recipeID, Integer ingredientID, Double quantity) {
+        this.recipeID = recipeID;
+        this.ingredientID = ingredientID;
         this.quantity = quantity;
     }
 
-    public double getQuantity() {
+    public Integer getRecipeID() {
+        return recipeID;
+    }
+
+    public Integer getIngredientID() {
+        return ingredientID;
+    }
+
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
-    }
-
-    public long getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(long recipeId) {
-        this.recipeId = recipeId;
+    @Override
+    public String toString() {
+        return "RecipeIngredient{" +
+                "recipeID=" + recipeID +
+                ", ingredientID=" + ingredientID +
+                ", quantity=" + quantity +
+                '}';
     }
 }
-
