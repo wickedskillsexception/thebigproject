@@ -1,38 +1,29 @@
 package com.siit.thebigproject.domain;
 
+public class FridgeIngredient extends ObjectId {
 
-import javax.validation.constraints.NotNull;
+    private Double quantity;
+    private Integer fridgeId;
 
-public class FridgeIngredient extends Ingredient {
-
-    @NotNull(message = "Please insert the quantity")
-    private double quantity;
-
-    @NotNull
-    private long fridgeId;
-
-    public FridgeIngredient() {
-    }
-
-    public FridgeIngredient(long fridgeId, String name, String unit, double quantity) {
-        super(name, unit);
-        this.fridgeId = fridgeId;
+    public FridgeIngredient(long id, Double quantity, Integer fridgeId) {
+        setId(id); // Este defapt ingredientId
         this.quantity = quantity;
-    }
-
-    public long getFridgeId() {
-        return fridgeId;
-    }
-
-    public void setFridgeId(long fridgeId) {
         this.fridgeId = fridgeId;
     }
 
-    public double getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
+    public Integer getFridgeId() {
+        return fridgeId;
+    }
+
+    @Override
+    public String toString() {
+        return "FridgeIngredient{" +
+                "quantity=" + quantity +
+                ", fridgeId=" + fridgeId +
+                '}';
     }
 }

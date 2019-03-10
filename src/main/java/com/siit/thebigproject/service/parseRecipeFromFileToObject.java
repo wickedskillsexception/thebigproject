@@ -2,6 +2,7 @@ package com.siit.thebigproject.service;
 
 import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.RecipeIngredient;
 import com.siit.thebigproject.domain.RecipeType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -11,19 +12,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class RecipeParser {
+public class parseRecipeFromFileToObject {
 
     private List<Recipe> recipeList = new ArrayList<>();
-    private List<String> allIngredients = new ArrayList<>();
+    private List<Ingredient> allIngredients = new ArrayList<>();
 
     public List<Recipe> getRecipeList() {
         return recipeList;
     }
 
-    public List<String> getAllIngredients() {
+    public List<Ingredient> getAllIngredients() {
         return allIngredients;
     }
 
@@ -42,8 +42,9 @@ public class RecipeParser {
 
                 List<String> recipeProperties = new ArrayList<>();
                 JSONObject jo = (JSONObject) o;
-                List<Ingredient> ingredients = new ArrayList<>();
+                List<RecipeIngredient> ingredients = new ArrayList<>();
 
+                int id = Integer.parseInt(jo.get("id").toString());
                 String name = (String) jo.get("title");
                 ingredients = getIngredientsList(o);
                 String preparation = (String) jo.get("instructions");
@@ -52,7 +53,9 @@ public class RecipeParser {
                 String image = (String) jo.get("image");
                 int smartPoints = Integer.parseInt(jo.get("weightWatcherSmartPoints").toString());
 
-                recipeList.add(new Recipe(name, ingredients, preparation, preparationTime, recipeProperties, image, smartPoints));
+                if(!checkRecipe(new Recipe(id, name, ingredients, preparation, preparationTime, recipeProperties, image, smartPoints))) {
+                    recipeList.add(new Recipe(id, name, ingredients, preparation, preparationTime, recipeProperties, image, smartPoints));
+                }
             }
 
         } catch (FileNotFoundException e) {
@@ -64,37 +67,100 @@ public class RecipeParser {
         }
     }
 
-    private List<Ingredient> getIngredientsList(Object o) {
+    private List<RecipeIngredient> getIngredientsList(Object o) {
 
-        List<Ingredient> ingredients = new ArrayList<>();
+        List<RecipeIngredient> ingredients = new ArrayList<>();
         JSONObject jo = (JSONObject) o;
-
+        int recipeID = Integer.parseInt(jo.get("id").toString());
         JSONArray a = (JSONArray) jo.get("extendedIngredients");
+
 
         for (Object obj : a) {
 
-            //System.out.println(obj.toString());
             JSONObject jobj = (JSONObject) obj;
+            int ingredientID;
             String ingredientName = (String) jobj.get("name");
-            if (!checkIngredient(ingredientName)) {
-                allIngredients.add(ingredientName);
+            if (jobj.get("id") != null) {
+                ingredientID = Integer.parseInt(jobj.get("id").toString());
+            } else {
+                ingredientID = Objects.hash(ingredientName);
             }
             JSONObject measures = (JSONObject) jobj.get("measures");
             JSONObject metricMeasures = (JSONObject) measures.get("metric");
 
-            String ingredientUnit = (String) metricMeasures.get("unitLong");
+            //String ingredientUnit = (String) metricMeasures.get("unitLong");
             Double ingredientQuantity = new Double(metricMeasures.get("amount").toString());
-            ingredients.add(new Ingredient(ingredientName, ingredientUnit, ingredientQuantity));
+            ingredients.add(new RecipeIngredient(recipeID, ingredientID, ingredientQuantity));
 
         }
         return ingredients;
     }
 
-    private boolean checkIngredient(String ingredientName) {
+    public void getAllIngredientsList() {
+
+        String recipes = "recipes" + File.separator + "retete.json";
+        JSONParser parser = new JSONParser();
+        List<Ingredient> ingredients = new ArrayList<>();
+        UnitToGramsConverter unitToGramsConverter = new UnitToGramsConverter();
+
+        try {
+
+            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(recipes));
+            JSONArray a = (JSONArray) jsonObject.get("recipes");
+
+            for (Object o : a) {
+
+                JSONObject jo = (JSONObject) o;
+                JSONArray o1 = (JSONArray) jo.get("extendedIngredients");
+
+                for (Object obj : o1) {
+
+                    JSONObject jobj = (JSONObject) obj;
+                    String ingredientName = (String) jobj.get("name");
+                    int id;
+                    if (jobj.get("id") != null) {
+                        id = Integer.parseInt(jobj.get("id").toString());
+                    } else {
+                        id = Objects.hash(ingredientName);
+                    }
+                    JSONObject measures = (JSONObject) jobj.get("measures");
+                    JSONObject metricMeasures = (JSONObject) measures.get("metric");
+                    String ingredientUnit = (String) metricMeasures.get("unitLong");
+
+                    int factor = unitToGramsConverter.converToGrams(ingredientUnit);
+
+                    if (!checkIngredient(new Ingredient(id, ingredientName, ingredientUnit, factor))) {
+                        allIngredients.add(new Ingredient(id, ingredientName, ingredientUnit, factor));
+                    }
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private boolean checkIngredient(Ingredient i) {
 
         boolean b = false;
-        for (String a : allIngredients) {
-            if (a.equals(ingredientName)) {
+        for (Ingredient a : allIngredients) {
+            if (a.equals(i)) {
+                b = true;
+            }
+        }
+        return b;
+    }
+
+    private boolean checkRecipe(Recipe r) {
+
+        boolean b = false;
+        for (Recipe recipe : recipeList) {
+            if (recipe.equals(r)) {
                 b = true;
             }
         }
@@ -157,7 +223,7 @@ public class RecipeParser {
     }
 
     public void printAllIngredients() {
-        for (String s : allIngredients) {
+        for (Ingredient s : allIngredients) {
             System.out.println(s);
         }
     }

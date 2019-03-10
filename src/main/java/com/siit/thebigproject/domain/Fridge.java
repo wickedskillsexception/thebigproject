@@ -4,32 +4,24 @@ import java.util.List;
 
 public class Fridge extends ObjectId {
 
-    private int userId;
-
     private List<FridgeIngredient> ingredientList;
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+    private int userId;
 
     public List<FridgeIngredient> getIngredientList() {
         return ingredientList;
     }
 
-    public void setIngredientList(List<FridgeIngredient> ingredientList) {
-        this.ingredientList = this.ingredientList;
+    public Fridge(long id, List<FridgeIngredient> ingredientList, int userId) {
+        setId(id);
+        this.ingredientList = ingredientList;
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
         return "Fridge{" +
-                "userId=" + userId +
-                ", ingredientList=" + ingredientList +
+                "ingredientList=" + ingredientList +
+                ", userId=" + userId +
                 '}';
     }
-
 }

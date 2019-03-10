@@ -10,9 +10,8 @@ public class parseRecipeFromFileToObjectTest {
     @Test
     public void getRecipeListFromJSonTest()  {
 
-        //parseRecipeFromFileToObject.getRecipeListFromJSon();
-        //parseRecipeFromFileToObject.printAllIngredients();
-        //parseRecipeFromFileToObject.printRecipes();
+        parseRecipeFromFileToObject.getRecipeListFromJSon();
+        parseRecipeFromFileToObject.printRecipes();
         parseRecipeFromFileToObject.getAllIngredientsList();
         parseRecipeFromFileToObject.printAllIngredients();
         //assertEquals(100, parseRecipeFromFileToObject.getRecipeList().size());

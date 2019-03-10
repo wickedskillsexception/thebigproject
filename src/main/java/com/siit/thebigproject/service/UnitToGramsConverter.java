@@ -1,14 +1,12 @@
 package com.siit.thebigproject.service;
 
-public class unitToGramsConverter {
+public class UnitToGramsConverter {
 
-    private double convertedValue;
+    public int converToGrams(String unit) {
 
-    public double getConvertedValue() {
-        return convertedValue;
-    }
+        // urmeaza ca sa inlocuiesc strigurile din teste cu regex-uri
 
-    public void converToGrams(String unit) {
+        int convertedValue = 1;
 
         switch (unit) {
             case "":
@@ -132,6 +130,8 @@ public class unitToGramsConverter {
                 convertedValue = 100;
                 break;
         }
+
+        return convertedValue;
 
     }
 }
