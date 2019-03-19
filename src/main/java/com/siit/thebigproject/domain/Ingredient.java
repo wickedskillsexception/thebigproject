@@ -8,6 +8,9 @@ public class Ingredient extends ObjectId {
     private String unit;
     private int unitFactorTransformation;
 
+    public Ingredient() {
+    }
+
     public Ingredient(long id, String name, String unit, int unitFactorTransformation) {
         setId(id);
         this.name = name;
