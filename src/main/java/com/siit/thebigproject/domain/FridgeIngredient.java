@@ -3,12 +3,16 @@ package com.siit.thebigproject.domain;
 public class FridgeIngredient extends ObjectId {
 
     private Double quantity;
-    private Integer fridgeId;
+    private long fridgeId;
     private long ingredientId;
 
-    public FridgeIngredient(Double quantity, Integer fridgeId, long ingredientId) {
+    public FridgeIngredient(Double quantity, long fridgeId, long ingredientId) {
         this.quantity = quantity;
         this.fridgeId = fridgeId;
+        this.ingredientId = ingredientId;
+    }
+
+    public void setIngredientId(long ingredientId) {
         this.ingredientId = ingredientId;
     }
 
@@ -16,15 +20,19 @@ public class FridgeIngredient extends ObjectId {
         this.quantity = quantity;
     }
 
-    public void setFridgeId(Integer fridgeId) {
+    public void setFridgeId(long fridgeId) {
         this.fridgeId = fridgeId;
+    }
+
+    public long getIngredientId() {
+        return ingredientId;
     }
 
     public Double getQuantity() {
         return quantity;
     }
 
-    public Integer getFridgeId() {
+    public long getFridgeId() {
         return fridgeId;
     }
 
