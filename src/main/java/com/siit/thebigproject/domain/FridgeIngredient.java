@@ -4,11 +4,12 @@ public class FridgeIngredient extends ObjectId {
 
     private Double quantity;
     private Integer fridgeId;
+    private long ingredientId;
 
-    public FridgeIngredient(long id, Double quantity, Integer fridgeId) {
-        setId(id); // Este defapt ingredientId
+    public FridgeIngredient(Double quantity, Integer fridgeId, long ingredientId) {
         this.quantity = quantity;
         this.fridgeId = fridgeId;
+        this.ingredientId = ingredientId;
     }
 
     public void setQuantity(Double quantity) {
