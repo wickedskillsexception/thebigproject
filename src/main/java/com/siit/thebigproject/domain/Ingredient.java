@@ -15,6 +15,18 @@ public class Ingredient extends ObjectId {
         this.unitFactorTransformation = unitFactorTransformation;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setUnitFactorTransformation(int unitFactorTransformation) {
+        this.unitFactorTransformation = unitFactorTransformation;
+    }
+
     public String getName() {
         return name;
     }

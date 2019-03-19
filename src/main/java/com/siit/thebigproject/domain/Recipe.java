@@ -27,6 +27,34 @@ public class Recipe extends ObjectId {
         this.smartPoints = smartPoints;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIngredientsList(List<RecipeIngredient> ingredientsList) {
+        this.ingredientsList = ingredientsList;
+    }
+
+    public void setPreparation(String preparation) {
+        this.preparation = preparation;
+    }
+
+    public void setPreparationTime(int preparationTime) {
+        this.preparationTime = preparationTime;
+    }
+
+    public void setRecipeTypes(List<String> recipeTypes) {
+        this.recipeTypes = recipeTypes;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setSmartPoints(int smartPoints) {
+        this.smartPoints = smartPoints;
+    }
+
     public String getName() {
         return name;
     }

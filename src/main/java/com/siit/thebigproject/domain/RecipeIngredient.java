@@ -13,6 +13,14 @@ public class RecipeIngredient extends ObjectId {
         this.quantity = quantity;
     }
 
+    public void setIngredientId(Integer ingredientId) {
+        this.ingredientId = ingredientId;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
     public Integer getIngredientId() {
         return ingredientId;
     }

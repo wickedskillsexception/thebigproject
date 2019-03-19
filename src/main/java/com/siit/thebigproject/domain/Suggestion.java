@@ -9,6 +9,7 @@ public class Suggestion {
     private double matchPercent;
     private Set<Ingredient> missingIngredients;
 
+
     public Recipe getRecipe() {
         return recipe;
     }

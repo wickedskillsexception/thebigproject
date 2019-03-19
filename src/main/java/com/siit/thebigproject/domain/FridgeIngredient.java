@@ -11,6 +11,14 @@ public class FridgeIngredient extends ObjectId {
         this.fridgeId = fridgeId;
     }
 
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setFridgeId(Integer fridgeId) {
+        this.fridgeId = fridgeId;
+    }
+
     public Double getQuantity() {
         return quantity;
     }

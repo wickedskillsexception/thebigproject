@@ -17,6 +17,14 @@ public class Fridge extends ObjectId {
         this.userId = userId;
     }
 
+    public void setIngredientList(List<FridgeIngredient> ingredientList) {
+        this.ingredientList = ingredientList;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Fridge{" +

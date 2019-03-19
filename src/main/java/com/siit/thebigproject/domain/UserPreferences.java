@@ -16,6 +16,22 @@ public class UserPreferences extends ObjectId {
         this.smartPoints = smartPoints;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setRecipeTypes(List<RecipeType> recipeTypes) {
+        this.recipeTypes = recipeTypes;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setSmartPoints(int smartPoints) {
+        this.smartPoints = smartPoints;
+    }
+
     public int getUserId() {
         return userId;
     }
