@@ -7,6 +7,9 @@ public class Fridge extends ObjectId {
     private List<FridgeIngredient> ingredientList;
     private int userId;
 
+    public Fridge() {
+    }
+
     public Fridge(List<FridgeIngredient> ingredientList, int userId) {
         this.ingredientList = ingredientList;
         this.userId = userId;
