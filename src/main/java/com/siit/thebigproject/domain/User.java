@@ -19,6 +19,9 @@ public class User extends ObjectId {
     @Email
     private String email;
 
+    public User() {
+    }
+
     public User(long id, String username, String password, String email) {
         setId(id);
         this.username = username;
