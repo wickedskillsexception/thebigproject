@@ -12,6 +12,9 @@ public class RecipeIngredient extends ObjectId {
         this.quantity = quantity;
     }
 
+    public RecipeIngredient() {
+    }
+
     public void setRecipeId(long recipeId) {
         this.recipeId = recipeId;
     }

@@ -6,6 +6,9 @@ public class FridgeIngredient extends ObjectId {
     private long fridgeId;
     private long ingredientId;
 
+    public FridgeIngredient() {
+    }
+
     public FridgeIngredient(Double quantity, long fridgeId, long ingredientId) {
         this.quantity = quantity;
         this.fridgeId = fridgeId;
