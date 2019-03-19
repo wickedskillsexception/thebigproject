@@ -1,231 +1,231 @@
-//package com.siit.thebigproject.dao.sql;
-//
-//import com.siit.thebigproject.dao.RecipesDAO;
-//import com.siit.thebigproject.db.ConnectionDb;
-//import com.siit.thebigproject.db.DbException;
-//import com.siit.thebigproject.domain.Recipe;
-//import com.siit.thebigproject.domain.RecipeIngredient;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Repository;
-//
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.Collection;
-//
-//@Repository
-//public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
-//
-//    @Autowired
-//    private ConnectionDb db;
-//
-//    public SQLRecipesDAO(ConnectionDb db) {
-//        this.db = db;
-//    }
-//
-//    @Autowired
-//    private SQLRecipeIngredientsDAO sqlRecipeIngredientsDAO;
-//
-//    @Override
-//    public Collection<Recipe> getAll() throws DbException, SQLException {
-//        try (Connection conn = db.connectToMyDb()) {
-//            PreparedStatement selectPs = null;
-//
-//            try {
-//                selectPs = conn.prepareStatement("SELECT * from recipes;");
-//                ResultSet resultSet = selectPs.executeQuery();
-//                ArrayList<Recipe> recipes = new ArrayList<>();
-//
-//                while (resultSet.next()) {
-//                    Recipe recipe = mapResultSetToRecipe(resultSet);
-//                    recipe.setIngredientsList(sqlRecipeIngredientsDAO.getByRecipeId(recipe.getId()));
-//                    recipes.add(recipe);
-//                }
-//                return recipes;
-//            } catch (SQLException e) {
-//                System.err.println("Cannot retrieve all recipes: " + e.getMessage());
-//            } finally {
-//                if (selectPs != null) {
-//                    try {
-//                        selectPs.close();
-//                    } catch (SQLException e) {
-//                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-//                    }
-//                }
-//            }
-//            return null;
-//        }
-//    }
-//
-//    private Recipe mapResultSetToRecipe(ResultSet resultSet) throws SQLException {
-//        Recipe recipe = new Recipe();
-//        recipe.setId(resultSet.getInt("id"));
-//        recipe.setName(resultSet.getString("name"));
-//        recipe.setPreparation(resultSet.getString("preparation"));
-//        recipe.setPreparationTime(resultSet.getInt("preparation_time"));
-//        recipe.setImage(resultSet.getString("image"));
-//        recipe.setSmartPoints(resultSet.getInt("smart_points"));
-//        return recipe;
-//    }
-//
-//    @Override
-//    public void add(Recipe recipe) throws DbException, SQLException {
-//        try (Connection connection = db.connectToMyDb()) {
-//            PreparedStatement insertionPs = null;
-//            PreparedStatement crtValPs = null;
-//
-//            try {
-//                insertionPs = connection.prepareStatement("INSERT INTO recipes(name, preparation, preparation_time," +
-//                        "smart_points, image) values( ?, ?, ?, ?, ?)");
-//                insertionPs.setString(1, recipe.getName());
-//                insertionPs.setString(2, recipe.getPreparation());
-//                insertionPs.setInt(3, recipe.getPreparationTime());
-//                insertionPs.setInt(4, recipe.getSmartPoints());
-//                insertionPs.setString(5, recipe.getImage());
-//                insertionPs.executeUpdate();
-//
-//                crtValPs = connection.prepareStatement("SELECT CURRVAL('recipes_ids')");
-//                ResultSet resultSet = crtValPs.executeQuery();
-//                resultSet.next();
-//                recipe.setId(resultSet.getInt(1));
-//
-//                for (RecipeIngredient ingredient : recipe.getIngredientsList()) {
-//                    ingredient.setRecipeId(recipe.getId());
-//                    sqlRecipeIngredientsDAO.add(ingredient);
-//                }
-//
-//            } catch (SQLException e) {
-//                System.err.println("Cannot insert recipe: " + e.getMessage());
-//            } finally {
-//                if (insertionPs != null && crtValPs != null) {
-//                    try {
-//                        insertionPs.close();
-//                        crtValPs.close();
-//                    } catch (SQLException e) {
-//                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public Recipe getById(Long id) throws DbException, SQLException {
-//        try (Connection conn = db.connectToMyDb()) {
-//            PreparedStatement selectPs = null;
-//
-//            try {
-//                selectPs = conn.prepareStatement("SELECT * from recipes WHERE id = ? ;");
-//                selectPs.setLong(1, id);
-//                ResultSet resultSet = selectPs.executeQuery();
-//
-//                if (resultSet.next()) {
-//                    Recipe recipe = mapResultSetToRecipe(resultSet);
-//                    recipe.setIngredientsList(sqlRecipeIngredientsDAO.getByRecipeId(id));
-//                    return recipe;
-//                }
-//            } catch (SQLException e) {
-//                System.err.println("Cannot retrieve recipe with specified user ID: " + e.getMessage());
-//            } finally {
-//                if (selectPs != null) {
-//                    try {
-//                        selectPs.close();
-//                    } catch (SQLException e) {
-//                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-//                    }
-//                }
-//            }
-//            return null;
-//        }
-//    }
-//
-//
-//    @Override
-//    public Recipe update(Recipe recipe) throws DbException, SQLException {
-//        try (Connection connection = db.connectToMyDb()) {
-//            PreparedStatement updatePs = null;
-//
-//            try {
-//                updatePs = connection.prepareStatement("UPDATE recipes SET name = ?," +
-//                        " preparation = ?, preparation_time = ?, image = ?, smartPoints = ?  WHERE id = ? ;");
-//                updatePs.setString(1, recipe.getName());
-//                updatePs.setString(2, recipe.getPreparation());
-//                updatePs.setInt(3, recipe.getPreparationTime());
-//                updatePs.setString(4, recipe.getImage());
-//                updatePs.setInt(5, recipe.getSmartPoints());
-//                updatePs.setLong(6, recipe.getId());
-//                updatePs.executeUpdate();
-//
-//                return recipe;
-//            } catch (SQLException e) {
-//                System.err.println("Cannot update recipe: " + e.getMessage());
-//            } finally {
-//                if (updatePs != null) {
-//                    try {
-//                        updatePs.close();
-//                    } catch (SQLException e) {
-//                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean deleteById(long recipeId) throws DbException, SQLException {
-//        try (Connection connection = db.connectToMyDb()) {
-//            PreparedStatement insertionPs = null;
-//
-//            try {
-//                sqlRecipeIngredientsDAO.deleteByRecipeId(recipeId);
-//
-//                insertionPs = connection.prepareStatement("DELETE from recipes WHERE id = ?;");
-//                insertionPs.setLong(1, recipeId);
-//                insertionPs.executeUpdate();
-//                return true;
-//            } catch (SQLException e) {
-//                System.err.println("Cannot delete recipe: " + e.getMessage());
-//            } finally {
-//                if (insertionPs != null) {
-//                    try {
-//                        insertionPs.close();
-//                    } catch (SQLException e) {
-//                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean delete(Recipe recipe) throws DbException, SQLException {
-//        try (Connection connection = db.connectToMyDb()) {
-//            PreparedStatement insertionPs = null;
-//
-//            try {
-//                sqlRecipeIngredientsDAO.deleteByRecipeId(recipe.getId());
-//
-//                insertionPs = connection.prepareStatement("DELETE from recipes WHERE id = ?;");
-//                insertionPs.setLong(1, recipe.getId());
-//                insertionPs.executeUpdate();
-//                return true;
-//            } catch (SQLException e) {
-//                System.err.println("Cannot delete recipe: " + e.getMessage());
-//            } finally {
-//                if (insertionPs != null) {
-//                    try {
-//                        insertionPs.close();
-//                    } catch (SQLException e) {
-//                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-//                    }
-//                }
-//            }
-//        }
-//        return false;
-//    }
-//
-//}
+package com.siit.thebigproject.dao.sql;
+
+import com.siit.thebigproject.dao.RecipesDAO;
+import com.siit.thebigproject.db.ConnectionDb;
+import com.siit.thebigproject.db.DbException;
+import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.RecipeIngredient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Repository
+public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
+
+    @Autowired
+    private ConnectionDb db;
+
+    public SQLRecipesDAO(ConnectionDb db) {
+        this.db = db;
+    }
+
+    @Autowired
+    private SQLRecipeIngredientsDAO sqlRecipeIngredientsDAO;
+
+    @Override
+    public Collection<Recipe> getAll() throws DbException, SQLException {
+        try (Connection conn = db.connectToMyDb()) {
+            PreparedStatement selectPs = null;
+
+            try {
+                selectPs = conn.prepareStatement("SELECT * from recipes;");
+                ResultSet resultSet = selectPs.executeQuery();
+                ArrayList<Recipe> recipes = new ArrayList<>();
+
+                while (resultSet.next()) {
+                    Recipe recipe = mapResultSetToRecipe(resultSet);
+                    recipe.setIngredientsList(sqlRecipeIngredientsDAO.getByRecipeId(recipe.getId()));
+                    recipes.add(recipe);
+                }
+                return recipes;
+            } catch (SQLException e) {
+                System.err.println("Cannot retrieve all recipes: " + e.getMessage());
+            } finally {
+                if (selectPs != null) {
+                    try {
+                        selectPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+    private Recipe mapResultSetToRecipe(ResultSet resultSet) throws SQLException {
+        Recipe recipe = new Recipe();
+        recipe.setId(resultSet.getInt("id"));
+        recipe.setName(resultSet.getString("name"));
+        recipe.setPreparation(resultSet.getString("preparation"));
+        recipe.setPreparationTime(resultSet.getInt("preparation_time"));
+        recipe.setImage(resultSet.getString("image"));
+        recipe.setSmartPoints(resultSet.getInt("smart_points"));
+        return recipe;
+    }
+
+    @Override
+    public void add(Recipe recipe) throws DbException, SQLException {
+        try (Connection connection = db.connectToMyDb()) {
+            PreparedStatement insertionPs = null;
+            PreparedStatement crtValPs = null;
+
+            try {
+                insertionPs = connection.prepareStatement("INSERT INTO recipes(name, preparation, preparation_time," +
+                        "smart_points, image) values( ?, ?, ?, ?, ?)");
+                insertionPs.setString(1, recipe.getName());
+                insertionPs.setString(2, recipe.getPreparation());
+                insertionPs.setInt(3, recipe.getPreparationTime());
+                insertionPs.setInt(4, recipe.getSmartPoints());
+                insertionPs.setString(5, recipe.getImage());
+                insertionPs.executeUpdate();
+
+                crtValPs = connection.prepareStatement("SELECT CURRVAL('recipes_ids')");
+                ResultSet resultSet = crtValPs.executeQuery();
+                resultSet.next();
+                recipe.setId(resultSet.getInt(1));
+
+                for (RecipeIngredient ingredient : recipe.getIngredientsList()) {
+                    ingredient.setRecipeId(recipe.getId());
+                    sqlRecipeIngredientsDAO.add(ingredient);
+                }
+
+            } catch (SQLException e) {
+                System.err.println("Cannot insert recipe: " + e.getMessage());
+            } finally {
+                if (insertionPs != null && crtValPs != null) {
+                    try {
+                        insertionPs.close();
+                        crtValPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public Recipe getById(Long id) throws DbException, SQLException {
+        try (Connection conn = db.connectToMyDb()) {
+            PreparedStatement selectPs = null;
+
+            try {
+                selectPs = conn.prepareStatement("SELECT * from recipes WHERE id = ? ;");
+                selectPs.setLong(1, id);
+                ResultSet resultSet = selectPs.executeQuery();
+
+                if (resultSet.next()) {
+                    Recipe recipe = mapResultSetToRecipe(resultSet);
+                    recipe.setIngredientsList(sqlRecipeIngredientsDAO.getByRecipeId(id));
+                    return recipe;
+                }
+            } catch (SQLException e) {
+                System.err.println("Cannot retrieve recipe with specified user ID: " + e.getMessage());
+            } finally {
+                if (selectPs != null) {
+                    try {
+                        selectPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+
+    @Override
+    public Recipe update(Recipe recipe) throws DbException, SQLException {
+        try (Connection connection = db.connectToMyDb()) {
+            PreparedStatement updatePs = null;
+
+            try {
+                updatePs = connection.prepareStatement("UPDATE recipes SET name = ?," +
+                        " preparation = ?, preparation_time = ?, image = ?, smartPoints = ?  WHERE id = ? ;");
+                updatePs.setString(1, recipe.getName());
+                updatePs.setString(2, recipe.getPreparation());
+                updatePs.setInt(3, recipe.getPreparationTime());
+                updatePs.setString(4, recipe.getImage());
+                updatePs.setInt(5, recipe.getSmartPoints());
+                updatePs.setLong(6, recipe.getId());
+                updatePs.executeUpdate();
+
+                return recipe;
+            } catch (SQLException e) {
+                System.err.println("Cannot update recipe: " + e.getMessage());
+            } finally {
+                if (updatePs != null) {
+                    try {
+                        updatePs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteById(long recipeId) throws DbException, SQLException {
+        try (Connection connection = db.connectToMyDb()) {
+            PreparedStatement insertionPs = null;
+
+            try {
+                sqlRecipeIngredientsDAO.deleteByRecipeId(recipeId);
+
+                insertionPs = connection.prepareStatement("DELETE from recipes WHERE id = ?;");
+                insertionPs.setLong(1, recipeId);
+                insertionPs.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                System.err.println("Cannot delete recipe: " + e.getMessage());
+            } finally {
+                if (insertionPs != null) {
+                    try {
+                        insertionPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(Recipe recipe) throws DbException, SQLException {
+        try (Connection connection = db.connectToMyDb()) {
+            PreparedStatement insertionPs = null;
+
+            try {
+                sqlRecipeIngredientsDAO.deleteByRecipeId(recipe.getId());
+
+                insertionPs = connection.prepareStatement("DELETE from recipes WHERE id = ?;");
+                insertionPs.setLong(1, recipe.getId());
+                insertionPs.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                System.err.println("Cannot delete recipe: " + e.getMessage());
+            } finally {
+                if (insertionPs != null) {
+                    try {
+                        insertionPs.close();
+                    } catch (SQLException e) {
+                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+}
