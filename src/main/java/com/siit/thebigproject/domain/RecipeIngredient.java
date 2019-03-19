@@ -1,19 +1,22 @@
 package com.siit.thebigproject.domain;
 
-import java.util.Objects;
-
 public class RecipeIngredient extends ObjectId {
 
-    private Integer ingredientId;
+    private long recipeId;
+    private long ingredientId;
     private Double quantity;
 
-    public RecipeIngredient(long id, Integer ingredientId, Double quantity) {
-        setId(id); // este recipeId
+    public RecipeIngredient(long recipeId, long ingredientId, Double quantity) {
+        this.recipeId = recipeId;
         this.ingredientId = ingredientId;
         this.quantity = quantity;
     }
 
-    public void setIngredientId(Integer ingredientId) {
+    public void setRecipeId(long recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public void setIngredientId(long ingredientId) {
         this.ingredientId = ingredientId;
     }
 
@@ -21,7 +24,11 @@ public class RecipeIngredient extends ObjectId {
         this.quantity = quantity;
     }
 
-    public Integer getIngredientId() {
+    public long getRecipeId() {
+        return recipeId;
+    }
+
+    public long getIngredientId() {
         return ingredientId;
     }
 
