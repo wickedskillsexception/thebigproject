@@ -7,12 +7,7 @@ public class Fridge extends ObjectId {
     private List<FridgeIngredient> ingredientList;
     private int userId;
 
-    public List<FridgeIngredient> getIngredientList() {
-        return ingredientList;
-    }
-
-    public Fridge(long id, List<FridgeIngredient> ingredientList, int userId) {
-        setId(id);
+    public Fridge(List<FridgeIngredient> ingredientList, int userId) {
         this.ingredientList = ingredientList;
         this.userId = userId;
     }
@@ -23,6 +18,14 @@ public class Fridge extends ObjectId {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public List<FridgeIngredient> getIngredientList() {
+        return ingredientList;
     }
 
     @Override
