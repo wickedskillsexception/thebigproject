@@ -1,235 +1,100 @@
 package com.siit.thebigproject.dao.sql;
 
 import com.siit.thebigproject.dao.FridgeIngredientsDAO;
-import com.siit.thebigproject.db.ConnectionDb;
-import com.siit.thebigproject.db.DbException;
-import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.FridgeIngredient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+
 
 @Repository
 public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> implements FridgeIngredientsDAO {
 
     @Autowired
-    ConnectionDb db;
+    private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void add(FridgeIngredient ingredient) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
-            PreparedStatement crtValPs = null;
-
-            try {
-                insertionPs = connection.prepareStatement("INSERT INTO fridge_ingredients(quantity, fridge_id, ingredient_id) values( ?, ?, ?)");
-                insertionPs.setDouble(1, ingredient.getQuantity());
-                insertionPs.setLong(2, ingredient.getFridgeId());
-                insertionPs.setLong(3, ingredient.getFridgeId());
-
-                insertionPs.executeUpdate();
-
-                crtValPs = connection.prepareStatement("SELECT CURRVAL('fridge_ingredients_ids')");
-                ResultSet resultSet = crtValPs.executeQuery();
-                resultSet.next();
-                ingredient.setId(resultSet.getInt(1));
-            } catch (SQLException e) {
-                System.err.println("Cannot insert fridge ingredient: " + e.getMessage());
-            } finally {
-                if (insertionPs != null && crtValPs!= null) {
-                    try {
-                        insertionPs.close();
-                        crtValPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-        }
+    public Collection<FridgeIngredient> getAll() {
+        return jdbcTemplate.query("select * from fridge_ingredients",
+                new FridgeIngredientMapper());
     }
 
     @Override
-    public List<FridgeIngredient> getAll() throws DbException, SQLException {
-        try (Connection conn = db.connectToMyDb()) {
-            PreparedStatement selectPs = null;
-
-            try {
-                selectPs = conn.prepareStatement("SELECT * from fridge_ingredients;");
-                ResultSet resultSet = selectPs.executeQuery();
-                ArrayList<FridgeIngredient> ingredients = new ArrayList<>();
-
-                while (resultSet.next()) {
-                    FridgeIngredient ingredient = mapResultSetToFridge(resultSet);
-                    ingredients.add(ingredient);
-                }
-                return ingredients;
-            }catch (SQLException e) {
-                System.err.println("Cannot retrieve all fridge ingredients: " + e.getMessage());
-            } finally {
-                if (selectPs != null) {
-                    try {
-                        selectPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-            return null;
-        }
-    }
-
-    private FridgeIngredient mapResultSetToFridge(ResultSet resultSet) throws SQLException {
-        FridgeIngredient ingredient = new FridgeIngredient();
-        ingredient.setId(resultSet.getInt("id"));
-        ingredient.setFridgeId(resultSet.getInt("recipe_id"));
-        ingredient.setIngredientId(resultSet.getInt("ingredient_id"));
-        ingredient.setQuantity(resultSet.getDouble("quantity"));
-        return ingredient;
+    public FridgeIngredient getById(Long id) {
+        return jdbcTemplate.queryForObject("select * from fridge_ingredients where id = ?",
+                new FridgeIngredientMapper(), id);
     }
 
     @Override
-    public FridgeIngredient getById(Long id) throws DbException, SQLException {
-        try (Connection conn = db.connectToMyDb()) {
-            PreparedStatement selectPs = null;
+    public FridgeIngredient update(FridgeIngredient model) {
+        String sql = "";
+        Long newId = null;
+        if (model.getId() > 0) {
+            sql = "update fridge_ingredients set quantity=?, fridge_id=?, ingredient_id = ? "
+                    + "where id = ? returning id";
+            newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                    model.getQuantity(),
+                    model.getFridgeId(),
+                    model.getIngredientId(),
+                    model.getId()
 
-            try {
-                selectPs = conn.prepareStatement("SELECT * from fridge_ingredients WHERE id = ?;");
-                selectPs.setLong(1, id);
-                ResultSet resultSet = selectPs.executeQuery();
-                ArrayList<Fridge> fridges = new ArrayList<>();
-
-                resultSet.next();
-                FridgeIngredient ingredient = mapResultSetToFridge(resultSet);
-                return ingredient;
-            }catch (SQLException e) {
-                System.err.println("Cannot retrieve ingredient with specified ID: " + e.getMessage());
-            } finally {
-                if (selectPs != null) {
-                    try {
-                        selectPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
+            }, new RowMapper<Long>() {
+                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                    return rs.getLong(1);
                 }
-            }
-            return null;
+            });
+        } else {
+            sql = "insert into fridge_ingredients (quantity, fridge_id, ingredient_id) "
+                    + "values (?, ?, ?) returning id";
+
+            newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                    model.getQuantity(),
+                    model.getFridgeId(),
+                    model.getIngredientId()
+            }, new RowMapper<Long>() {
+                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                    return rs.getLong(1);
+                }
+            });
         }
+        model.setId(newId);
+
+        return model;
+    }
+
+    @Transactional
+    @Override
+    public boolean delete(FridgeIngredient model) {
+        return jdbcTemplate.update("delete from fridge_ingredients where id = ?", model.getId()) > 0;
     }
 
     @Override
-    public List<FridgeIngredient> getByFridgeId(long fridgeId) throws DbException, SQLException {
-        try (Connection conn = db.connectToMyDb()) {
-            PreparedStatement selectPs = null;
-
-            try {
-                selectPs = conn.prepareStatement("SELECT * from fridge_ingredients WHERE fridge_id = ?;");
-                selectPs.setLong(1, fridgeId);
-                ResultSet resultSet = selectPs.executeQuery();
-                ArrayList<FridgeIngredient> ingredients = new ArrayList<>();
-
-                while (resultSet.next()) {
-                    FridgeIngredient ingredient = mapResultSetToFridge(resultSet);
-                    ingredients.add(ingredient);
-                }
-                return ingredients;
-            }catch (SQLException e) {
-                System.err.println("Cannot retrieve ingredients for fridge with ID = " + fridgeId + ": " + e.getMessage());
-            } finally {
-                if (selectPs != null) {
-                    try {
-                        selectPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-            return null;
-        }
+    public boolean deleteByFridgeId(long fridgeId) {
+//        TODO
     }
 
     @Override
-    public FridgeIngredient update(FridgeIngredient ingredient) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement updatePs = null;
-
-            try {
-                updatePs = connection.prepareStatement("UPDATE fridge_ingredients SET quantity = ?, fridge_id = ?, ingredient_id = ? WHERE id = ?");
-                updatePs.setDouble(1, ingredient.getQuantity());
-                updatePs.setLong(2, ingredient.getFridgeId());
-                updatePs.setLong(3, ingredient.getIngredientId());
-
-                updatePs.executeUpdate();
-
-                return ingredient;
-            } catch (SQLException e) {
-                System.err.println("Cannot update ingredient: " + e.getMessage());
-            } finally {
-                if (updatePs != null) {
-                    try {
-                        updatePs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-        }
-        return null;
+    public Collection<FridgeIngredient> getByFridgeId(long fridgeId){
+//        TODO
     }
 
-    @Override
-    public boolean delete(FridgeIngredient ingredient) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
+    private static class FridgeIngredientMapper implements RowMapper<FridgeIngredient> {
 
-            try {
-                insertionPs = connection.prepareStatement("DELETE from fridge_ingredients WHERE id = ?;");
-                insertionPs.setLong(1, ingredient.getId());
-                insertionPs.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                System.err.println("Cannot delete ingredient: " + e.getMessage());
-            } finally {
-                if (insertionPs != null) {
-                    try {
-                        insertionPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
+        @Override
+        public FridgeIngredient mapRow(ResultSet rs, int arg1) throws SQLException {
+            FridgeIngredient fridgeIngredient = new FridgeIngredient();
+            fridgeIngredient.setId(rs.getLong("id"));
+            fridgeIngredient.setQuantity(rs.getDouble("quantity"));
+            fridgeIngredient.setFridgeId(rs.getLong("fridge_id"));
+            fridgeIngredient.setIngredientId(rs.getLong("ingredient_id"));
+            return fridgeIngredient;
         }
-        return false;
     }
-
-    @Override
-    public boolean deleteByFridgeId(long fridgeId) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
-
-            try {
-                insertionPs = connection.prepareStatement("DELETE from fridge_ingredients WHERE fridge_id = ?;");
-                insertionPs.setLong(1, fridgeId);
-                insertionPs.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                System.err.println("Cannot delete ingredients for Fridge with ID = " + fridgeId + ": " + e.getMessage());
-            } finally {
-                if (insertionPs != null) {
-                    try {
-                        insertionPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
 }
