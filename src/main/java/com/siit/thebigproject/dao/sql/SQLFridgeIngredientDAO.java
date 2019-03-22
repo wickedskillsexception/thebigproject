@@ -33,6 +33,11 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> impleme
     }
 
     @Override
+    public int deleteByFridgeId(long fridgeId) {
+        Object [] arg = {fridgeId};
+        return jdbcTemplate.update("delete from fridge_ingredients where fridge_id = ?", arg) ;
+    }
+    @Override
     public FridgeIngredient update(FridgeIngredient model) {
         String sql = "";
         Long newId = null;
@@ -76,13 +81,9 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> impleme
     }
 
     @Override
-    public boolean deleteByFridgeId(long fridgeId) {
-//        TODO
-    }
-
-    @Override
-    public Collection<FridgeIngredient> getByFridgeId(long fridgeId){
-//        TODO
+    public FridgeIngredient getByFridgeId(long fridgeId){
+        return jdbcTemplate.queryForObject("select * from fridge_ingredients where fridge_id = ?",
+                new FridgeIngredientMapper(), fridgeId);
     }
 
     private static class FridgeIngredientMapper implements RowMapper<FridgeIngredient> {
