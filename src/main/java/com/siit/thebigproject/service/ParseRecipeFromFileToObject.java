@@ -14,7 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class parseRecipeFromFileToObject {
+public class ParseRecipeFromFileToObject {
 
     private List<Recipe> recipeList = new ArrayList<>();
     private List<Ingredient> allIngredients = new ArrayList<>();
