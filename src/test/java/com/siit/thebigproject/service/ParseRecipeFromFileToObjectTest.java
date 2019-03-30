@@ -3,9 +3,9 @@ package com.siit.thebigproject.service;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class parseRecipeFromFileToObjectTest {
+public class ParseRecipeFromFileToObjectTest {
 
-    parseRecipeFromFileToObject parseRecipeFromFileToObject = new parseRecipeFromFileToObject();
+    ParseRecipeFromFileToObject parseRecipeFromFileToObject = new ParseRecipeFromFileToObject();
 
     @Test
     public void getRecipeListFromJSonTest()  {
@@ -14,7 +14,7 @@ public class parseRecipeFromFileToObjectTest {
         parseRecipeFromFileToObject.printRecipes();
         parseRecipeFromFileToObject.getAllIngredientsList();
         parseRecipeFromFileToObject.printAllIngredients();
-        //assertEquals(100, parseRecipeFromFileToObject.getRecipeList().size());
+        //assertEquals(100, ParseRecipeFromFileToObject.getRecipeList().size());
 
     }
 
