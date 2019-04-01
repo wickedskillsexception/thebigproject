@@ -5,6 +5,7 @@ import com.siit.thebigproject.db.DbException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @SpringBootApplication
@@ -13,8 +14,6 @@ public class ThebigprojectApplication {
 
         SpringApplication.run(ThebigprojectApplication.class, args);
 
-        ConnectionDb conn = new ConnectionDb();
-        conn.setup();
     }
 }
 
