@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
@@ -18,6 +19,16 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
 
     @Autowired
     private SQLFridgeIngredientsDAO sqlFridgeIngredientsDAO;
+
+
+    @Override
+    public Fridge getById(Long id) {
+        Fridge fridge = jdbcTemplate.queryForObject("SELECT * from fridges WHERE id = ?;",
+                new FridgeMapper(), id);
+        List fridgeIngredients = sqlFridgeIngredientsDAO.getByFridgeId(fridge.getId());
+        fridge.setIngredientList(fridgeIngredients);
+        return fridge;
+    }
 
     @Override
     public Collection<Fridge> getAll() {
@@ -55,13 +66,6 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
         model.setId(newId);
 
         return model;
-    }
-
-    @Override
-    public Fridge getById(Long id) {
-        return jdbcTemplate.queryForObject("SELECT * from fridges WHERE id = ?;",
-                new FridgeMapper(), id);
-
     }
 
     @Override
