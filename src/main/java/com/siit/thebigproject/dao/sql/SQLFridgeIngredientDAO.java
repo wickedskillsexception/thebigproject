@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 
 @Repository
@@ -80,7 +81,7 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> impleme
     }
 
     @Override
-    public Collection<FridgeIngredient> getByFridgeId(long fridgeId){
+    public List<FridgeIngredient> getByFridgeId(long fridgeId){
         return jdbcTemplate.query("select * from fridge_ingredients where fridge_id = ?",
                 new FridgeIngredientMapper(), fridgeId);
     }
