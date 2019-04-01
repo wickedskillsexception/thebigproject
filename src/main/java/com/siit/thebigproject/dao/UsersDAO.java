@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public interface UsersDAO extends BaseDAO<User> {
 
-    public boolean deleteByUsername(String username) throws DbException, SQLException;
+
 
 
 }
