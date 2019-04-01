@@ -17,7 +17,7 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private SQLFridgeIngredientDAO sqlFridgeIngredientDAO;
+    private SQLFridgeIngredientsDAO sqlFridgeIngredientsDAO;
 
     @Override
     public Collection<Fridge> getAll() {
