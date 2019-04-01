@@ -17,12 +17,12 @@ import java.util.List;
 
 
 @Repository
-public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> implements FridgeIngredientsDAO {
+public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implements FridgeIngredientsDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public SQLFridgeIngredientDAO(DataSource dataSource){
+    public SQLFridgeIngredientsDAO(DataSource dataSource){
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
