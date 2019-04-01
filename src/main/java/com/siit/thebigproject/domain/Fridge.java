@@ -5,7 +5,7 @@ import java.util.List;
 public class Fridge extends ObjectId {
 
     private List<FridgeIngredient> ingredientList;
-    private int userId;
+    private long userId;
 
     public Fridge() {
     }
@@ -19,12 +19,12 @@ public class Fridge extends ObjectId {
         this.ingredientList = ingredientList;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public long getUserId() {
+        return userId;
     }
 
-    public int getUserId() {
-        return userId;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public List<FridgeIngredient> getIngredientList() {
