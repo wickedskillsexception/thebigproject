@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,6 +22,10 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> impleme
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public SQLFridgeIngredientDAO(DataSource dataSource){
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public Collection<FridgeIngredient> getAll() {
@@ -98,4 +104,5 @@ public class SQLFridgeIngredientDAO extends SQLBaseDAO<FridgeIngredient> impleme
             return fridgeIngredient;
         }
     }
+
 }
