@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
@@ -24,6 +25,15 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
 
     @Autowired
     private SQLRecipeIngredientsDAO sqlRecipeIngredientsDAO;
+
+    @Override
+    public Recipe getById(Long id){
+        Recipe recipe = jdbcTemplate.queryForObject("select * from recipes where id = ?",
+                new RecipeMapper(), id);
+        List recipeIngredients = sqlRecipeIngredientsDAO.getByRecipeId(id);
+        recipe.setIngredientsList(recipeIngredients);
+        return recipe;
+    }
 
     @Override
     public Collection<Recipe> getAll(){
@@ -74,21 +84,15 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
     }
 
     @Override
-    public Recipe getById(Long id){
-        return jdbcTemplate.queryForObject("select * from recipes where id = ?",
-                new RecipeMapper(), id);
-    }
-
-    @Override
     public boolean deleteById(long recipeId){
         sqlRecipeIngredientsDAO.deleteByRecipeId(recipeId);
-        return jdbcTemplate.update("delete from employee where id = ?", recipeId) > 0;
+        return jdbcTemplate.update("delete from recipes where id = ?", recipeId) > 0;
     }
 
     @Override
     public boolean delete(Recipe recipe){
         sqlRecipeIngredientsDAO.deleteByRecipeId(recipe.getId());
-        return jdbcTemplate.update("delete from employee where id = ?", recipe.getId()) > 0;
+        return jdbcTemplate.update("delete from recipes where id = ?", recipe.getId()) > 0;
     }
 
     private static class RecipeMapper implements RowMapper<Recipe> {
