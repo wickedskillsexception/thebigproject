@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,10 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public SQLIngredientsDAO(DataSource dataSource){
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public List<Ingredient> getAll() {
