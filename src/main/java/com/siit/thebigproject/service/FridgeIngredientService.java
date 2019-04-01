@@ -1,6 +1,6 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.dao.sql.SQLFridgeIngredientDAO;
+import com.siit.thebigproject.dao.sql.SQLFridgeIngredientsDAO;
 import com.siit.thebigproject.domain.FridgeIngredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ public class FridgeIngredientService {
     private static final Logger LOGGER = LoggerFactory.getLogger(FridgeIngredientService.class);
 
     @Autowired
-    private SQLFridgeIngredientDAO fridgeIngredientDAO;
+    private SQLFridgeIngredientsDAO fridgeIngredientDAO;
 
     public Collection<FridgeIngredient> listAll() {
 
@@ -57,12 +57,12 @@ public class FridgeIngredientService {
 
     }
 
-    public SQLFridgeIngredientDAO getFridgeIngredientDAO() {
+    public SQLFridgeIngredientsDAO getFridgeIngredientDAO() {
 
         return fridgeIngredientDAO;
     }
 
-    public void SQLFridgeIngredientDAO(SQLFridgeIngredientDAO fridgeIngredientDAO) {
+    public void SQLFridgeIngredientDAO(SQLFridgeIngredientsDAO fridgeIngredientDAO) {
 
         this.fridgeIngredientDAO = fridgeIngredientDAO;
     }
