@@ -1,53 +1,29 @@
 package com.siit.thebigproject.dao.sql;
 
 import com.siit.thebigproject.dao.BaseDAO;
-import com.siit.thebigproject.db.ConnectionDb;
 import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 @Repository
 public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO<Ingredient> {
 
     @Autowired
-    private ConnectionDb db;
+    private JdbcTemplate jdbcTemplate;
 
     @Override
-    public Collection<Ingredient> getAll() throws DbException, SQLException {
-        try (Connection conn = db.connectToMyDb()) {
-            PreparedStatement selectPs = null;
-
-            try {
-                selectPs = conn.prepareStatement("SELECT * from ingredients;");
-                ResultSet resultSet = selectPs.executeQuery();
-                ArrayList<Ingredient> ingredients = new ArrayList<>();
-
-                while (resultSet.next()) {
-                    Ingredient ingredient = mapResultSetToIngredient(resultSet);
-                    ingredients.add(ingredient);
-                }
-                return ingredients;
-            } catch (SQLException e) {
-                System.err.println("Cannot retrieve all Ingredients: " + e.getMessage());
-            } finally {
-                if (selectPs != null) {
-                    try {
-                        selectPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-            return null;
-        }
+    public List<Ingredient> getAll() {
+        return jdbcTemplate.query("SELECT * from ingredients;",
+                new IngredientMapper());
     }
 
     private Ingredient mapResultSetToIngredient(ResultSet resultSet) throws SQLException {
@@ -60,117 +36,67 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
     }
 
     @Override
-    public void add(Ingredient ingredient) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
-            PreparedStatement crtValPs = null;
+    public Ingredient update(Ingredient ingredient) {
 
-            try {
-                insertionPs = connection.prepareStatement("INSERT INTO ingredients(name, measurement_unit)");
-                insertionPs.setString(1, ingredient.getName());
-                insertionPs.setString(2, ingredient.getUnit());
-                insertionPs.executeUpdate();
+        String sql = "";
+        Long newId = null;
+        if (ingredient.getId() > 0) {
+            sql = "UPDATE ingredients set name = ?, unit = ?, unitFactorTransformation = ? where id = ? returning id";
+            newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                    ingredient.getName(),
+                    ingredient.getUnit(),
+                    ingredient.getUnitFactorTransformation(),
+                    ingredient.getId()
 
-                crtValPs = connection.prepareStatement("SELECT CURRVAL('ingredients_ids')");
-                ResultSet resultSet = crtValPs.executeQuery();
-                resultSet.next();
-                ingredient.setId(resultSet.getInt(1));
-            } catch (SQLException e) {
-                System.err.println("Cannot insert Ingredient: " + e.getMessage());
-            } finally {
-                if (insertionPs != null && crtValPs != null) {
-                    try {
-                        insertionPs.close();
-                        crtValPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
+            }, new RowMapper<Long>() {
+                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                    return rs.getLong(1);
                 }
-            }
+            });
+        } else {
+            sql = "INSERT INTO ingredients(name, unit, unitFactorTransformation) values (?, ?, ?) returning id";
+
+            newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                    ingredient.getName(),
+                    ingredient.getUnit(),
+                    ingredient.getUnitFactorTransformation(),
+                    ingredient.getId()
+
+            }, new RowMapper<Long>() {
+                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                    return rs.getLong(1);
+                }
+            });
         }
+        ingredient.setId(newId);
+
+        return ingredient;
     }
 
     @Override
-    public Ingredient getById(Long id) throws DbException, SQLException {
-        try (Connection conn = db.connectToMyDb()) {
-            PreparedStatement selectPs = null;
+    public Ingredient getById(Long id){
+        return jdbcTemplate.queryForObject("select * from ingredients where id = ?",
 
-            try {
-                selectPs = conn.prepareStatement("SELECT * from ingredients WHERE id = ? ;");
-                selectPs.setLong(1, id);
-                ResultSet resultSet = selectPs.executeQuery();
-
-                if (resultSet.next()) {
-                    Ingredient ingredient = mapResultSetToIngredient(resultSet);
-                    return ingredient;
-                }
-            } catch (SQLException e) {
-                System.err.println("Cannot retrieve ingredient with specified ingredient ID: " + e.getMessage());
-            } finally {
-                if (selectPs != null) {
-                    try {
-                        selectPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-            return null;
-        }
+                new IngredientMapper(), id);
     }
 
     @Override
-    public Ingredient update(Ingredient ingredient) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement updatePs = null;
-
-            try {
-                updatePs = connection.prepareStatement("UPDATE ingredients SET name = ?," +
-                        " measurement_unit = ? WHERE id = ?;");
-                updatePs.setString(1, ingredient.getName());
-                updatePs.setString(2, ingredient.getUnit());
-                updatePs.setLong(3, ingredient.getId());
-                updatePs.executeUpdate();
-
-                return ingredient;
-            } catch (SQLException e) {
-                System.err.println("Cannot update ingredient: " + e.getMessage());
-            } finally {
-                if (updatePs != null) {
-                    try {
-                        updatePs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-        }
-        return null;
+    public boolean delete(Ingredient ingredient) {
+        return jdbcTemplate.update("delete from ingredients where id = ?", ingredient.getId()) > 0;
     }
 
-    @Override
-    public boolean delete(Ingredient ingredient) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
+    private static class IngredientMapper implements RowMapper<Ingredient> {
 
-            try {
-                insertionPs = connection.prepareStatement("DELETE from ingredients WHERE id = ?;");
-                insertionPs.setLong(1, ingredient.getId());
-                insertionPs.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                System.err.println("Cannot delete ingredient: " + e.getMessage());
-            } finally {
-                if (insertionPs != null) {
-                    try {
-                        insertionPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
+        @Override
+        public Ingredient mapRow(ResultSet rs, int arg1) throws SQLException {
+            Ingredient ingredient = new Ingredient();
+            ingredient.setId(rs.getLong("id"));
+            ingredient.setName(rs.getString("name"));
+            ingredient.setUnit(rs.getString("unit"));
+            ingredient.setUnitFactorTransformation(rs.getInt("unitFactorTransformation"));
+            return ingredient;
         }
-        return false;
+
     }
 
 }
