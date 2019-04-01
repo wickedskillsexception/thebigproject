@@ -1,7 +1,6 @@
 package com.siit.thebigproject.dao.sql;
 
 import com.siit.thebigproject.dao.BaseDAO;
-import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,8 +8,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

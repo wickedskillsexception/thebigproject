@@ -18,12 +18,6 @@ public class SQLBaseDAO<T extends ObjectId> implements BaseDAO<T> {
 
     private static AtomicLong ID = new AtomicLong(System.currentTimeMillis());
 
-
-    @Override
-    public void add(T model) throws DbException, SQLException {
-        models.put(model.getId(), model);
-    }
-
     public Collection<T> getAll() throws DbException, SQLException {
 
         return models.values();

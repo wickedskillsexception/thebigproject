@@ -9,8 +9,6 @@ import java.util.Collection;
 
 public interface BaseDAO< T extends  ObjectId> {
 
-    void add(T object) throws DbException, SQLException;
-
     Collection<T> getAll() throws DbException, SQLException;
 
     T getById(Long id) throws DbException, SQLException;

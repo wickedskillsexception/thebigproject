@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public interface FridgesDAO extends BaseDAO<Fridge> {
 
-    public String getByIdWithUserDetails(Long id) throws DbException, SQLException;
+/*    public String getByIdWithUserDetails(Long id) throws DbException, SQLException;
 
-    public StringBuilder getAllWithUserDetails() throws DbException, SQLException;
+    public StringBuilder getAllWithUserDetails() throws DbException, SQLException;*/
 
 }
