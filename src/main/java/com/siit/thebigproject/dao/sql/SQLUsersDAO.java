@@ -1,207 +1,100 @@
 package com.siit.thebigproject.dao.sql;
 
 import com.siit.thebigproject.dao.UsersDAO;
-import com.siit.thebigproject.db.ConnectionDb;
-import com.siit.thebigproject.db.DbException;
+import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 @Repository
 public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
 
     @Autowired
-    private ConnectionDb db;
+    private JdbcTemplate jdbcTemplate;
 
-    public SQLUsersDAO(ConnectionDb db) {
-        this.db = db;
+    private SQLFridgesDAO sqlFridgesDAO;
+
+    public SQLUsersDAO(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
-    public Collection<User> getAll() throws DbException, SQLException {
-        try (Connection conn = db.connectToMyDb()) {
-            PreparedStatement selectPs = null;
-
-            try {
-                selectPs = conn.prepareStatement("SELECT * from users;");
-                ResultSet resultSet = selectPs.executeQuery();
-                ArrayList<User> users = new ArrayList<>();
-
-                while (resultSet.next()) {
-                    User user = mapResultSetToUser(resultSet);
-                    users.add(user);
-                }
-                return users;
-            }catch (SQLException e) {
-                System.err.println("Cannot retrieve all Users: " + e.getMessage());
-            } finally {
-                if (selectPs != null) {
-                    try {
-                        selectPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-            return null;
-        }
-    }
-
-    private User mapResultSetToUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getInt("id"));
-        user.setUsername(resultSet.getString("username"));
-        user.setPassword(resultSet.getString("password"));
-        user.setEmail(resultSet.getString("email"));
-        return user;
+    public Collection<User> getAll(){
+        return jdbcTemplate.query("select * from users", new UserMapper());
     }
 
     @Override
-    public void add(User user) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
-            PreparedStatement crtValPs = null;
+    public User update(User model) {
 
-            try {
-                insertionPs = connection.prepareStatement("INSERT INTO users(username, password, email) values( ?, ?, ?)");
-                insertionPs.setString(1, user.getUsername());
-                insertionPs.setString(2, user.getPassword());
-                insertionPs.setString(3, user.getEmail());
-                insertionPs.executeUpdate();
+        String sql = "";
+        Long newId = null;
+        if (model.getId() > 0) {
+            sql = "UPDATE users SET username = ?," +
+                    "password = ?, email = ?, WHERE id = ? returning id";
+            newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                    model.getUsername(),
+                    model.getPassword(),
+                    model.getEmail(),
+                    model.getId()
 
-                crtValPs = connection.prepareStatement("SELECT CURRVAL('users_ids')");
-                ResultSet resultSet = crtValPs.executeQuery();
-                resultSet.next();
-                user.setId(resultSet.getInt(1));
-            } catch (SQLException e) {
-                System.err.println("Cannot insert User: " + e.getMessage());
-            } finally {
-                if (insertionPs != null && crtValPs!= null) {
-                    try {
-                        insertionPs.close();
-                        crtValPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
+            }, new RowMapper<Long>() {
+                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                    return rs.getLong(1);
                 }
-            }
+            });
+        } else {
+            sql = "INSERT INTO users(username, password, email) values( ?, ?, ?) returning id";
+
+            newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                    model.getUsername(),
+                    model.getPassword(),
+                    model.getEmail()
+
+            }, new RowMapper<Long>() {
+                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                    return rs.getLong(1);
+                }
+            });
+            model.setId(newId);
+            Fridge fridge = new Fridge();
+            fridge.setUserId(model.getId());
+            sqlFridgesDAO.update(fridge);
         }
+
+
+        return model;
     }
 
     @Override
-    public User getById(Long id) throws DbException, SQLException {
-        try (Connection conn = db.connectToMyDb()) {
-            PreparedStatement selectPs = null;
-
-            try {
-                selectPs = conn.prepareStatement("SELECT * from users WHERE id = ? ;");
-                selectPs.setLong(1, id);
-                ResultSet resultSet = selectPs.executeQuery();
-
-                if(resultSet.next()){
-                    User user = mapResultSetToUser(resultSet);
-                    return user;
-                }
-            }catch (SQLException e) {
-                System.err.println("Cannot retrieve user with specified user ID: " + e.getMessage());
-            } finally {
-                if (selectPs != null) {
-                    try {
-                        selectPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-            return null;
-        }
+    public User getById(Long id){
+        return jdbcTemplate.queryForObject("select * from users where id = ?", new UserMapper(), id);
     }
 
     @Override
-    public User update(User user) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement updatePs = null;
-
-            try {
-                updatePs = connection.prepareStatement("UPDATE users SET username = ?," +
-                        " password = ?, email = ?, WHERE id = ? ;");
-                updatePs.setString(1, user.getUsername());
-                updatePs.setString(2, user.getPassword());
-                updatePs.setString(3, user.getEmail());
-                updatePs.setLong(4, user.getId());
-                updatePs.executeUpdate();
-
-                return user;
-            } catch (SQLException e) {
-                System.err.println("Cannot update User: " + e.getMessage());
-            } finally {
-                if (updatePs != null) {
-                    try {
-                        updatePs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-        }
-        return null;
+    public boolean delete(User user){
+        sqlFridgesDAO.deleteByUserId(user.getId());
+        return jdbcTemplate.update("delete from users where username = ?", user.getId()) > 0;
     }
 
-    @Override
-    public boolean deleteByUsername(String username) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
+    private static class UserMapper implements RowMapper<User> {
 
-            try {
-                insertionPs = connection.prepareStatement("DELETE from users WHERE username = ?;");
-                insertionPs.setString(1,username);
-                insertionPs.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                System.err.println("Cannot delete User: " + e.getMessage());
-            } finally {
-                if (insertionPs != null) {
-                    try {
-                        insertionPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
+        @Override
+        public User mapRow(ResultSet rs, int arg1) throws SQLException {
+            User user = new User();
+            user.setId(rs.getLong("id"));
+            user.setEmail(rs.getString("email"));
+            user.setPassword(rs.getString("password"));
+            user.setUsername(rs.getString("username"));
+            return user;
         }
-        return false;
-    }
 
-    @Override
-    public boolean delete(User user) throws DbException, SQLException {
-        try (Connection connection = db.connectToMyDb()) {
-            PreparedStatement insertionPs = null;
-
-            try {
-                insertionPs = connection.prepareStatement("DELETE from users WHERE id = ?;");
-                insertionPs.setLong(1, user.getId());
-                insertionPs.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                System.err.println("Cannot delete User: " + e.getMessage());
-            } finally {
-                if (insertionPs != null) {
-                    try {
-                        insertionPs.close();
-                    } catch (SQLException e) {
-                        System.out.println("Prepared Statement could not be closed: " + e.getMessage());
-                    }
-                }
-            }
-        }
-        return false;
     }
 }
 
