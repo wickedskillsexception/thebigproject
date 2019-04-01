@@ -69,6 +69,11 @@ public class SQLFridgesDAO extends SQLBaseDAO<Fridge> implements FridgesDAO {
         return jdbcTemplate.update("DELETE from fridges WHERE id = ?;", model.getId()) > 0;
     }
 
+    @Override
+    public boolean deleteByUserId(long id) {
+        return jdbcTemplate.update("delete from fridges where user_id = ?", id) > 0;
+    }
+
     private static class FridgeMapper implements RowMapper<Fridge> {
 
         @Override
