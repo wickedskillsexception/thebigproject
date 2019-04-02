@@ -12,10 +12,10 @@ CREATE TABLE ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('ingredients_ids'), 
 CREATE SEQUENCE fridges_ids;
 CREATE TABLE fridges(id INT PRIMARY KEY DEFAULT NEXTVAL('fridges_ids'), user_id INT REFERENCES users(id));
 
-CREATE SEQUENCE recipe_ingredients_ids;");
+CREATE SEQUENCE recipe_ingredients_ids;
 CREATE TABLE recipe_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('recipe_ingredients_ids'), recipe_id INT REFERENCES recipes(id), name VARCHAR(32), measurement_unit VARCHAR(32), quantity DOUBLE PRECISION);
 
-CREATE SEQUENCE fridge_ingredients_ids;");
+CREATE SEQUENCE fridge_ingredients_ids;
 CREATE TABLE fridge_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('fridge_ingredients_ids'), fridge_id INT REFERENCES fridges(id), name VARCHAR(32), measurement_unit VARCHAR(32), quantity DOUBLE PRECISION);
 
 
@@ -23,5 +23,5 @@ CREATE TABLE fridge_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('fridge_ingre
 DROP DATABASE the_big_project;
 
 
-DROP TABLE recipes, users, ingredients, fridges, recipe_ingredients, fridge_ingredients;");
+DROP TABLE recipes, users, ingredients, fridges, recipe_ingredients, fridge_ingredients;
 DROP SEQUENCE recipes_ids, users_ids, ingredients_ids, fridges_ids, recipe_ingredients_ids, fridge_ingredients_ids;
