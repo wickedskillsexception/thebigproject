@@ -18,6 +18,12 @@ CREATE TABLE recipe_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('recipe_ingre
 CREATE SEQUENCE fridge_ingredients_ids;
 CREATE TABLE fridge_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('fridge_ingredients_ids'), fridge_id INT REFERENCES fridges(id), name VARCHAR(32), measurement_unit VARCHAR(32), quantity DOUBLE PRECISION);
 
+CREATE SEQUENCE recipe_types_ids;
+CREATE TABLE recipe_types (id INT PRIMARY KEY DEFAULT NEXTVAL('recipe_types_ids'), type VARCHAR(32));
+
+CREATE SEQUENCE recipes_with_types_ids;
+CREATE TABLE recipes_with_types (id INT PRIMARY KEY DEFAULT NEXTVAL('recipes_with_types_ids'), recipe_id INT REFERENCES recipes(id), type_id INT REFERENCES recipe_types(id));
+
 CREATE SEQUENCE role_id_seq;
 CREATE TABLE role (id numeric NOT NULL DEFAULT nextval('role_id_seq'::regclass) PRIMARY KEY,name varchar(255) DEFAULT NULL);
 
@@ -27,5 +33,5 @@ CREATE TABLE user_role (user_id numeric not null, role_id numeric not null, FORE
 DROP DATABASE the_big_project;
 
 
-DROP TABLE recipes, users, ingredients, fridges, recipe_ingredients, fridge_ingredients;
-DROP SEQUENCE recipes_ids, users_ids, ingredients_ids, fridges_ids, recipe_ingredients_ids, fridge_ingredients_ids;
+DROP TABLE recipes, users, ingredients, fridges, recipe_ingredients, fridge_ingredients, recipe_types, recipes_with_types;
+DROP SEQUENCE recipes_ids, users_ids, ingredients_ids, fridges_ids, recipe_ingredients_ids, fridge_ingredients_ids, recipe_types_ids, recipes_with_types_ids;
