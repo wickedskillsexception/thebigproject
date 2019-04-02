@@ -2,9 +2,9 @@ package com.siit.thebigproject.service;
 
 
 import com.siit.thebigproject.dao.sql.SQLFridgesDAO;
-import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.exceptions.ValidationException;
+import org.h2.message.DbException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,6 @@ public class FridgeService {
             return fridgesDAO.getAll();
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -39,15 +37,11 @@ public class FridgeService {
             frd = fridgesDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         if (frd != null) {
             try {
                 fridgesDAO.delete(frd);
             } catch (DbException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
                 e.printStackTrace();
             }
             return true;
@@ -63,8 +57,6 @@ public class FridgeService {
             return fridgesDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -76,8 +68,6 @@ public class FridgeService {
         try {
             fridgesDAO.update(fridge);
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
