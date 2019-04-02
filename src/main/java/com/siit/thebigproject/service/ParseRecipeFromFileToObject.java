@@ -173,44 +173,44 @@ public class ParseRecipeFromFileToObject {
         JSONObject jo = (JSONObject) o;
 
         if (jo.get("vegetarian").toString() == "true") {
-            recipeProperies.add(RecipeType.VEGETARIAN.getRecipeTypeValue());
+            recipeProperies.add("vegetarian");
         }
 
         if (jo.get("vegan").toString() == "true") {
-            recipeProperies.add(RecipeType.VEGAN.getRecipeTypeValue());
+            recipeProperies.add("vegan");
         }
 
         if (jo.get("glutenFree").toString() == "true") {
-            recipeProperies.add(RecipeType.GLUTENFREE.getRecipeTypeValue());
+            recipeProperies.add("glutenFree");
         }
 
         if (jo.get("dairyFree").toString() == "true") {
-            recipeProperies.add(RecipeType.DAIRYFREE.getRecipeTypeValue());
+            recipeProperies.add("dairyFree");
         }
 
         if (jo.get("veryHealthy").toString() == "true") {
-            recipeProperies.add(RecipeType.VERYHEALTHY.getRecipeTypeValue());
+            recipeProperies.add("veryHealthy");
         }
 
         if (jo.get("cheap").toString() == "true") {
-            recipeProperies.add(RecipeType.CHEAP.getRecipeTypeValue());
+            recipeProperies.add("cheap");
         }
 
         if (jo.get("veryPopular").toString() == "true") {
-            recipeProperies.add(RecipeType.VERYPOPULAR.getRecipeTypeValue());
+            recipeProperies.add("veryPopular");
         }
 
         if (jo.get("sustainable").toString() == "true") {
-            recipeProperies.add(RecipeType.SUSTEINABLE.getRecipeTypeValue());
+            recipeProperies.add("sustainable");
         }
 
         if (jo.get("ketogenic").toString() == "true") {
-            recipeProperies.add(RecipeType.LOWCAL.getRecipeTypeValue());
+            recipeProperies.add("ketogenic");
         }
 
-        if (jo.get("lowFodmap").toString() == "true") {
-            recipeProperies.add(RecipeType.COMFORT_FOOD.getRecipeTypeValue());
-            recipeProperies.add(RecipeType.LOWFOODMAP.getRecipeTypeValue());
+        if (jo.get("lowFoodMap").toString() == "true") {
+            recipeProperies.add("comfortFood");
+            recipeProperies.add("lowFoodMap");
         }
 
         return recipeProperies;
