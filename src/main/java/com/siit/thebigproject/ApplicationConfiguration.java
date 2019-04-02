@@ -12,16 +12,16 @@ import javax.sql.DataSource;
 @Configuration
 public class ApplicationConfiguration {
 
-    @Value("${db.host}")
+    @Value("localhost")
     private String dbHost;
 
-    @Value("${db.password}")
+    @Value("postgres10")
     private String dbPassword;
 
-    @Value("${db.user}")
+    @Value("postgres")
     private String dbUser;
 
-    @Value("${db.name}")
+    @Value("the_big_project")
     private String dbName;
 
     @Bean
@@ -40,7 +40,7 @@ public class ApplicationConfiguration {
                 .append("&password=")
                 .append(dbPassword).toString();
 
-        return new SingleConnectionDataSource(url, false);
+        return new SingleConnectionDataSource(url, true);
     }
 
     @Bean
