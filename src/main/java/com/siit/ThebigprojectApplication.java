@@ -1,16 +1,11 @@
 package com.siit;
 
-import com.siit.thebigproject.db.ConnectionDb;
-import com.siit.thebigproject.db.DbException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.sql.DataSource;
-import java.sql.SQLException;
-
 @SpringBootApplication
 public class ThebigprojectApplication {
-    public static void main(String[] args) throws DbException, SQLException {
+    public static void main(String[] args) {
 
         SpringApplication.run(ThebigprojectApplication.class, args);
 
