@@ -12,6 +12,8 @@
     <br>
     Unit: <input name="unit" type="input" value="${ingredient.unit!''}">
     <br>
+    Unit Factor Transformation: <input name="unitFactorTransformation" type="input" value="${ingredient.unitFactorTransformation!''}">
+    <br>
 
 
 
