@@ -1,15 +1,14 @@
 package com.siit.thebigproject.service;
 
 import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
-import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.exceptions.ValidationException;
+import org.h2.message.DbException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.Collection;
 
 @Service
@@ -17,14 +16,12 @@ public class IngredientService {
     private static final Logger LOGGER = LoggerFactory.getLogger(IngredientService.class);
 
     @Autowired
-    private SQLIngredientsDAO ingredientDAO;
+    private SQLIngredientsDAO ingredientsDAO;
 
     public Collection<Ingredient> listAll() {
         try {
-            return ingredientDAO.getAll();
+            return ingredientsDAO.getAll();
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -36,18 +33,14 @@ public class IngredientService {
         LOGGER.debug("Deleting templates for id: " + id);
         Ingredient usr = null;
         try {
-            usr = ingredientDAO.getById(id);
+            usr = ingredientsDAO.getById(id);
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
         if (usr != null) {
             try {
-                ingredientDAO.delete(usr);
+                ingredientsDAO.delete(usr);
             } catch (DbException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
                 e.printStackTrace();
             }
             return true;
@@ -60,10 +53,8 @@ public class IngredientService {
 
         LOGGER.debug("Getting templates for id: " + id);
         try {
-            return ingredientDAO.getById(id);
+            return ingredientsDAO.getById(id);
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -74,21 +65,19 @@ public class IngredientService {
 //        validate(User);
 
         try {
-            ingredientDAO.update(ingredient);
+            ingredientsDAO.update(ingredient);
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public SQLIngredientsDAO getIngredientDAO() {
+    public SQLIngredientsDAO getIngredientsDAO() {
 
-        return ingredientDAO;
+        return ingredientsDAO;
     }
 
-    public void setIngredientDAO(SQLIngredientsDAO ingredientDAO) {
+    public void setIngredientsDAO(SQLIngredientsDAO ingredientsDAO) {
 
-        this.ingredientDAO = ingredientDAO;
+        this.ingredientsDAO = ingredientsDAO;
     }
 }
