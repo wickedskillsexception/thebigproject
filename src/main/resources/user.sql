@@ -27,7 +27,7 @@ CREATE TABLE recipes_with_types (id INT PRIMARY KEY DEFAULT NEXTVAL('recipes_wit
 CREATE SEQUENCE role_id_seq;
 CREATE TABLE role (id numeric NOT NULL DEFAULT nextval('role_id_seq'::regclass) PRIMARY KEY,name varchar(255) DEFAULT NULL);
 
-CREATE TABLE user_role (user_id numeric not null, role_id numeric not null, FOREIGN KEY ("user_id") REFERENCES app_user ("id"),FOREIGN KEY ("role_id") REFERENCES role ("id"));
+CREATE TABLE user_role (user_id INT not null, role_id INT not null, FOREIGN KEY ("user_id") REFERENCES users ("id"),FOREIGN KEY ("role_id") REFERENCES role ("id"));
 
 
 DROP DATABASE the_big_project;
