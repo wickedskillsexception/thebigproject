@@ -1,9 +1,9 @@
 package com.siit.thebigproject.service;
 
 import com.siit.thebigproject.dao.sql.SQLRecipesDAO;
-import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.Recipe;
 import com.siit.thebigproject.exceptions.ValidationException;
+import org.h2.message.DbException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,6 @@ public class RecipeService {
             return recipesDAO.getAll();
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -38,15 +36,11 @@ public class RecipeService {
             recipe = recipesDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         if (recipe != null) {
             try {
                 recipesDAO.delete(recipe);
             } catch (DbException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
                 e.printStackTrace();
             }
             return true;
@@ -62,8 +56,6 @@ public class RecipeService {
             return recipesDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -75,8 +67,6 @@ public class RecipeService {
         try {
             recipesDAO.update(recipe);
         } catch (DbException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
