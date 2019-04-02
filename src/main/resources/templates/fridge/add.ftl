@@ -5,7 +5,7 @@
     <br>
     [/#list]
 [/#if]
-<form method="post" action="/ingredient/save">
+<form method="post" action="/fridge/save">
 
     <th></th>
     Ingredient List: <input name="ingredientList" type="input" value="${fridge.ingredientList!''}">
