@@ -7,16 +7,17 @@
 <body>
 
 <div class="container">
-	[#--<a href="/"> <img src="[@spring.url '/images/logo.png' /]" width="100"/>--]
+	<a href="/"> <img src="[@spring.url '/images/logo.png' /]" width="100"/>
 	</a>
 
 	<ol class="breadcrumb">
-		<li class="active"><a href="/">Home</a></li>
+		<li class="active"><a href="/index">Home</a></li>
 
 		[#if user??]
 			<li><a href="/user">User</a></li>
-		[#--<li><a href="/projects">Projects</a></li>--]
-		[#--<li><a href="/logout">Logout</a>--]
+		<li><a href="/ingredient">Ingredients</a></li>
+			<li><a href="/fridge">Fridges</a></li>
+		<li><a href="/logout">Logout</a>
 			</li>
 		[#else]
 			<li><a href="/login">Login</a></li>
