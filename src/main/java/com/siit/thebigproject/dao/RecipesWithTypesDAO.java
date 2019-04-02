@@ -7,4 +7,5 @@ import java.util.List;
 public interface RecipesWithTypesDAO {
 
     public List<RecipeWithType> getByRecipeId(Long recipeId);
+    public boolean deleteByRecipeId(Long recipeId);
 }

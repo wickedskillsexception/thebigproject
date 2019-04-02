@@ -1,5 +1,6 @@
 package com.siit.thebigproject.dao.sql;
 
+import com.siit.thebigproject.dao.RecipesWithTypesDAO;
 import com.siit.thebigproject.domain.RecipeWithType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,8 +10,9 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.List;
 
-public class SQLRecipesWithTypesDAO extends SQLBaseDAO<RecipeWithType> {
+public class SQLRecipesWithTypesDAO extends SQLBaseDAO<RecipeWithType> implements RecipesWithTypesDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -61,12 +63,24 @@ public class SQLRecipesWithTypesDAO extends SQLBaseDAO<RecipeWithType> {
 
     @Override
     public RecipeWithType getById(Long id){
-        return jdbcTemplate.queryForObject("select * from recipesWithTypes where id = ?", new RecipeWithTypeMapper(), id);
+        return jdbcTemplate.queryForObject("select * from recipesWithTypes where id = ?",
+                new RecipeWithTypeMapper(), id);
+    }
+
+    @Override
+    public List<RecipeWithType> getByRecipeId(Long recipeId){
+        return jdbcTemplate.query("select * from recipesWithTypes where recipe_id = ?",
+                new RecipeWithTypeMapper(), recipeId);
     }
 
     @Override
     public boolean delete(RecipeWithType recipeWithType){
         return jdbcTemplate.update("delete from recipesWithTypes where id = ?", recipeWithType.getId()) > 0;
+    }
+
+    @Override
+    public boolean deleteByRecipeId(Long recipeId){
+        return jdbcTemplate.update("delete from recipesWithTypes where recipe_id = ?", recipeId) > 0;
     }
 
     private static class RecipeWithTypeMapper implements RowMapper<RecipeWithType> {
