@@ -3,7 +3,7 @@
 
 <br>
 Fridge size: ${fridges?size}
-<div style="float:right"><a href="ingredient/add">Add</a></div>
+<div style="float:right"><a href="fridge/add">Add</a></div>
 <table>
     <tr>
         <th>ingredientList</th>
