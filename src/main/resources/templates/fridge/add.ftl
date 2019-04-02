@@ -8,16 +8,15 @@
 <form method="post" action="/ingredient/save">
 
     <th></th>
-    Name: <input name="name" type="input" value="${ingredient.name!''}">
+    Ingredient List: <input name="ingredientList" type="input" value="${fridge.ingredientList!''}">
     <br>
-    Unit: <input name="unit" type="input" value="${ingredient.unit!''}">
-    <br>
-    Quantity: <input name="quantity" type="input" value="${ingredient.quantity!''}">
+    User ID: <input name="userId" type="input" value="${fridge.userId!''}">
     <br>
 
 
-    [#if ingredient.id??]
-        <input name="id" type="hidden" value="$ingredient.id?c}"/>
+
+    [#if fridge.id??]
+        <input name="id" type="hidden" value="$fridge.id?c}"/>
     [/#if]
     <input value="save" type="submit"/>
 </form>
