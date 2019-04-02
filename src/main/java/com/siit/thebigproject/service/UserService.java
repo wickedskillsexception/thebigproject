@@ -1,9 +1,9 @@
 package com.siit.thebigproject.service;
 
 import com.siit.thebigproject.dao.sql.SQLUsersDAO;
-import com.siit.thebigproject.db.DbException;
 import com.siit.thebigproject.domain.User;
 import com.siit.thebigproject.exceptions.ValidationException;
+import org.h2.message.DbException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,6 @@ public class UserService {
             return usersDAO.getAll();
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -40,15 +38,11 @@ public class UserService {
             usr = usersDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         if (usr != null) {
             try {
                 usersDAO.delete(usr);
             } catch (DbException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
                 e.printStackTrace();
             }
             return true;
@@ -64,8 +58,6 @@ public class UserService {
             return usersDAO.getById(id);
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -78,18 +70,16 @@ public class UserService {
             usersDAO.update(user);
         } catch (DbException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    public SQLUsersDAO getUserDAO() {
+    public SQLUsersDAO getUsersDAO() {
 
         return usersDAO;
     }
 
-    public void setUserDAO(SQLUsersDAO userDAO) {
+    public void setUsersDAO(SQLUsersDAO usersDAO) {
 
-        this.usersDAO = userDAO;
+        this.usersDAO = usersDAO;
     }
 }
