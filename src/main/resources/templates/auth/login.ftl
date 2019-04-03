@@ -20,64 +20,65 @@
 [#escape x as x?html]
     <body style="background-image:url('/images/Background.jpg');">
     <div class="container">
-        <a href="/"> <img src="[@spring.url '/images/logo.png' /]" width="100"/>
-            <div class="d-flex justify-content-center h-100">
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                    <li class="active">Login</li>
-                </ol>
+        <a href="/login"> <img src="[@spring.url '/images/logo.png' /]" width="100"/></a>
+        <div class="d-flex justify-content-center h-100">
 
-                <div class="card" style="margin-left:auto; margin-right:auto; width:400px">
-                    <div class="card-header">
-                        <h3>Sign In</h3>
-                    </div>
+            <div class="card" style="margin-left:auto; margin-right:auto; height: 350px; width:410px">
+
+                <div class="card-header">
+                    <h5>&nbsp;</h5>
+                    <h3> Sign In</h3>
+
+                </div>
 
 
-                    <div class="panel-body">
+                <div class="panel-body">
 
-                        [#if RequestParameters.error??]
-                            <div>
-                                <ul>
-                                    <b style="color:red">
-                                        [@spring.message 'invalid.username'/]
-                                    </b>
+                    [#if RequestParameters.error??]
+                        <div>
+                            <ul>
+                                <b style="color:red">
+                                    [@spring.message 'invalid.username'/]
+                                </b>
 
+                            </ul>
+                        </div>
+                    [/#if]
+
+
+                    <form action="/login" method="POST">
+                        <div class="form-group">
+                            <label for="firstName">&nbsp;</label>
+                            <input type="text"
+                                   class="form-control" id="username" name="username"
+                                   placeHolder="Username" "/>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">&nbsp;</label>
+                            <input type="password"
+                                   class="form-control" id="password" name="password"
+                                   placeHolder="Password"/>
+                        </div>
+
+                        <div class="row align-items-center remember">
+                            <input type="checkbox">Remember Me
+                        </div>
+
+                        <div class="container-fluid">
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav navbar-right">
+
+                                    <li>
+                                        <button type="submit" class="btn float-right login_btn">LOGIN</button>
+                                    </li>
                                 </ul>
                             </div>
-                        [/#if]
-
-
-                        <form action="/login" method="POST">
-                            <div class="form-group">
-                                <label for="firstName"></label>
-                                <input type="text"
-                                       class="form-control" id="username" name="username"
-                                       placeHolder="Username" "/>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName"></label>
-                                <input type="password"
-                                       class="form-control" id="password" name="password"
-                                       placeHolder="Password"/>
-                            </div>
-
-
-                            <div class="container-fluid">
-                                <div class="collapse navbar-collapse">
-                                    <ul class="nav navbar-nav navbar-right">
-
-                                        <li>
-                                            <button type="submit" class="btn float-right login_btn">LOGIN</button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <br/> <input type="hidden" class="form-control" id="id" value="0"/>
-                        </form>
-                    </div>
+                        </div>
+                        <br/> <input type="hidden" class="form-control" id="id" value="0"/>
+                    </form>
                 </div>
             </div>
-
+        </div>
     </div>
     </body>
 [/#escape]
