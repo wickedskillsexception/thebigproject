@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="[@spring.url '/css/bootstrap.min.css' /]" rel="stylesheet">
-    <link href="[@spring.url '/css/login_page_style.css' /]" rel="stylesheet">
-    <link href="[@spring.url '/css/styles.css' /]" rel="stylesheet">
+    <link href="[@spring.url '/css/page_style.css' /]" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="[@spring.url '/js/jquery.min.js' /] "></script>
