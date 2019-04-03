@@ -23,9 +23,10 @@
         <a href="/"> <img src="[@spring.url '/images/logo.png' /]" width="100"/>
             <div class="d-flex justify-content-center h-100">
                 <ol class="breadcrumb">
-                    <li><a href="/index">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li class="active">Login</li>
                 </ol>
+
                 <div class="card" style="margin-left:auto; margin-right:auto; width:400px">
                     <div class="card-header">
                         <h3>Sign In</h3>
