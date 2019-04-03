@@ -14,7 +14,6 @@
     <script src="[@spring.url '/js/jquery.min.js' /] "></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="[@spring.url '/js/bootstrap.min.js' /] "></script>
-
 </head>
 
 [#escape x as x?html]
