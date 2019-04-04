@@ -1,5 +1,5 @@
 html, body {
-  background-image:url();
+  /*background-image:url();*/
   background-size:cover;
   background-repeat:no-repeat;
   height:100%;
@@ -12,12 +12,12 @@ html, body {
 }
 
 .card {
-  height:370px;
-  margin-top:auto;
-  margin-bottom:auto;
-  width:400px;
-  background-color:rgba(0,0,0,0.5) !important;
-
+  height: 370px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 930px;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
 
 .links {
   color:white;
