@@ -32,7 +32,6 @@
                             <li class="nav-item" role="presentation"><a class="nav-link active" href="/user">Users</a>
                             </li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="#">Second Item</a></li>
-
                         </ul>
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                                               href="/logout">Logout</a></span>
@@ -45,34 +44,47 @@
             </div>
         </nav>
 
+        <div class="card" style="height:auto; width: 100%">
+            <div class="card-header" style="background-color:rgba(255,255,255,0.03);">
+                <h5 class="mb-0" style="color:rgb(255,255,255);">User size:${users?size}
+                    <button href="user/add" class="btn btn-primary" type="button"
+                            style="background-color:rgb(86,198,198); float:right;">Add
+                    </button>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr style="color:rgb(255,255,255);">
+                            <th style="color:rgb(255,255,255); align-content: center">Username</th>
+                            <th style="color:rgb(255,255,255); align-content: center">Password</th>
+                            <th style="color:rgb(255,255,255); align-content: center">Email</th>
+                            <th style="color:rgb(255,255,255); align-content: center"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        [#list users as user]
+                        <tr>
+                            <td style="color:rgb(255,255,255); align-content: center">${user.username}</td>
+                            <td style="color:rgb(255,255,255); align-content: center">${user.password}</td>
+                            <td style="color:rgb(255,255,255); align-content: center">${user.email}</td>
+                            <td>
+                                <button class="btn btn-primary" type="button"
+                                        style="background-color:rgb(86,198,198); float:right;"><a
+                                            href="/user/edit?id=${user.id?c}>Edit
+                                </button></a>
+                                <button class=" btn btn-primary" type="button" href="/user/delete?id=${user.id?c}"
+                                    style="background-color:rgb(86,198,198); float:right;">Delete
+                                </button>
+                            </td>
+                        </tr>
 
-        [#--<div class="container"></div>--]
-
-        <div class="panel panel-default">
-            <b>User List:</b>
-            <br>
-            User size: ${users?size}
-            <div style="float:right"><a href="user/add">Add</a></div>
-            <table>
-                <tr>
-                    <th>username</th>
-                    <th>password</th>
-                    <th>email</th>
-                    <th></th>
-
-                </tr>
-
-                [#list users as user]
-                    <tr>
-                        <td>${user.username}</td>
-                        <td>${user.password}</td>
-                        <td>${user.email}</td>
-                        <td><a href="/user/edit?id=${user.id?c}">Edit</a>
-                            <a href="/user/delete?id=${user.id?c}">Delete</a>
-                        </td>
-                    </tr>
-                [/#list]
-            </table>
+                        </tbody>
+                        [/#list]
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     </body>
