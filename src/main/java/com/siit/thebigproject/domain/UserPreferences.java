@@ -1,6 +1,7 @@
 package com.siit.thebigproject.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UserPreferences extends ObjectId {
     private int userId;
@@ -56,5 +57,21 @@ public class UserPreferences extends ObjectId {
                 ", ingredients=" + ingredients +
                 ", smartPoints=" + smartPoints +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserPreferences that = (UserPreferences) o;
+        return userId == that.userId &&
+                smartPoints == that.smartPoints &&
+                Objects.equals(recipeTypes, that.recipeTypes) &&
+                Objects.equals(ingredients, that.ingredients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, recipeTypes, ingredients, smartPoints);
     }
 }

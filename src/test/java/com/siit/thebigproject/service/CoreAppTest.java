@@ -1,16 +1,15 @@
-package com.siit.thebigproject.service;
-
-import com.siit.thebigproject.domain.Fridge;
-import com.siit.thebigproject.domain.Ingredient;
-import com.siit.thebigproject.domain.Recipe;
-
-import com.siit.thebigproject.domain.RecipeIngredient;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+//package com.siit.thebigproject.service;
+//
+//import com.siit.thebigproject.domain.Fridge;
+//import com.siit.thebigproject.domain.Recipe;
+//
+//import com.siit.thebigproject.domain.RecipeIngredient;
+//import org.junit.Test;
+//
+//import java.util.ArrayList;
+//import java.util.Arrays;
+//import java.util.List;
+//
 //public class CoreAppTest extends CoreApp {
 //
 //    @Test
@@ -27,9 +26,9 @@ import java.util.List;
 //        sarmale.setRecipeTypes(Arrays.asList("Vegan"));
 //        List<RecipeIngredient> ingredienteSarmale = new ArrayList<>();
 //
-//        ingredienteSarmale.add(new RecipeIngredient(1, "ceapa","grams", 1));
-//        ingredienteSarmale.add(new RecipeIngredient(1, "carne porc","grams", 500));
-//        ingredienteSarmale.add(new RecipeIngredient(1, "orez","grams", 200));
+//        ingredienteSarmale.add(new RecipeIngredient(1, "ceapa", "grams", 1));
+//        ingredienteSarmale.add(new RecipeIngredient(1, "carne porc", "grams", 500));
+//        ingredienteSarmale.add(new RecipeIngredient(1, "orez", "grams", 200));
 //        sarmale.setIngredientsList(ingredienteSarmale);
 //
 //        Recipe pilaf = new Recipe();
@@ -45,14 +44,9 @@ import java.util.List;
 //
 //        userFridge.setIngredientList(ingredienteSarmale);
 //
-//
 //        CoreApp coreApp = new CoreApp();
 //
 //        coreApp.recipeMatcher(userFridge, recipeList);
-//
-//
-//
-//
 //
 //
 //    }

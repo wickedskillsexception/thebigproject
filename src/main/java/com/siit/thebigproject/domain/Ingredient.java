@@ -5,8 +5,11 @@ import java.util.Objects;
 public class Ingredient extends ObjectId {
 
     private String name;
+
     private String unit;
+
     private int unitFactorTransformation;
+
 
     public Ingredient() {
     }

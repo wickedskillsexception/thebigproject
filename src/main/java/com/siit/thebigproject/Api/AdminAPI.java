@@ -1,4 +1,4 @@
-package com.siit.thebigproject.Api;
+package com.siit.thebigproject.api;
 
 public class AdminAPI {
 }

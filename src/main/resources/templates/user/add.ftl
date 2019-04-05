@@ -6,7 +6,7 @@
     [/#list]
 [/#if]
 <form method="post" action="/user/save">
-    <th></th>
+
     Username: <input name="username" type="input" value="${user.username!''}">
     <br>
     Password: <input name="password" type="input"  value="${user.password!''}">

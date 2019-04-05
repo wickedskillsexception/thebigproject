@@ -2,6 +2,7 @@ package com.siit.thebigproject.dao.sql;
 
 import com.siit.thebigproject.domain.ObjectId;
 import com.siit.thebigproject.dao.BaseDAO;
+import org.h2.message.DbException;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;

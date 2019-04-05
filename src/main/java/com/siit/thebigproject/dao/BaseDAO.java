@@ -1,6 +1,7 @@
 package com.siit.thebigproject.dao;
 
 import com.siit.thebigproject.domain.ObjectId;
+import org.h2.message.DbException;
 
 import java.util.Collection;
 

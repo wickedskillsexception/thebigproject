@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @RequestMapping("/delete")
-    public String delete(long id) {
+    public String delete(Long id) {
         userService.delete(id);
         return "redirect:/user";
     }
