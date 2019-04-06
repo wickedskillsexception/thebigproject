@@ -1,10 +1,13 @@
 package com.siit.thebigproject.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.List;
 import java.util.Objects;
 
 public class Recipe extends ObjectId {
 
+    @NotEmpty(message = "{name.notempty}")
     private String name;
     private List<RecipeIngredient> ingredientsList;
     private String preparation;
