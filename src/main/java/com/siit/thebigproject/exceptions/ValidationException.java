@@ -1,7 +1,18 @@
 package com.siit.thebigproject.exceptions;
 
+import java.util.Arrays;
+
 public class ValidationException extends Exception {
-    ValidationException(String message){
-        super(message);
+    private String[] causes;
+
+    public ValidationException(String... causes) {
+        super();
+        this.causes = causes;
+    }
+
+    @Override
+    public String getMessage() {
+
+        return causes != null ? Arrays.toString(causes) : "No CAUSE!";
     }
 }
