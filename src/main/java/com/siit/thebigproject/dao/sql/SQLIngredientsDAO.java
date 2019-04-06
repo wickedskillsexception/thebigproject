@@ -18,7 +18,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public SQLIngredientsDAO(DataSource dataSource){
+    public SQLIngredientsDAO(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -32,7 +32,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
         Ingredient ingredient = new Ingredient();
         ingredient.setId(resultSet.getInt("id"));
         ingredient.setName(resultSet.getString("name"));
-        ingredient.setUnit(resultSet.getString("measurement_unit"));
+        ingredient.setPictureUrl(resultSet.getString("picture"));
 
         return ingredient;
     }
@@ -43,11 +43,10 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
         String sql = "";
         Long newId = null;
         if (ingredient.getId() > 0) {
-            sql = "UPDATE ingredients set name = ?, unit = ?, unitFactorTransformation = ? where id = ? returning id";
+            sql = "UPDATE ingredients set picture = ? where id = ? returning id";
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     ingredient.getName(),
-                    ingredient.getUnit(),
-                    ingredient.getUnitFactorTransformation(),
+                    ingredient.getPictureUrl(),
                     ingredient.getId()
 
             }, new RowMapper<Long>() {
@@ -60,8 +59,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     ingredient.getName(),
-                    ingredient.getUnit(),
-                    ingredient.getUnitFactorTransformation(),
+                    ingredient.getPictureUrl(),
                     ingredient.getId()
 
             }, new RowMapper<Long>() {
@@ -76,7 +74,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
     }
 
     @Override
-    public Ingredient getById(Long id){
+    public Ingredient getById(Long id) {
         return jdbcTemplate.queryForObject("select * from ingredients where id = ?",
 
                 new IngredientMapper(), id);
@@ -94,8 +92,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
             Ingredient ingredient = new Ingredient();
             ingredient.setId(rs.getLong("id"));
             ingredient.setName(rs.getString("name"));
-            ingredient.setUnit(rs.getString("unit"));
-            ingredient.setUnitFactorTransformation(rs.getInt("unitFactorTransformation"));
+            ingredient.setPictureUrl(rs.getString("picture"));
             return ingredient;
         }
 

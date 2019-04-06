@@ -9,14 +9,14 @@ public class Recipe extends ObjectId {
     private List<RecipeIngredient> ingredientsList;
     private String preparation;
     private int preparationTime;
-    private List<String> recipeTypes;
+    private String recipeTypes;
     private String image;
     private int smartPoints;
 
     public Recipe() {
     }
 
-    public Recipe(long id, String name, List<RecipeIngredient> ingredientsList, String preparation, int preparationTime, List<String> recipeTypes, String image, int smartPoints) {
+    public Recipe(long id, String name, List<RecipeIngredient> ingredientsList, String preparation, int preparationTime, String recipeTypes, String image, int smartPoints) {
         setId(id);
         this.name = name;
         this.ingredientsList = ingredientsList;
@@ -43,7 +43,7 @@ public class Recipe extends ObjectId {
         this.preparationTime = preparationTime;
     }
 
-    public void setRecipeTypes(List<String> recipeTypes) {
+    public void setRecipeTypes(String recipeTypes) {
         this.recipeTypes = recipeTypes;
     }
 
@@ -71,7 +71,7 @@ public class Recipe extends ObjectId {
         return preparationTime;
     }
 
-    public List<String> getRecipeTypes() {
+    public String getRecipeTypes() {
         return recipeTypes;
     }
 

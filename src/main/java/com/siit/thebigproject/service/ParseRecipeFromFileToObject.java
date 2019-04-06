@@ -3,7 +3,6 @@ package com.siit.thebigproject.service;
 import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;
 import com.siit.thebigproject.domain.RecipeIngredient;
-import com.siit.thebigproject.domain.RecipeType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -40,7 +39,7 @@ public class ParseRecipeFromFileToObject {
 
             for (Object o : a) {
 
-                List<String> recipeProperties = new ArrayList<>();
+                String recipeProperties;
                 JSONObject jo = (JSONObject) o;
                 List<RecipeIngredient> ingredients = new ArrayList<>();
 
@@ -53,7 +52,7 @@ public class ParseRecipeFromFileToObject {
                 String image = (String) jo.get("image");
                 int smartPoints = Integer.parseInt(jo.get("weightWatcherSmartPoints").toString());
 
-                if(!checkRecipe(new Recipe(id, name, ingredients, preparation, preparationTime, recipeProperties, image, smartPoints))) {
+                if (!checkRecipe(new Recipe(id, name, ingredients, preparation, preparationTime, recipeProperties, image, smartPoints))) {
                     recipeList.add(new Recipe(id, name, ingredients, preparation, preparationTime, recipeProperties, image, smartPoints));
                 }
             }
@@ -90,7 +89,7 @@ public class ParseRecipeFromFileToObject {
 
             //String ingredientUnit = (String) metricMeasures.get("unitLong");
             Double ingredientQuantity = new Double(metricMeasures.get("amount").toString());
-            ingredients.add(new RecipeIngredient(recipeID, ingredientID, ingredientQuantity));
+            ingredients.add(new RecipeIngredient(recipeID, ingredientID));
 
         }
         return ingredients;
@@ -101,7 +100,6 @@ public class ParseRecipeFromFileToObject {
         String recipes = "recipes" + File.separator + "retete.json";
         JSONParser parser = new JSONParser();
         List<Ingredient> ingredients = new ArrayList<>();
-        UnitToGramsConverter unitToGramsConverter = new UnitToGramsConverter();
 
         try {
 
@@ -123,14 +121,10 @@ public class ParseRecipeFromFileToObject {
                     } else {
                         id = Objects.hash(ingredientName);
                     }
-                    JSONObject measures = (JSONObject) jobj.get("measures");
-                    JSONObject metricMeasures = (JSONObject) measures.get("metric");
-                    String ingredientUnit = (String) metricMeasures.get("unitLong");
+                    String ingredientURL = "https://spoonacular.com/cdn/ingredients_100x100/" + (String) jobj.get("image");
 
-                    int factor = unitToGramsConverter.converToGrams(ingredientUnit);
-
-                    if (!checkIngredient(new Ingredient(id, ingredientName, ingredientUnit, factor))) {
-                        allIngredients.add(new Ingredient(id, ingredientName, ingredientUnit, factor));
+                    if (!checkIngredient(new Ingredient(id, ingredientName, ingredientURL))) {
+                        allIngredients.add(new Ingredient(id, ingredientName, ingredientURL));
                     }
                 }
             }
@@ -167,53 +161,86 @@ public class ParseRecipeFromFileToObject {
         return b;
     }
 
-    public List<String> getRecipeProperties(Object o) {
+    public String getRecipeProperties(Object o) {
 
-        List<String> recipeProperies = new ArrayList<>();
+        StringBuilder recipeProperies = new StringBuilder();
         JSONObject jo = (JSONObject) o;
 
-        if (jo.get("vegetarian").toString() == "true") {
-            recipeProperies.add("vegetarian");
+        if (jo.get("vegetarian") != null) {
+            if (jo.get("vegetarian").toString() == "true") {
+                recipeProperies.append("vegetarian, ");
+            }
         }
 
-        if (jo.get("vegan").toString() == "true") {
-            recipeProperies.add("vegan");
+        if (jo.get("vegan") != null) {
+            if (jo.get("vegan").toString() == "true") {
+                recipeProperies.append("vegan, ");
+            }
         }
 
-        if (jo.get("glutenFree").toString() == "true") {
-            recipeProperies.add("glutenFree");
+        if (jo.get("glutenFree") != null) {
+            if (jo.get("glutenFree").toString() == "true") {
+                recipeProperies.append("glutenFree, ");
+            }
         }
 
-        if (jo.get("dairyFree").toString() == "true") {
-            recipeProperies.add("dairyFree");
+        if (jo.get("dairyFree") != null) {
+            if (jo.get("dairyFree").toString() == "true") {
+                recipeProperies.append("dairyFree, ");
+            }
         }
 
-        if (jo.get("veryHealthy").toString() == "true") {
-            recipeProperies.add("veryHealthy");
+        if (jo.get("veryHealthy") != null) {
+            if (jo.get("veryHealthy").toString() == "true") {
+                recipeProperies.append("veryHealthy, ");
+            }
         }
 
-        if (jo.get("cheap").toString() == "true") {
-            recipeProperies.add("cheap");
+        if (jo.get("cheap") != null) {
+            if (jo.get("cheap").toString() == "true") {
+                recipeProperies.append("cheap, ");
+            }
         }
 
-        if (jo.get("veryPopular").toString() == "true") {
-            recipeProperies.add("veryPopular");
+        if (jo.get("veryPopular") != null) {
+            if (jo.get("veryPopular").toString() == "true") {
+                recipeProperies.append("veryPopular, ");
+            }
         }
 
-        if (jo.get("sustainable").toString() == "true") {
-            recipeProperies.add("sustainable");
+        if (jo.get("sustainable") != null) {
+            if (jo.get("sustainable").toString() == "true") {
+                recipeProperies.append("sustainable, ");
+            }
         }
 
-        if (jo.get("ketogenic").toString() == "true") {
-            recipeProperies.add("ketogenic");
+        if (jo.get("ketogenic") != null) {
+            if (jo.get("ketogenic").toString() == "true") {
+                recipeProperies.append("ketogenic, ");
+            }
         }
 
-        if (jo.get("lowFoodMap").toString() == "true") {
-            recipeProperies.add("comfortFood");
-            recipeProperies.add("lowFoodMap");
+        if (jo.get("lowFodmap") != null) {
+            if (jo.get("lowFodmap").toString() == "true") {
+                recipeProperies.append("comfortFood, ");
+                recipeProperies.append("lowFoodMap, ");
+            }
         }
 
-        return recipeProperies;
+        return processRecipeProperties(recipeProperies);
+    }
+
+    public String processRecipeProperties(StringBuilder recipeProperies) {
+
+        String stringProperties = recipeProperies.toString();
+
+        if (recipeProperies != null && recipeProperies.length() > 0) {
+            stringProperties = stringProperties.substring(0, stringProperties.length() - 1);
+            stringProperties = stringProperties.substring(0, 1).toUpperCase() + stringProperties.substring(1, stringProperties.length() - 1);
+        } else {
+            stringProperties = "Regular";
+        }
+        return stringProperties;
     }
 
     public void printRecipes() {

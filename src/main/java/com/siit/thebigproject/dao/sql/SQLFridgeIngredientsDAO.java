@@ -47,10 +47,9 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
         String sql = "";
         Long newId = null;
         if (model.getId() > 0) {
-            sql = "update fridge_ingredients set quantity=?, fridge_id=?, ingredient_id = ? "
+            sql = "update fridge_ingredients set fridge_id=?, ingredient_id = ? "
                     + "where id = ? returning id";
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
-                    model.getQuantity(),
                     model.getFridgeId(),
                     model.getIngredientId(),
                     model.getId()
@@ -61,11 +60,10 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
                 }
             });
         } else {
-            sql = "insert into fridge_ingredients (quantity, fridge_id, ingredient_id) "
-                    + "values (?, ?, ?) returning id";
+            sql = "insert into fridge_ingredients (fridge_id, ingredient_id) "
+                    + "values (?, ?) returning id";
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
-                    model.getQuantity(),
                     model.getFridgeId(),
                     model.getIngredientId()
             }, new RowMapper<Long>() {
@@ -97,7 +95,6 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
         public FridgeIngredient mapRow(ResultSet rs, int arg1) throws SQLException {
             FridgeIngredient fridgeIngredient = new FridgeIngredient();
             fridgeIngredient.setId(rs.getLong("id"));
-            fridgeIngredient.setQuantity(rs.getDouble("quantity"));
             fridgeIngredient.setFridgeId(rs.getLong("fridge_id"));
             fridgeIngredient.setIngredientId(rs.getLong("ingredient_id"));
             return fridgeIngredient;

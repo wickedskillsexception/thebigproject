@@ -35,9 +35,9 @@ public class CoreApp {
                     if (recipeIngredient.equals(userIngredient)) {
                         matchPercent += 100 / userIgredientListSize * 0.7;
 
-                        if (userIngredient.getQuantity() >= recipeIngredient.getQuantity()) {
-                            matchPercent += 100 / userIgredientListSize * 0.3;
-                        }
+//                        if (userIngredient.getQuantity() >= recipeIngredient.getQuantity()) {
+//                            matchPercent += 100 / userIgredientListSize * 0.3;
+//                        }
                     }
                 }
             }

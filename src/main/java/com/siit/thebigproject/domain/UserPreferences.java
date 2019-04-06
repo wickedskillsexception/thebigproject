@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class UserPreferences extends ObjectId {
     private int userId;
-    private List<RecipeType> recipeTypes;
+    private String recipeTypes;
     private List<Ingredient> ingredients;
     private int smartPoints;
 
-    public UserPreferences(long id, int userId, List<RecipeType> recipeTypes, List<Ingredient> ingredients, int smartPoints) {
+    public UserPreferences(long id, int userId, String recipeTypes, List<Ingredient> ingredients, int smartPoints) {
         setId(id);
         this.userId = userId;
         this.recipeTypes = recipeTypes;
@@ -21,7 +21,7 @@ public class UserPreferences extends ObjectId {
         this.userId = userId;
     }
 
-    public void setRecipeTypes(List<RecipeType> recipeTypes) {
+    public void setRecipeTypes(String recipeTypes) {
         this.recipeTypes = recipeTypes;
     }
 
@@ -37,7 +37,7 @@ public class UserPreferences extends ObjectId {
         return userId;
     }
 
-    public List<RecipeType> getRecipeTypes() {
+    public String getRecipeTypes() {
         return recipeTypes;
     }
 

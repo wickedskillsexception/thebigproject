@@ -28,11 +28,10 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implem
         String sql = "";
         Long newId = null;
         if (model.getId() > 0) {
-            sql = "UPDATE recipe_ingredients SET recipe_id = ?, ingredient_id = ?, quantity = ? WHERE id = ?";
+            sql = "UPDATE recipe_ingredients SET recipe_id = ?, ingredient_id = ? WHERE id = ?";
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     model.getRecipeId(),
                     model.getIngredientId(),
-                    model.getQuantity(),
                     model.getId()
 
             }, new RowMapper<Long>() {
@@ -41,12 +40,11 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implem
                 }
             });
         } else {
-            sql = "INSERT INTO recipe_ingredients(recipe_id, ingredient_id, quantity) values( ?, ?, ?) returning id";
+            sql = "INSERT INTO recipe_ingredients(recipe_id, ingredient_id) values( ?, ?) returning id";
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     model.getRecipeId(),
                     model.getIngredientId(),
-                    model.getQuantity(),
 
             }, new RowMapper<Long>() {
                 public Long mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -99,7 +97,6 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implem
             recipeIngredient.setId(rs.getLong("id"));
             recipeIngredient.setIngredientId(rs.getLong("ingredient_id"));
             recipeIngredient.setRecipeId(rs.getLong("recipe_id"));
-            recipeIngredient.setQuantity(rs.getDouble("quantity"));
             return recipeIngredient;
         }
 
