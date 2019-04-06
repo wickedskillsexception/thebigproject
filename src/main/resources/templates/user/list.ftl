@@ -19,8 +19,11 @@
                         <ul class="nav navbar-nav mr-auto">
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/ingredient">Ingredients</a></li>
-
+                            <li class="nav-item" role="presentation"><a class="nav-link"
+                                                                        href="/ingredient">Ingredients</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridgeingredient">Fridge
+                                    Ingredients</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
                         </ul>
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                                               href="/logout">Logout</a></span>
@@ -35,16 +38,24 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">User size:${users?size}
-                    <button href="user/add" class="btn btn-primary" type="button">Add</button>
+                    <a href="/user/add" class="btn btn-primary" type="button">Add</a>
                 </h5>
             </div>
             <div class="card-body">
+
+                [#if errors??]
+                    [#list errors as error]
+                        <span style="color:red"> ${error}</span>
+                        <br>
+                    [/#list]
+                [/#if]
+
                 <div class="table-responsive">
                     <table class="table-borderless">
                         <thead>
                         <tr>
                             <th scope="col">Username</th>
-                            [#--<th style="color:rgb(255,255,255); align-content: center">Password</th>--]
+                            <th scope="col">Password</th>
                             <th scope="col">Email</th>
                             <th scope="col"></th>
                         </tr>
@@ -53,7 +64,7 @@
                         [#list users as user]
                         <tr>
                             <td scope="row" ;>${user.username}</td>
-                            [#--<td style="color:rgb(255,255,255); align-content: center">${user.password}</td>--]
+                            <td>${user.password}</td>
                             <td scope="row">${user.email}</td>
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
