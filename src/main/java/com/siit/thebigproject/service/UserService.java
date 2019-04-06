@@ -8,9 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Service
@@ -64,7 +67,20 @@ public class UserService {
 
     public void save(User user) throws ValidationException {
         LOGGER.debug("Saving: " + user);
-//        validate(User);
+        List<String> errors = new LinkedList<>();
+
+        if (StringUtils.isEmpty(user.getUsername())) {
+            errors.add("Username is Empty");
+        }
+
+        if (StringUtils.isEmpty(user.getPassword())) {
+            errors.add("User password is Empty");
+        }
+
+        if (!errors.isEmpty()) {
+            throw new ValidationException(errors.toArray(new String[]{}));
+        }
+
 
         try {
             usersDAO.update(user);

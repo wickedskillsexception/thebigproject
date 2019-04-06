@@ -67,13 +67,15 @@ public class FridgeService {
 
     public void save(Fridge fridge) throws ValidationException {
         LOGGER.debug("Saving: " + fridge);
-        List<String> errors = new ArrayList<>();
+        List<String> errors = new LinkedList<>();
+
         if (StringUtils.isEmpty(fridge.getUserId())) {
             errors.add("Fridge UserId is Empty");
         }
         if (!errors.isEmpty()) {
             throw new ValidationException(errors.toArray(new String[]{}));
         }
+
         try {
             fridgesDAO.update(fridge);
         } catch (DbException e) {

@@ -8,9 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class RecipeService {
@@ -62,7 +65,40 @@ public class RecipeService {
 
     public void save(Recipe recipe) throws ValidationException {
         LOGGER.debug("Saving: " + recipe);
-//        validate(Recipe);
+        List<String> errors = new LinkedList<>();
+
+        if (StringUtils.isEmpty(recipe.getName())) {
+            errors.add("Recipe name is Empty");
+        }
+
+        if (StringUtils.isEmpty(recipe.getImage())) {
+            errors.add("Recipe image is Empty");
+        }
+
+        if (StringUtils.isEmpty(recipe.getIngredientsList())) {
+            errors.add("Recipe ingredients list is Empty");
+        }
+
+        if (StringUtils.isEmpty(recipe.getPreparation())) {
+            errors.add("Recipe preparation is Empty");
+        }
+
+        if (StringUtils.isEmpty(recipe.getPreparationTime())) {
+            errors.add("Recipe prepartion time is Empty");
+        }
+
+        if (StringUtils.isEmpty(recipe.getRecipeTypes())) {
+            errors.add("Recipe types are Empty");
+        }
+
+        if (StringUtils.isEmpty(recipe.getSmartPoints())) {
+            errors.add("Recipe smart points is Empty");
+        }
+
+        if (!errors.isEmpty()) {
+            throw new ValidationException(errors.toArray(new String[]{}));
+        }
+
 
         try {
             recipesDAO.update(recipe);
