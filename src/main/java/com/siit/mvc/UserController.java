@@ -41,7 +41,7 @@ public class UserController {
     @RequestMapping("/add")
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("user/add");
-        modelAndView.addObject("user", new User());
+        modelAndView.addObject("theUser", new User());
         return modelAndView;
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     public ModelAndView edit(Long id) {
         User user = userService.get(id);
         ModelAndView modelAndView = new ModelAndView("user/add");
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("theUser", user);
         return modelAndView;
     }
 
@@ -78,7 +78,7 @@ public class UserController {
                 errors.add(ex.getMessage());
                 modelAndView = new ModelAndView("user/add");
                 modelAndView.addObject("errors", errors);
-                modelAndView.addObject("user", user);
+                modelAndView.addObject("theUser", user);
             }
 
         } else {
@@ -91,7 +91,7 @@ public class UserController {
 
             modelAndView = new ModelAndView("user/add");
             modelAndView.addObject("errors", errors);
-            modelAndView.addObject("user", user);
+            modelAndView.addObject("theUser", user);
         }
 
         return modelAndView;
