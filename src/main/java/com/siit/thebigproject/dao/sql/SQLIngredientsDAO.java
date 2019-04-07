@@ -28,15 +28,6 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
                 new IngredientMapper());
     }
 
-    private Ingredient mapResultSetToIngredient(ResultSet resultSet) throws SQLException {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setId(resultSet.getInt("id"));
-        ingredient.setName(resultSet.getString("name"));
-        ingredient.setPictureUrl(resultSet.getString("picture"));
-
-        return ingredient;
-    }
-
     @Override
     public Ingredient update(Ingredient ingredient) {
 
