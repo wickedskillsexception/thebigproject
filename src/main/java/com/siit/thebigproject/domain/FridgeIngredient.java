@@ -1,7 +1,5 @@
 package com.siit.thebigproject.domain;
 
-import java.util.Objects;
-
 public class FridgeIngredient extends ObjectId {
 
     private long fridgeId;
@@ -10,7 +8,8 @@ public class FridgeIngredient extends ObjectId {
     public FridgeIngredient() {
     }
 
-    public FridgeIngredient(long fridgeId, long ingredientId) {
+    public FridgeIngredient(long id, long fridgeId, long ingredientId) {
+        this.setId(id);
         this.fridgeId = fridgeId;
         this.ingredientId = ingredientId;
     }

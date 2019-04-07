@@ -1,13 +1,12 @@
 package com.siit.thebigproject.domain;
 
-import java.util.Objects;
-
 public class RecipeIngredient extends ObjectId {
 
     private long recipeId;
     private long ingredientId;
 
-    public RecipeIngredient(long recipeId, long ingredientId) {
+    public RecipeIngredient(long id, long recipeId, long ingredientId) {
+        setId(id);
         this.recipeId = recipeId;
         this.ingredientId = ingredientId;
     }
