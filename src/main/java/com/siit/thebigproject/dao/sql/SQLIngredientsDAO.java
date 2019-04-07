@@ -46,7 +46,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
                 }
             });
         } else {
-            sql = "INSERT INTO ingredients(name, unit, unitFactorTransformation) values (?, ?, ?) returning id";
+            sql = "INSERT INTO ingredients(name, picture_url) values (?, ?) returning id";
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     ingredient.getName(),

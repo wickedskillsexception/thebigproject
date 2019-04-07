@@ -1,4 +1,4 @@
-package com.siit.thebigproject.service;
+package com.siit.thebigproject.service.recipesManager;
 
 import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;
@@ -6,6 +6,7 @@ import com.siit.thebigproject.domain.RecipeIngredient;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+@Component
 public class ParseRecipeFromFileToObject {
 
     private List<Recipe> recipeList = new ArrayList<>();
@@ -79,16 +81,13 @@ public class ParseRecipeFromFileToObject {
             JSONObject jobj = (JSONObject) obj;
             int ingredientID;
             String ingredientName = (String) jobj.get("name");
+
             if (jobj.get("id") != null) {
                 ingredientID = Integer.parseInt(jobj.get("id").toString());
             } else {
                 ingredientID = Objects.hash(ingredientName);
             }
-            JSONObject measures = (JSONObject) jobj.get("measures");
-            JSONObject metricMeasures = (JSONObject) measures.get("metric");
 
-            //String ingredientUnit = (String) metricMeasures.get("unitLong");
-            Double ingredientQuantity = new Double(metricMeasures.get("amount").toString());
             ingredients.add(new RecipeIngredient(recipeID, ingredientID));
 
         }
@@ -121,7 +120,13 @@ public class ParseRecipeFromFileToObject {
                     } else {
                         id = Objects.hash(ingredientName);
                     }
-                    String ingredientURL = "https://spoonacular.com/cdn/ingredients_100x100/" + (String) jobj.get("image");
+
+                    String thumbnail = "white.jpg";
+                    if (jobj.get("image") != null) {
+                        thumbnail = ((String) jobj.get("image")).replaceAll("[()]", "");
+                    }
+
+                    String ingredientURL = "https://spoonacular.com/cdn/ingredients_100x100/" + thumbnail;
 
                     if (!checkIngredient(new Ingredient(id, ingredientName, ingredientURL))) {
                         allIngredients.add(new Ingredient(id, ingredientName, ingredientURL));
@@ -143,7 +148,7 @@ public class ParseRecipeFromFileToObject {
 
         boolean b = false;
         for (Ingredient a : allIngredients) {
-            if (a.equals(i)) {
+            if (a.getId() == i.getId()) {
                 b = true;
             }
         }

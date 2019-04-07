@@ -7,7 +7,7 @@ CREATE SEQUENCE users_ids;
 CREATE TABLE users(id INT PRIMARY KEY DEFAULT NEXTVAL('users_ids'), username VARCHAR(10), password VARCHAR(10), email VARCHAR(32), active boolean NOT NULL);
 
 CREATE SEQUENCE ingredients_ids;
-CREATE TABLE ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('ingredients_ids'), name VARCHAR(32), pictureURL VARCHAR(32));
+CREATE TABLE ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('ingredients_ids'), name VARCHAR(32), picture_url VARCHAR(32));
 
 CREATE SEQUENCE fridges_ids;
 CREATE TABLE fridges(id INT PRIMARY KEY DEFAULT NEXTVAL('fridges_ids'), user_id INT REFERENCES users(id));

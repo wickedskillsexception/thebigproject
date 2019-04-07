@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Recipe extends ObjectId {
 
-    @NotEmpty(message = "{name.notempty}")
+    @NotEmpty(message = "{name.notEmpty}")
     private String name;
     private List<RecipeIngredient> ingredientsList;
     private String preparation;

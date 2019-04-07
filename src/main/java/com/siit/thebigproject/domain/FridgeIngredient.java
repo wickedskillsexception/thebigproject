@@ -8,8 +8,7 @@ public class FridgeIngredient extends ObjectId {
     public FridgeIngredient() {
     }
 
-    public FridgeIngredient(long id, long fridgeId, long ingredientId) {
-        this.setId(id);
+    public FridgeIngredient(long fridgeId, long ingredientId) {
         this.fridgeId = fridgeId;
         this.ingredientId = ingredientId;
     }

@@ -34,7 +34,8 @@ public class Ingredient extends ObjectId {
     @Override
     public String toString() {
         return "Ingredient{" +
-                "name='" + name + '\'' +
+                "id='" + getId() + '\'' +
+                ", name='" + name + '\'' +
                 ", pictureUrl='" + pictureUrl + '\'' +
                 '}';
     }
