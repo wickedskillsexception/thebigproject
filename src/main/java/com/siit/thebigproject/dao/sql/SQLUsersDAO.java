@@ -19,7 +19,11 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     private SQLFridgesDAO sqlFridgesDAO;
+
+    @Autowired
+    private SQLUserRolesDAO sqlUserRolesDAO;
 
     public SQLUsersDAO(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -80,6 +84,7 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
     @Override
     public boolean delete(User user){
         sqlFridgesDAO.deleteByUserId(user.getId());
+        sqlUserRolesDAO.deleteByUserId(user.getId());
         return jdbcTemplate.update("delete from users where username = ?", user.getId()) > 0;
     }
 

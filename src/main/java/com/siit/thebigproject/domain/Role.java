@@ -2,13 +2,13 @@ package com.siit.thebigproject.domain;
 
 public class Role extends ObjectId {
 
-    private String roleName;
+    private String name;
 
     public String getRoleName() {
-        return roleName;
+        return name;
     }
 
     public void setRoleName(String roleName) {
-        this.roleName = roleName;
+        this.name = roleName;
     }
 }
