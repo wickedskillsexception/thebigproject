@@ -8,8 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class IngredientService {
@@ -62,7 +66,20 @@ public class IngredientService {
 
     public void save(Ingredient ingredient) throws ValidationException {
         LOGGER.debug("Saving: " + ingredient);
-//        validate(User);
+        List<String> errors = new LinkedList<>();
+
+        if (StringUtils.isEmpty(ingredient.getName())) {
+            errors.add("Ingredient name is Empty");
+        }
+
+        if (StringUtils.isEmpty(ingredient.getPictureUrl())) {
+            errors.add("Ingredient picture URL is Empty");
+        }
+
+        if (!errors.isEmpty()) {
+            throw new ValidationException(errors.toArray(new String[]{}));
+        }
+
 
         try {
             ingredientsDAO.update(ingredient);

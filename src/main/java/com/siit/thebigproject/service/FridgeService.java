@@ -9,9 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 public class FridgeService {
@@ -19,6 +22,7 @@ public class FridgeService {
 
     @Autowired
     private SQLFridgesDAO fridgesDAO;
+
     public Collection<Fridge> listAll() {
 
         try {
@@ -63,7 +67,14 @@ public class FridgeService {
 
     public void save(Fridge fridge) throws ValidationException {
         LOGGER.debug("Saving: " + fridge);
-//        validate(User);
+        List<String> errors = new LinkedList<>();
+
+        if (StringUtils.isEmpty(fridge.getUserId())) {
+            errors.add("Fridge UserId is Empty");
+        }
+        if (!errors.isEmpty()) {
+            throw new ValidationException(errors.toArray(new String[]{}));
+        }
 
         try {
             fridgesDAO.update(fridge);
