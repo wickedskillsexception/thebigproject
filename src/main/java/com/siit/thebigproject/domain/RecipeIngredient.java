@@ -5,8 +5,7 @@ public class RecipeIngredient extends ObjectId {
     private long recipeId;
     private long ingredientId;
 
-    public RecipeIngredient(long id, long recipeId, long ingredientId) {
-        setId(id);
+    public RecipeIngredient(long recipeId, long ingredientId) {
         this.recipeId = recipeId;
         this.ingredientId = ingredientId;
     }
