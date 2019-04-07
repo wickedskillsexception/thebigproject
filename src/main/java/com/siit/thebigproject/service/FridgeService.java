@@ -4,14 +4,12 @@ package com.siit.thebigproject.service;
 import com.siit.thebigproject.dao.sql.SQLFridgesDAO;
 import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.exceptions.ValidationException;
-import org.h2.message.DbException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,45 +22,23 @@ public class FridgeService {
     private SQLFridgesDAO fridgesDAO;
 
     public Collection<Fridge> listAll() {
-
-        try {
-            return fridgesDAO.getAll();
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return fridgesDAO.getAll();
     }
 
 
     public boolean delete(Long id) {
-        LOGGER.debug("Deleting templates for id: " + id);
-        Fridge frd = null;
-        try {
-            frd = fridgesDAO.getById(id);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-        if (frd != null) {
-            try {
-                fridgesDAO.delete(frd);
-            } catch (DbException e) {
-                e.printStackTrace();
-            }
-            return true;
-        }
+        LOGGER.debug("Deleting fridge with id: " + id);
+        Fridge fridge = null;
+        fridge = fridgesDAO.getById(id);
 
-        return false;
+        return fridgesDAO.delete(fridge);
     }
 
     public Fridge get(Long id) {
+        LOGGER.debug("Getting fridge with id: " + id);
 
-        LOGGER.debug("Getting templates for id: " + id);
-        try {
-            return fridgesDAO.getById(id);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return fridgesDAO.getById(id);
+
     }
 
     public void save(Fridge fridge) throws ValidationException {
@@ -75,21 +51,14 @@ public class FridgeService {
         if (!errors.isEmpty()) {
             throw new ValidationException(errors.toArray(new String[]{}));
         }
-
-        try {
-            fridgesDAO.update(fridge);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+        fridgesDAO.update(fridge);
     }
 
     public SQLFridgesDAO getFridgesDAO() {
-
         return fridgesDAO;
     }
 
     public void setFridgesDAO(SQLFridgesDAO fridgesDAO) {
-
         this.fridgesDAO = fridgesDAO;
     }
 }
