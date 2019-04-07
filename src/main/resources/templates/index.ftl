@@ -52,21 +52,20 @@
         <div class="article-list">
             <div class="card">
                 <div class="intro">
-                    <h2 class="text-center">Latest Articles</h2>
-                    <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+                    <h2 class="text-center" style="color: #ffffff;">Latest Articles</h2>
+                    <p class="text-center" style="color: #ffffff;">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
                 </div>
                 <div class="row articles">
-                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index1.jpg' /]" /></a>
-                        <h3 class="name">Article Title</h3>
-                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
+                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index2.jpg' /]" /></a>
+                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
+                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
                     <div
-                            class="col-sm-6 col-md-4 item"><img class="img-fluid"src="[@spring.url '/images/index2.jpg' /]" /></a>
-                        <h3 class="name">Article Title</h3>
-                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
-                    <div
-                            class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index3.jpg' /]" /></a>
-                        <h3 class="name">Article Title</h3>
-                        <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
+                            class="col-sm-6 col-md-4 item"><img class="img-fluid"src="[@spring.url '/images/index1.jpg' /]" /></a>
+                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
+                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
+                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index3.jpg' /]" /></a>
+                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
+                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
                 </div>
             </div>
         </div>
