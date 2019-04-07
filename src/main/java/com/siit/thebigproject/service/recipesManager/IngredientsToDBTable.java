@@ -6,6 +6,8 @@ import com.siit.thebigproject.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IngredientsToDBTable {
 
@@ -20,7 +22,8 @@ public class IngredientsToDBTable {
 
         parseRecipeFromFileToObject.getAllIngredientsList();
         parseRecipeFromFileToObject.printAllIngredients();
-        for (Ingredient i : parseRecipeFromFileToObject.getAllIngredients()) {
+        List<Ingredient> ingredients = parseRecipeFromFileToObject.getAllIngredients();
+        for (Ingredient i : ingredients) {
             ingredientService.save(i);
         }
 
