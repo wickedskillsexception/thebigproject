@@ -6,14 +6,14 @@ import com.siit.thebigproject.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class IngredientsToDBTable {
 
 
-    @Autowired
-    private ParseRecipeFromFileToObject parseRecipeFromFileToObject;
+//    @Autowired
+//    private ParseRecipeFromFileToObject parseRecipeFromFileToObject;
+
+    private ParseRecipeFromFileToObject parseRecipeFromFileToObject = new ParseRecipeFromFileToObject();
 
     @Autowired
     private IngredientService ingredientService;
@@ -22,10 +22,9 @@ public class IngredientsToDBTable {
 
         parseRecipeFromFileToObject.getAllIngredientsList();
         parseRecipeFromFileToObject.printAllIngredients();
-        List<Ingredient> ingredients = parseRecipeFromFileToObject.getAllIngredients();
-        for (Ingredient i : ingredients) {
-            ingredientService.save(i);
-        }
+//        for (Ingredient i : parseRecipeFromFileToObject.getAllIngredients()) {
+//            ingredientService.save(i);
+//        }
 
 
     }

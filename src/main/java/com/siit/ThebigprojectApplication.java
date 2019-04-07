@@ -10,8 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ThebigprojectApplication {
 
-    @Autowired
-    private static IngredientsToDBTable ingredientsToDBTable;
+//    @Autowired
+//    private static IngredientsToDBTable ingredientsToDBTable;
+
+    static IngredientsToDBTable   ingredientsToDBTable = new IngredientsToDBTable();
 
     public static void main(String[] args) {
         try {
