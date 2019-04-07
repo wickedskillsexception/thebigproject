@@ -21,8 +21,6 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridgeingredient">Fridge
-                                    Ingredients</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
                         </ul>
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
@@ -54,6 +52,7 @@
                     <table class="table-borderless">
                         <thead>
                         <tr>
+                            [#--<th scope="col">Full Name</th>--]
                             <th scope="col">Username</th>
                             <th scope="col">Password</th>
                             <th scope="col">Email</th>
@@ -61,17 +60,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        [#list users as user]
+                        [#list users as theUser]
                         <tr>
-                            <td scope="row" ;>${user.username}</td>
-                            <td>${user.password}</td>
-                            <td scope="row">${user.email}</td>
+                            [#--<td scope="row" >${theUser.fullName}</td>--]
+                            <td scope="row" >${theUser.username}</td>
+                            <td>${theUser.password}</td>
+                            <td scope="row">${theUser.email}</td>
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
-                                   href="/user/delete?id=${user.id?c}">Delete</a>
+                                   href="/user/delete?id=${theUser.id?c}">Delete</a>
 
                                 <a class="btn btn-primary" role="button"
-                                   href="/user/edit?id=${user.id?c}">Edit</a>
+                                   href="/user/edit?id=${theUser.id?c}">Edit</a>
                             </td>
                         </tr>
 
@@ -80,20 +80,21 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="footer-basic">
-            <footer>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="/">Home</a></li>
-                    <li class="list-inline-item"><a href="#">Services</a></li>
-                    <li class="list-inline-item"><a href="#">About</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                </ul>
-                <p class="copyright">Yumm! 2019</p>
+            <div class="footer-basic">
+                <footer>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="/">Home</a></li>
+                        <li class="list-inline-item"><a href="#">Services</a></li>
+                        <li class="list-inline-item"><a href="#">About</a></li>
+                        <li class="list-inline-item"><a href="#">Terms</a></li>
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <p class="copyright">Yumm! 2019</p>
 
-            </footer>
+                </footer>
+            </div>
         </div>
+
     </div>
     </body>
 [/#escape]
