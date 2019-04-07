@@ -14,14 +14,15 @@ public class ThebigprojectApplication {
     private static IngredientsToDBTable ingredientsToDBTable;
 
     public static void main(String[] args) {
-
-        SpringApplication.run(ThebigprojectApplication.class, args);
-
         try {
             ingredientsToDBTable.insertIngredientsToDB();
         } catch (ValidationException e) {
             e.printStackTrace();
         }
+
+        SpringApplication.run(ThebigprojectApplication.class, args);
+
+
 
 
     }

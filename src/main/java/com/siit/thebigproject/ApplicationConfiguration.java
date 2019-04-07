@@ -15,7 +15,7 @@ public class ApplicationConfiguration {
     @Value("localhost")
     private String dbHost;
 
-    @Value("bp_28041983_cp")
+    @Value("the_big_project")
     private String dbPassword;
 
     @Value("postgres")
