@@ -16,11 +16,11 @@ public class ThebigprojectApplication {
     static IngredientsToDBTable   ingredientsToDBTable = new IngredientsToDBTable();
 
     public static void main(String[] args) {
-        try {
-            ingredientsToDBTable.insertIngredientsToDB();
-        } catch (ValidationException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            ingredientsToDBTable.insertIngredientsToDB();
+//        } catch (ValidationException e) {
+//            e.printStackTrace();
+ //       }
 
         SpringApplication.run(ThebigprojectApplication.class, args);
 

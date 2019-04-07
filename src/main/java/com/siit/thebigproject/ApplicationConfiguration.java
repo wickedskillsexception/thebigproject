@@ -12,10 +12,10 @@ import javax.sql.DataSource;
 @Configuration
 public class ApplicationConfiguration {
 
-    @Value("localhost")
+    @Value("217.61.112.36")
     private String dbHost;
 
-    @Value("the_big_project")
+    @Value("qqq")
     private String dbPassword;
 
     @Value("postgres")

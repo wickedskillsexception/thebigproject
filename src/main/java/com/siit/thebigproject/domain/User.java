@@ -19,13 +19,25 @@ public class User extends ObjectId {
     @Email
     private String email;
 
+    @NotNull
+    private String fullName;
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public User() {
     }
 
-    public User(long id, String username, String password, String email) {
+    public User(long id, String username, String password, String email, String fullName) {
         setId(id);
         this.username = username;
         this.password = password;
+        this.fullName = fullName;
         this.email = email;
     }
 
@@ -59,6 +71,7 @@ public class User extends ObjectId {
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
                 '}';
     }
 }

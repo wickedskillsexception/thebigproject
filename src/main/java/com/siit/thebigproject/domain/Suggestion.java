@@ -9,7 +9,6 @@ public class Suggestion extends ObjectId {
     private double matchPercent;
     private Set<Ingredient> missingIngredients;
 
-
     public Recipe getRecipe() {
         return recipe;
     }
