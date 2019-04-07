@@ -1,6 +1,5 @@
-package com.siit.thebigproject.dao.sql;
+package com.siit.thebigproject.dao;
 
-import com.siit.thebigproject.dao.BaseDAO;
 import com.siit.thebigproject.domain.UserRole;
 
 public interface UserRolesDAO extends BaseDAO<UserRole> {
