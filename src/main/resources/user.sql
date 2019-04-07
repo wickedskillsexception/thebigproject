@@ -22,7 +22,7 @@ CREATE SEQUENCE roles_id_seq;
 CREATE TABLE roles (id numeric NOT NULL DEFAULT nextval('role_id_seq'::regclass) PRIMARY KEY, name varchar(255) DEFAULT NULL);
 
 CREATE SEQUENCE user_roles_id_seq;
-CREATE TABLE user_roles (user_id INT not null, role_id INT not null, FOREIGN KEY ("user_id") REFERENCES users ("id"),FOREIGN KEY ("role_id") REFERENCES roles ("id"));
+CREATE TABLE user_roles (id numeric NOT NULL DEFAULT nextval('user_roles_id_seq'::regclass) PRIMARY KEY, user_id INT not null, role_id INT not null, FOREIGN KEY ("user_id") REFERENCES users ("id"),FOREIGN KEY ("role_id") REFERENCES roles ("id"));
 
 
 DROP DATABASE the_big_project;
