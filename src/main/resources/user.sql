@@ -24,7 +24,7 @@ CREATE TABLE roles (id numeric NOT NULL DEFAULT nextval('roles_id_seq'::regclass
 CREATE SEQUENCE user_roles_id_seq;
 CREATE TABLE user_roles (id numeric NOT NULL DEFAULT nextval('user_roles_id_seq'::regclass) PRIMARY KEY, user_id INT not null, role_id INT not null, FOREIGN KEY ("user_id") REFERENCES users ("id"),FOREIGN KEY ("role_id") REFERENCES roles ("id"));
 
-INSERT INTO users (username, password, email, active) VALUES ('user1', '1234', 'user@google.com', 'true');
+INSERT INTO users (username, password, email, active) VALUES ('user1', '$2a$10$9epmlLPfrwYO10cw9kw5AOcDH.G9Tw3I8QAytL8ZF1PRNp/RDCGVe', 'user@google.com', 'true');
 INSERT INTO roles(name) VALUES ('ADMIN'), ('USER');
 INSERT INTO user_roles (user_id, role_id) VALUES ('1', '1');
 
