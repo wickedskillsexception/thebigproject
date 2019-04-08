@@ -51,22 +51,22 @@
                 <div class="table-responsive">
                     <table class="table-borderless">
                         <thead>
-                        <tr>
-                            [#--<th scope="col">Full Name</th>--]
-                            <th scope="col">Username</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Email</th>
-                            <th scope="col"></th>
+                        <tr align="center">
+                            <th align="center" scope="col">Full Name</th>
+                            <th align="center" scope="col">Username</th>
+                            <th align="center" scope="col">Password</th>
+                            <th align="center" scope="col">Email</th>
+                            <th align="center" scope="col"></th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="align-content: center">
                         [#list users as theUser]
                         <tr>
-                            [#--<td scope="row" >${theUser.fullName}</td>--]
-                            <td scope="row" >${theUser.username}</td>
-                            <td>${theUser.password}</td>
-                            <td scope="row">${theUser.email}</td>
-                            <td scope="row">
+                            <td align="center" scope="row">${theUser.fullName}</td>
+                            <td align="center" scope="row">${theUser.username}</td>
+                            <td align="center" scope="row">${theUser.password}</td>
+                            <td align="center" scope="row">${theUser.email}</td>
+                            <td align="center" scope="row">
                                 <a class="btn btn-primary" role="button"
                                    href="/user/delete?id=${theUser.id?c}">Delete</a>
 
@@ -94,5 +94,6 @@
             </div>
         </div>
     </div>
+    [#include '/bootstrap_footer.ftl']
     </body>
 [/#escape]
