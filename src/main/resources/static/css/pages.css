@@ -3,9 +3,12 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
+    padding: 60px 15px;
     font-family: 'Open Sans', sans-serif;
 }
-
+footer{
+    position: fixed;
+}
 .container {
     height: 100%;
     align-content: center;
