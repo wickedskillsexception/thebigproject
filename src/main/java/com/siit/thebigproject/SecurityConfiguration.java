@@ -55,7 +55,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/file").permitAll()
 
-                // .antMatchers("/employee/delete").hasRole("ADMIN")
+                .antMatchers("/user").hasRole("ADMIN")
+                .antMatchers("/user/add").hasRole("ADMIN")
+                .antMatchers("/user/edit").hasRole("ADMIN")
+                .antMatchers("/user/delete").hasRole("ADMIN")
+                .antMatchers("/user/save").hasRole("ADMIN")
+
+                .antMatchers("/ingredient").permitAll()
+                .antMatchers("/ingredient/add").hasRole("ADMIN")
+                .antMatchers("/ingredient/edit").hasRole("ADMIN")
+                .antMatchers("/ingredient/delete").hasRole("ADMIN")
+                .antMatchers("/ingredient/save").hasRole("ADMIN")
+
+                .antMatchers("/recipe").permitAll()
+                .antMatchers("/recipe/add").hasRole("ADMIN")
+                .antMatchers("/recipe/edit").hasRole("ADMIN")
+                .antMatchers("/recipe/delete").hasRole("ADMIN")
+                .antMatchers("/recipe`/save").hasRole("ADMIN")
+
+                .antMatchers("/fridgeingredient").hasRole("ADMIN")
+                .antMatchers("/recipeingredient").hasRole("ADMIN")
+
+
                 .anyRequest().authenticated()
 
                 .and()
