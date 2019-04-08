@@ -90,11 +90,9 @@
                         <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
                     </ul>
                     <p class="copyright">Yumm! 2019</p>
-
                 </footer>
             </div>
         </div>
-
     </div>
     </body>
 [/#escape]
