@@ -41,7 +41,7 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
         Long newId = null;
         if (model.getId() > 0) {
             sql = "UPDATE users SET full_name = ?, username = ?," +
-                    "password = ?, email = ?, WHERE id = ? returning id";
+                    "password = ?, email = ? WHERE id = ? returning id";
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     model.getFullName(),
                     model.getUsername(),
@@ -55,13 +55,13 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
                 }
             });
         } else {
-            sql = "INSERT INTO users(full_name, username, password, email) values(?, ?, ?, ?) returning id";
+            sql = "INSERT INTO users(full_name, username, password, email, active) values(?, ?, ?, ?, true) returning id";
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     model.getFullName(),
                     model.getUsername(),
                     model.getPassword(),
-                    model.getEmail()
+                    model.getEmail(),
 
             }, new RowMapper<Long>() {
                 public Long mapRow(ResultSet rs, int arg1) throws SQLException {
