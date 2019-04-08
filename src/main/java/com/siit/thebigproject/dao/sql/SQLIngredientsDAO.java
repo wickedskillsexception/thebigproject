@@ -50,8 +50,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     ingredient.getName(),
-                    ingredient.getPictureUrl(),
-                    ingredient.getId()
+                    ingredient.getPictureUrl()
 
             }, new RowMapper<Long>() {
                 public Long mapRow(ResultSet rs, int arg1) throws SQLException {
