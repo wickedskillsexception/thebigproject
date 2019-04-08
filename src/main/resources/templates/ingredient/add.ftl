@@ -51,7 +51,7 @@
                         <h2 class="text-center" style=" color: #fdfffb;">Add ingredient</h2>
                         <div class=" form-group"><input class="form-control" type="input" name="name"
                                                         placeholder="Name" value="${ingredient.name!''}"/></div>
-                        <div class="form-group"><input class="form-control" type="input" name="username"
+                        <div class="form-group"><input class="form-control" type="input" name="pictureUrl"
                                                        placeholder="Picture" value="${ingredient.pictureUrl!''}"/></div>
                         <div class="form-group">
                             [#if ingredient.id??]
@@ -77,5 +77,6 @@
             </div>
         </div>
     </div>
+    [#include '/bootstrap_footer.ftl']
     </body>
 [/#escape]
