@@ -21,8 +21,6 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridgeingredient">Fridge
-                                    Ingredients</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
                         </ul>
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
@@ -37,9 +35,7 @@
         </nav>
         <div class="card">
             <div class="card-header">
-                [#--<h5 class="mb-0">User size:${users?size}--]
-                [#--<button href="user/add" class="btn btn-primary" type="button">Add</button>--]
-                [#--</h5>--]
+
             </div>
             <div class="card-body">
 
@@ -65,19 +61,19 @@
                     <input value="save" type="submit"/>
                 </form>
             </div>
-        </div>
-        <div class="footer-basic">
-            <footer>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="/">Home</a></li>
-                    <li class="list-inline-item"><a href="#">Services</a></li>
-                    <li class="list-inline-item"><a href="#">About</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                </ul>
-                <p class="copyright">Yumm! 2019</p>
+            <div class="footer-basic">
+                <footer>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="/">Home</a></li>
+                        <li class="list-inline-item"><a href="#">Services</a></li>
+                        <li class="list-inline-item"><a href="#">About</a></li>
+                        <li class="list-inline-item"><a href="#">Terms</a></li>
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <p class="copyright">Yumm! 2019</p>
 
-            </footer>
+                </footer>
+            </div>
         </div>
     </div>
     </body>

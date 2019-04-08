@@ -21,8 +21,6 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridgeingredient">Fridge
-                                    Ingredients</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
                         </ul>
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
@@ -37,9 +35,6 @@
         </nav>
         <div class="card">
             <div class="card-header">
-                [#--<h5 class="mb-0">User size:${users?size}--]
-                    [#--<button href="user/add" class="btn btn-primary" type="button">Add</button>--]
-                [#--</h5>--]
             </div>
             <div class="card-body">
 
@@ -51,35 +46,34 @@
                 [/#if]
 
                 <form method="post" action="/user/save">
-                    [#--Full name: <input name="fullName" type="input" value="${user.fullName!''}">--]
+                    [#--Full name: <input name="fullName" type="input" value="${theUser.fullName!''}">--]
                     [#--<br>--]
-                    <th></th>
-                    Username: <input name="username" type="input" value="${user.username!''}">
+                    Username: <input name="userName" type="input" value="${theUser.username!''}">
                     <br>
-                    Password: <input name="password" type="input" value="${user.password!''}">
+                    Password: <input name="password" type="input" value="${theUser.password!''}">
                     <br>
-                    E-mail: <input name="email" type="input" value="${user.email!''}">
+                    E-mail: <input name="email" type="input" value="${theUser.email!''}">
                     <br>
 
-                    [#if user.id??]
-                        <input name="id" type="hidden" value="${user.id?c}"/>
+                    [#if theUser.id??]
+                        <input name="id" type="hidden" value="${theUser.id?c}"/>
                     [/#if]
                     <input value="save" type="submit"/>
                 </form>
             </div>
-        </div>
-        <div class="footer-basic">
-            <footer>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="/">Home</a></li>
-                    <li class="list-inline-item"><a href="#">Services</a></li>
-                    <li class="list-inline-item"><a href="#">About</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                </ul>
-                <p class="copyright">Yumm! 2019</p>
+            <div class="footer-basic">
+                <footer>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="/">Home</a></li>
+                        <li class="list-inline-item"><a href="#">Services</a></li>
+                        <li class="list-inline-item"><a href="#">About</a></li>
+                        <li class="list-inline-item"><a href="#">Terms</a></li>
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <p class="copyright">Yumm! 2019</p>
 
-            </footer>
+                </footer>
+            </div>
         </div>
     </div>
     </body>

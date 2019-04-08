@@ -19,14 +19,19 @@ CREATE SEQUENCE fridge_ingredients_ids;
 CREATE TABLE fridge_ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('fridge_ingredients_ids'), fridge_id INT REFERENCES fridges(id), ingredient_id INT REFERENCES ingredients(id));
 
 CREATE SEQUENCE roles_id_seq;
-CREATE TABLE roles (id numeric NOT NULL DEFAULT nextval('role_id_seq'::regclass) PRIMARY KEY, name varchar(255) DEFAULT NULL);
+CREATE TABLE roles (id numeric NOT NULL DEFAULT nextval('roles_id_seq'::regclass) PRIMARY KEY, name varchar(255) DEFAULT NULL);
 
 CREATE SEQUENCE user_roles_id_seq;
 CREATE TABLE user_roles (id numeric NOT NULL DEFAULT nextval('user_roles_id_seq'::regclass) PRIMARY KEY, user_id INT not null, role_id INT not null, FOREIGN KEY ("user_id") REFERENCES users ("id"),FOREIGN KEY ("role_id") REFERENCES roles ("id"));
 
+INSERT INTO users (username, password, email, active) VALUES ('user1', '1234', 'user@google.com', 'true');
+INSERT INTO roles(name) VALUES ('ADMIN'), ('USER');
+INSERT INTO user_roles (user_id, role_id) VALUES ('1', '1');
+
+------------------------------------------------------------------------------------------------------------------------
 
 DROP DATABASE the_big_project;
 
 
-DROP TABLE recipes, users, ingredients, fridges, recipe_ingredients, fridge_ingredients, roles, user_roles;
-DROP SEQUENCE recipes_ids, users_ids, ingredients_ids, fridges_ids, recipe_ingredients_ids, fridge_ingredients_ids, roles_id_seq, user_roles_id_seq;
+DROP TABLE recipes, users, ingredients, fridges, recipe_ingredients, fridge_ingredients, roles, user_roles CASCADE;
+DROP SEQUENCE recipes_ids, users_ids, ingredients_ids, fridges_ids, recipe_ingredients_ids, fridge_ingredients_ids, roles_id_seq, user_roles_id_seq CASCADE;

@@ -1,6 +1,6 @@
 package com.siit.thebigproject.domain;
 
-public class FridgeIngredient extends ObjectId {
+public class FridgeIngredient extends Ingredient {
 
     private long fridgeId;
     private long ingredientId;
