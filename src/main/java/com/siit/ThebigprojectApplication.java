@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @SpringBootApplication
 public class ThebigprojectApplication {
 
-    public static void main(String[] args) throws {
+    public static void main(String[] args) {
 
         SpringApplication.run(ThebigprojectApplication.class, args);
     }
