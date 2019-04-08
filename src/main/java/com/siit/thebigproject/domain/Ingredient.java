@@ -1,5 +1,8 @@
 package com.siit.thebigproject.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Ingredient extends ObjectId {
 
     private String name;
@@ -38,5 +41,13 @@ public class Ingredient extends ObjectId {
                 ", name='" + name + '\'' +
                 ", pictureUrl='" + pictureUrl + '\'' +
                 '}';
+    }
+
+    public Ingredient set(int id, String ingredientName, String ingredientURL) {
+        setId(id);
+        this.name = name;
+        this.pictureUrl = pictureUrl;
+
+        return this;
     }
 }

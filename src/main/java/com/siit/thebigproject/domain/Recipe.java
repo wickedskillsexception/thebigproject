@@ -1,10 +1,12 @@
 package com.siit.thebigproject.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class Recipe extends ObjectId {
 
     @NotEmpty(message = "{name.notEmpty}")
@@ -117,6 +119,19 @@ public class Recipe extends ObjectId {
     @Override
     public int hashCode() {
         return Objects.hash(name, ingredientsList, preparation, preparationTime, recipeTypes, image, smartPoints);
+    }
+
+    public Recipe set(int id, String name, List<RecipeIngredient> ingredients, String preparation, int preparationTime, String recipeProperties, String image, int smartPoints) {
+        setId(id);
+        this.name = name;
+        this.ingredientsList = ingredientsList;
+        this.preparation = preparation;
+        this.preparationTime = preparationTime;
+        this.recipeTypes = recipeTypes;
+        this.image = image;
+        this.smartPoints = smartPoints;
+
+        return this;
     }
 }
 
