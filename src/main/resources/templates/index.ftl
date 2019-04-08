@@ -10,7 +10,6 @@
     <link href="[@spring.url '/css/navigation-with-button.css' /]" rel="stylesheet">
     <link href="[@spring.url '/css/styles.css' /]" rel="stylesheet">
     <link href="[@spring.url '/css/footer-basic.css' /]" rel="stylesheet">
-    <link href="[@spring.url '/css/simple-slider.css' /]" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
