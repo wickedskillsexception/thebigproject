@@ -1,6 +1,6 @@
 package com.siit.thebigproject.service;
 
-import com.siit.thebigproject.service.recipesManager.ParseRecipeFromFileToObject;
+import com.siit.thebigproject.recipesmanager.ParseRecipeFromFileToObject;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 

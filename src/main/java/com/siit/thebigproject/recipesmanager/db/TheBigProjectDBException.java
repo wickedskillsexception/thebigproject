@@ -1,4 +1,4 @@
-package com.siit.thebigproject.service.recipesManager.db;
+package com.siit.thebigproject.recipesmanager.db;
 
 public class TheBigProjectDBException extends Exception {
 

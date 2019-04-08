@@ -1,4 +1,4 @@
-package com.siit.thebigproject.service.recipesManager;
+package com.siit.thebigproject.recipesmanager;
 
 import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;

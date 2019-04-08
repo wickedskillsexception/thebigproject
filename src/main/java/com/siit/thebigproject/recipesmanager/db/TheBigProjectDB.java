@@ -1,4 +1,4 @@
-package com.siit.thebigproject.service.recipesManager.db;
+package com.siit.thebigproject.recipesmanager.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
