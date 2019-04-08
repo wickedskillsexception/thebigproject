@@ -4,7 +4,7 @@ CREATE SEQUENCE recipes_ids;
 CREATE TABLE recipes(id INT PRIMARY KEY DEFAULT NEXTVAL('recipes_ids'), name VARCHAR(32), preparation TEXT, preparation_time INTEGER, image VARCHAR(32), smart_points INTEGER);
 
 CREATE SEQUENCE users_ids;
-CREATE TABLE users(id INT PRIMARY KEY DEFAULT NEXTVAL('users_ids'), username VARCHAR(10), password VARCHAR(100), email VARCHAR(32), active boolean NOT NULL);
+CREATE TABLE users(id INT PRIMARY KEY DEFAULT NEXTVAL('users_ids'), full_name VARCHAR(32), username VARCHAR(10), password VARCHAR(100), email VARCHAR(32), active boolean NOT NULL);
 
 CREATE SEQUENCE ingredients_ids;
 CREATE TABLE ingredients(id INT PRIMARY KEY DEFAULT NEXTVAL('ingredients_ids'), name VARCHAR(32), picture_url VARCHAR(32));
@@ -24,9 +24,11 @@ CREATE TABLE roles (id numeric NOT NULL DEFAULT nextval('roles_id_seq'::regclass
 CREATE SEQUENCE user_roles_id_seq;
 CREATE TABLE user_roles (id numeric NOT NULL DEFAULT nextval('user_roles_id_seq'::regclass) PRIMARY KEY, user_id INT not null, role_id INT not null, FOREIGN KEY ("user_id") REFERENCES users ("id"),FOREIGN KEY ("role_id") REFERENCES roles ("id"));
 
-INSERT INTO users (username, password, email, active) VALUES ('user1', '$2a$10$9epmlLPfrwYO10cw9kw5AOcDH.G9Tw3I8QAytL8ZF1PRNp/RDCGVe', 'user@google.com', 'true');
+INSERT INTO users (full_name, username, password, email, active) VALUES ('FirstName LastName', 'admin', '$2a$10$9epmlLPfrwYO10cw9kw5AOcDH.G9Tw3I8QAytL8ZF1PRNp/RDCGVe', 'admin@gmail.com', 'true');
+INSERT INTO users (full_name, username, password, email, active) VALUES ('FirstName LastName', 'user', '$2a$10$9epmlLPfrwYO10cw9kw5AOcDH.G9Tw3I8QAytL8ZF1PRNp/RDCGVe', 'user@gmail.com', 'true');
 INSERT INTO roles(name) VALUES ('ADMIN'), ('USER');
 INSERT INTO user_roles (user_id, role_id) VALUES ('1', '1');
+INSERT INTO user_roles (user_id, role_id) VALUES ('2', '2');
 
 ------------------------------------------------------------------------------------------------------------------------
 
