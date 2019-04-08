@@ -51,18 +51,18 @@
         <div class="article-list">
             <div class="card">
                 <div class="intro">
-                    <h2 class="text-center" style="color: #ffffff;">Latest Articles</h2>
-                    <p class="text-center" style="color: #ffffff;">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+                    <h2 class="text-center" style="color: #ffffff;">Hey there...!</h2>
+                    <h3 class="text-center" style="color: #ffffff;">There is an question each day ! "What should I eat today ? Sign up and we tell you !</h3>
                 </div>
                 <div class="row articles">
-                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index2.jpg' /]" /></a>
+                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index1.jpg' /]" /></a>
                         <h3 class="name" style="color: #ffffff;">Article Title</h3>
                         <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
                     <div
-                            class="col-sm-6 col-md-4 item"><img class="img-fluid"src="[@spring.url '/images/index1.jpg' /]" /></a>
+                            class="col-sm-6 col-md-4 item"><img class="img-fluid"src="[@spring.url '/images/index3.jpg' /]" /></a>
                         <h3 class="name" style="color: #ffffff;">Article Title</h3>
                         <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
-                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index3.jpg' /]" /></a>
+                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index2.jpg' /]" /></a>
                         <h3 class="name" style="color: #ffffff;">Article Title</h3>
                         <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
                 </div>
