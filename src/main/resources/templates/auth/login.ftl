@@ -77,5 +77,6 @@
             </div>
         </div>
     </div>
+    [#include '/bootstrap_footer.ftl']
     </body>
 [/#escape]
