@@ -45,7 +45,7 @@
                             <label for="firstName"></label>
                             <input type="text"
                                    class="form-control" id="username" name="username"
-                                   placeHolder="Username" "/>
+                                   placeHolder="E-mail address" "/>
 
                         </div>
                         <div class="input-group form-group">
