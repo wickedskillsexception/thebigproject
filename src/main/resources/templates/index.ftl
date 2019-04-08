@@ -52,7 +52,7 @@
             <div class="card">
                 <div class="intro">
                     <h2 class="text-center" style="color: #ffffff;">Hey there...!</h2>
-                    <h3 class="text-center" style="color: #ffffff;">There is an question each day ! "What should I eat today ? Sign up and we tell you !</h3>
+                    <h3 class="text-center" style="color: #ffffff;">There is a question each day ! "What should I eat today ? Sign up and we tell you !</h3>
                 </div>
                 <div class="row articles">
                     <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index1.jpg' /]" /></a>
