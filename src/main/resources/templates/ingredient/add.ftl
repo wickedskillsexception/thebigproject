@@ -46,37 +46,36 @@
                     [/#list]
                 [/#if]
 
+                <div class="panel-body" style="width: 500px;">
+                    <form method="post" action="/ingredient/save">
+                        <h2 class="text-center" style=" color: #fdfffb;">Add ingredient</h2>
+                        <div class=" form-group"><input class="form-control" type="input" name="name"
+                                                        placeholder="Name" value="${ingredient.name!''}"/></div>
+                        <div class="form-group"><input class="form-control" type="input" name="username"
+                                                       placeholder="Picture" value="${ingredient.pictureUrl!''}"/></div>
+                        <div class="form-group">
+                            [#if ingredient.id??]
+                                <input name="id" type="hidden" value="${ingredient.id?c}"/>
+                            [/#if]
+                            <button class="btn btn-primary" type="submit">save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form method="post" action="/ingredient/save">
-                [#--Full name: <input name="fullName" type="input" value="${user.fullName!''}">--]
-                [#--<br>--]
-                <th></th>
-                <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name" /></div>
-                Name: <input name="name" type="input" value="${ingredient.name!''}">
-                <br>
-                Photo: <input name="pictureUrl" type="input" value="${ingredient.pictureUrl!''}">
-                <br>
+            <div class="footer-basic">
+                <footer>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="/">Home</a></li>
+                        <li class="list-inline-item"><a href="#">Services</a></li>
+                        <li class="list-inline-item"><a href="#">About</a></li>
+                        <li class="list-inline-item"><a href="#">Terms</a></li>
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <p class="copyright">Yumm! 2019</p>
 
-                [#if ingredient.id??]
-                    <input name="id" type="hidden" value="${ingredient.id?c}"/>
-                [/#if]
-                <input value="save" type="submit"/>
-            </form>
+                </footer>
+            </div>
         </div>
-        <div class="footer-basic">
-            <footer>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="/">Home</a></li>
-                    <li class="list-inline-item"><a href="#">Services</a></li>
-                    <li class="list-inline-item"><a href="#">About</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                </ul>
-                <p class="copyright">Yumm! 2019</p>
-
-            </footer>
-        </div>
-    </div>
     </div>
     </body>
 [/#escape]
