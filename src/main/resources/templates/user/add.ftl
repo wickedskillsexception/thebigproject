@@ -47,8 +47,8 @@
                 <div class="panel-body" style="width: 500px;">
                     <form method="post" action="/user/save">
                         <h2 class="text-center" style=" color: #fdfffb;">Add user</h2>
-                        [#--<div class="form-group"><input class="form-control" type="text" name="fullName"--]
-                                                       [#--placeholder="Full Name" value="${theUser.fullName!''}"/></div>--]
+                        <div class="form-group"><input class="form-control" type="text" name="fullName"
+                                                       placeholder="Full Name" value="${theUser.fullName!''}"/></div>
                         <div class="form-group"><input class="form-control" type="input" name="username"
                                                        placeholder="Username" value="${theUser.username!''}"/></div>
                         <div class=" form-group"><input class="form-control" type="input" name="password"
@@ -80,5 +80,6 @@
             </div>
         </div>
     </div>
+    [#include '/bootstrap_footer.ftl']
     </body>
 [/#escape]
