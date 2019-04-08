@@ -26,6 +26,5 @@ public class IngredientsToDBTable {
 //            ingredientService.save(i);
 //        }
 
-
     }
 }
