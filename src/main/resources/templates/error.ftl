@@ -49,9 +49,10 @@
             </div>
         </nav>
         <div class="card">
-            <h1 style="color:white; font-size:300%">
-                <img class="img-fluid" src="[@spring.url '/images/error.png'/]" /></a>
-                Oops! Something went wrong ! That's shameful ! <br/>
+            <h1 class="text-center" style="color:white; font-size:300%">
+                <img class="img-fluid" src="[@spring.url '/images/error.png'/]" /><br/></a></h1>
+            <h1 class="text-center" style="color:white; font-size:300%">
+                 Oops! Something went wrong ! That's shameful ! <br/>
             </h1>
             [#if applicationError??]
                 ${applicationError.code} - ${applicationError.message}
