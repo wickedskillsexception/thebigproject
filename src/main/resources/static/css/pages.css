@@ -6,10 +6,13 @@ html, body {
     font-family: 'Open Sans', sans-serif;
 }
 
+footer{
+    position: relative;
+}
 .container {
     height: 100%;
     align-content: center;
-}
+    }
 
 .card {
     height:100%;

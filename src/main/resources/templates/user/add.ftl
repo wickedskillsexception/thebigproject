@@ -44,22 +44,26 @@
                         <br>
                     [/#list]
                 [/#if]
+                <div class="panel-body" style="width: 500px;">
+                    <form method="post" action="/user/save">
+                        <h2 class="text-center" style=" color: #fdfffb;">Add user</h2>
+                        [#--<div class="form-group"><input class="form-control" type="text" name="fullName"--]
+                                                       [#--placeholder="Full Name" value="${theUser.fullName!''}"/></div>--]
+                        <div class="form-group"><input class="form-control" type="input" name="username"
+                                                       placeholder="Username" value="${theUser.username!''}"/></div>
+                        <div class=" form-group"><input class="form-control" type="input" name="password"
+                                                        placeholder="Password" value="${theUser.password!''}"/></div>
+                        <div class="form-group"><input class="form-control is-invalid" type="input" name="email"
+                                                       placeholder="Email" value="${theUser.email!''}"/></div>
 
-                <form method="post" action="/user/save">
-                    [#--Full name: <input name="fullName" type="input" value="${theUser.fullName!''}">--]
-                    [#--<br>--]
-                    Username: <input name="userName" type="input" value="${theUser.username!''}">
-                    <br>
-                    Password: <input name="password" type="input" value="${theUser.password!''}">
-                    <br>
-                    E-mail: <input name="email" type="input" value="${theUser.email!''}">
-                    <br>
-
-                    [#if theUser.id??]
-                        <input name="id" type="hidden" value="${theUser.id?c}"/>
-                    [/#if]
-                    <input value="save" type="submit"/>
-                </form>
+                        <div class="form-group">
+                            [#if theUser.id??]
+                                <input name="id" type="hidden" value="${theUser.id?c}"/>
+                            [/#if]
+                            <button class="btn btn-primary" type="submit">save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="footer-basic">
                 <footer>

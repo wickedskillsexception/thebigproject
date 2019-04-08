@@ -48,27 +48,15 @@
                 [/#if]
             </div>
         </nav>
-        <div class="article-list">
-            <div class="card">
-                <div class="intro">
-                    <h1><br/></h1>
-                    <h2 class="text-center" style="color: #ffffff;">Hey there!</h2>
-                    <h3 class="text-center" style="color: #ffffff;">There is a question each day: "What should I eat today?" <br/> Sign up and we tell you!</h3>
-                    <h3><br/></h3>
-                </div>
-                <div class="row articles">
-                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index1.jpg' /]" /></a>
-                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
-                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
-                    <div
-                            class="col-sm-6 col-md-4 item"><img class="img-fluid"src="[@spring.url '/images/index3.jpg' /]" /></a>
-                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
-                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
-                    <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index2.jpg' /]" /></a>
-                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
-                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
-                </div>
-            </div>
+        <div class="card">
+            <h1 class="text-center" style="color:white; font-size:300%">
+                <img class="img-fluid" src="[@spring.url '/images/error.png'/]" /><br/></a></h1>
+            <h1 class="text-center" style="color:white; font-size:300%">
+                 Oops! Something went wrong ! That's shameful ! <br/>
+            </h1>
+            [#if applicationError??]
+                ${applicationError.code} - ${applicationError.message}
+            [/#if]
         </div>
         <div class="footer-basic">
             <footer>

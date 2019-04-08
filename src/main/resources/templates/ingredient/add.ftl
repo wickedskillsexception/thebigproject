@@ -46,20 +46,21 @@
                     [/#list]
                 [/#if]
 
-                <form method="post" action="/ingredient/save">
-                    [#--Full name: <input name="fullName" type="input" value="${user.fullName!''}">--]
-                    [#--<br>--]
-                    <th></th>
-                    Name: <input name="name" type="input" value="${ingredient.name!''}">
-                    <br>
-                    Photo: <input name="pictureUrl" type="input" value="${ingredient.pictureUrl!''}">
-                    <br>
-
-                    [#if ingredient.id??]
-                        <input name="id" type="hidden" value="${ingredient.id?c}"/>
-                    [/#if]
-                    <input value="save" type="submit"/>
-                </form>
+                <div class="panel-body" style="width: 500px;">
+                    <form method="post" action="/ingredient/save">
+                        <h2 class="text-center" style=" color: #fdfffb;">Add ingredient</h2>
+                        <div class=" form-group"><input class="form-control" type="input" name="name"
+                                                        placeholder="Name" value="${ingredient.name!''}"/></div>
+                        <div class="form-group"><input class="form-control" type="input" name="username"
+                                                       placeholder="Picture" value="${ingredient.pictureUrl!''}"/></div>
+                        <div class="form-group">
+                            [#if ingredient.id??]
+                                <input name="id" type="hidden" value="${ingredient.id?c}"/>
+                            [/#if]
+                            <button class="btn btn-primary" type="submit">save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="footer-basic">
                 <footer>
