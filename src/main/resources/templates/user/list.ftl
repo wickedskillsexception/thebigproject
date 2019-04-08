@@ -23,6 +23,8 @@
                                                                         href="/ingredient">Ingredients</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
                         </ul>
+                         [#if user??] <div style="float: right; color: grey"><b>Hello, ${user}!    </b></div>
+                              [/#if]
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                                               href="/logout">Logout</a></span>
 
