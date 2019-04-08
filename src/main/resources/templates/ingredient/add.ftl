@@ -46,35 +46,37 @@
                     [/#list]
                 [/#if]
 
-                <form method="post" action="/ingredient/save">
-                    [#--Full name: <input name="fullName" type="input" value="${user.fullName!''}">--]
-                    [#--<br>--]
-                    <th></th>
-                    Name: <input name="name" type="input" value="${ingredient.name!''}">
-                    <br>
-                    Photo: <input name="pictureUrl" type="input" value="${ingredient.pictureUrl!''}">
-                    <br>
-
-                    [#if ingredient.id??]
-                        <input name="id" type="hidden" value="${ingredient.id?c}"/>
-                    [/#if]
-                    <input value="save" type="submit"/>
-                </form>
             </div>
-            <div class="footer-basic">
-                <footer>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><a href="/">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Services</a></li>
-                        <li class="list-inline-item"><a href="#">About</a></li>
-                        <li class="list-inline-item"><a href="#">Terms</a></li>
-                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                    </ul>
-                    <p class="copyright">Yumm! 2019</p>
+            <form method="post" action="/ingredient/save">
+                [#--Full name: <input name="fullName" type="input" value="${user.fullName!''}">--]
+                [#--<br>--]
+                <th></th>
+                <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name" /></div>
+                Name: <input name="name" type="input" value="${ingredient.name!''}">
+                <br>
+                Photo: <input name="pictureUrl" type="input" value="${ingredient.pictureUrl!''}">
+                <br>
 
-                </footer>
-            </div>
+                [#if ingredient.id??]
+                    <input name="id" type="hidden" value="${ingredient.id?c}"/>
+                [/#if]
+                <input value="save" type="submit"/>
+            </form>
         </div>
+        <div class="footer-basic">
+            <footer>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="/">Home</a></li>
+                    <li class="list-inline-item"><a href="#">Services</a></li>
+                    <li class="list-inline-item"><a href="#">About</a></li>
+                    <li class="list-inline-item"><a href="#">Terms</a></li>
+                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                </ul>
+                <p class="copyright">Yumm! 2019</p>
+
+            </footer>
+        </div>
+    </div>
     </div>
     </body>
 [/#escape]
