@@ -47,12 +47,13 @@
                 <div class="panel-body" style="width: 500px;">
                     <form method="post" action="/user/save">
                         <h2 class="text-center" style=" color: #fdfffb;">Add user</h2>
-
-                        <div class="form-group"><input class="form-control" type="text" name="username"
+                        [#--<div class="form-group"><input class="form-control" type="text" name="fullName"--]
+                                                       [#--placeholder="Full Name" value="${theUser.fullName!''}"/></div>--]
+                        <div class="form-group"><input class="form-control" type="input" name="username"
                                                        placeholder="Username" value="${theUser.username!''}"/></div>
-                        <div class=" form-group"><input class="form-control" type="text" name="password"
+                        <div class=" form-group"><input class="form-control" type="input" name="password"
                                                         placeholder="Password" value="${theUser.password!''}"/></div>
-                        <div class="form-group"><input class="form-control is-invalid" type="text" name="email"
+                        <div class="form-group"><input class="form-control is-invalid" type="input" name="email"
                                                        placeholder="Email" value="${theUser.email!''}"/></div>
 
                         <div class="form-group">
