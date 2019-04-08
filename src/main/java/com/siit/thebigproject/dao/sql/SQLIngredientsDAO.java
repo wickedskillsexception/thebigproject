@@ -34,7 +34,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
         String sql = "";
         Long newId = null;
         if (ingredient.getId() > 0) {
-            sql = "UPDATE ingredients set name = ?, picture = ? where id = ? returning id";
+            sql = "UPDATE ingredients set name = ?, picture_url = ? where id = ? returning id";
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     ingredient.getName(),
                     ingredient.getPictureUrl(),
@@ -83,7 +83,7 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
             Ingredient ingredient = new Ingredient();
             ingredient.setId(rs.getLong("id"));
             ingredient.setName(rs.getString("name"));
-            ingredient.setPictureUrl(rs.getString("picture"));
+            ingredient.setPictureUrl(rs.getString("picture_url"));
             return ingredient;
         }
 
