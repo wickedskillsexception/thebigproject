@@ -59,14 +59,16 @@
                         <tbody>
                         [#list ingredients as ingredient]
                         <tr>
-                            <td scope="row" ;>${ingredient.name}</td>
-                            <td>${ingredient.pictureUrl}</td>
+                            <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
+                                                 style="border-radius: 50%; width: 50px; height: 50px"/></td>
+                            <td scope="row">${ingredient.name}</td>
+
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
-                                   href="/user/delete?id=${ingredient.id?c}">Delete</a>
+                                   href="/ingredient/delete?id=${ingredient.id?c}">Delete</a>
 
                                 <a class="btn btn-primary" role="button"
-                                   href="/user/edit?id=${ingredient.id?c}">Edit</a>
+                                   href="/ingredient/edit?id=${ingredient.id?c}">Edit</a>
                             </td>
                         </tr>
 
