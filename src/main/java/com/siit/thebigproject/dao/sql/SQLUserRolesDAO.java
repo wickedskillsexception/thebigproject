@@ -50,8 +50,7 @@ public class SQLUserRolesDAO extends SQLBaseDAO<UserRole> implements UserRolesDA
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     userRole.getUser_id(),
-                    userRole.getRole_id(),
-                    userRole.getId()
+                    userRole.getRole_id()
 
             }, new RowMapper<Long>() {
                 public Long mapRow(ResultSet rs, int arg1) throws SQLException {

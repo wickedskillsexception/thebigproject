@@ -61,7 +61,7 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
                     model.getFullName(),
                     model.getUsername(),
                     model.getPassword(),
-                    model.getEmail(),
+                    model.getEmail()
 
             }, new RowMapper<Long>() {
                 public Long mapRow(ResultSet rs, int arg1) throws SQLException {

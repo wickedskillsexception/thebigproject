@@ -47,8 +47,7 @@ public class SQLRolesDAO extends SQLBaseDAO<Role> {
             sql = "INSERT INTO roles(name) values (?) returning id";
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
-                    role.getRoleName(),
-                    role.getId()
+                    role.getRoleName()
 
             }, new RowMapper<Long>() {
                 public Long mapRow(ResultSet rs, int arg1) throws SQLException {
