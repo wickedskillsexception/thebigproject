@@ -2,6 +2,7 @@ package com.siit.thebigproject.service;
 
 
 import com.siit.thebigproject.dao.sql.SQLFridgeIngredientsDAO;
+import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.FridgeIngredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import org.h2.message.DbException;
@@ -39,6 +40,10 @@ public class FridgeIngredientService {
     public FridgeIngredient get(Long id) {
         LOGGER.debug("Getting fridge ingredient with id: " + id);
         return fridgeIngredientsDAO.getById(id);
+    }
+
+    public List<FridgeIngredient> getByFridgeId(Long id){
+        return fridgeIngredientsDAO.getByFridgeId(id);
     }
 
     public void save(FridgeIngredient fridgeIngredient) throws ValidationException {

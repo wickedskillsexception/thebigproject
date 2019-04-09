@@ -2,6 +2,7 @@ package com.siit.thebigproject.dao.sql;
 
 import com.siit.thebigproject.dao.FridgeIngredientsDAO;
 import com.siit.thebigproject.domain.FridgeIngredient;
+import com.siit.thebigproject.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

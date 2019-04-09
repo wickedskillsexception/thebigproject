@@ -29,11 +29,8 @@ public class FridgeIngredientController {
     @RequestMapping("")
     public ModelAndView list() {
         ModelAndView result = new ModelAndView("fridgeIngredient/list");
-
-
         Collection<FridgeIngredient> fridgeIngredients = fridgeIngredientService.listAll();
         result.addObject("fridgeIngredients", fridgeIngredients);
-
         return result;
     }
 
