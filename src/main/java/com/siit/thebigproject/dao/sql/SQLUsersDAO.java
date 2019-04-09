@@ -3,6 +3,7 @@ package com.siit.thebigproject.dao.sql;
 import com.siit.thebigproject.dao.UsersDAO;
 import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.User;
+import com.siit.thebigproject.domain.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -70,8 +71,13 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
             });
             model.setId(newId);
             Fridge fridge = new Fridge();
-            fridge.setUserId(model.getId());
+            fridge.setUserId(newId);
             sqlFridgesDAO.update(fridge);
+            UserRole userRole = new UserRole();
+            userRole.setRole_id(2);
+            userRole.setUser_id(newId);
+            sqlUserRolesDAO.update(userRole);
+
         }
 
 
