@@ -35,7 +35,7 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">MyFridge</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/recipe">Recipes</a></li>
                         </ul>
                         [#if user??]
