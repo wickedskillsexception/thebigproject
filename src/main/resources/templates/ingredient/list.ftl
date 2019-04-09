@@ -3,10 +3,6 @@
 <head>
     <title>User</title>
     [#include '/bootstrap_header.ftl']
-    <script>
-        jQuery( "#accordion" ).accordion({heightStyle: "content",header: 'h3' });
-    </script>
-
 </head>
 
 [#escape x as x?html]
@@ -56,48 +52,48 @@
                 [/#if]
 
                 <div class="table-responsive">
-                <table class="table-borderless">
-                <thead>
-                <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Picture URL</th>
-                </tr>
-                </thead>
-                <tbody>
-                [#list ingredients as ingredient]
-                <tr>
-                <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
-                style="border-radius: 50%; width: 50px; height: 50px"/></td>
-                <td scope="row">${ingredient.name}</td>
+                    <table class="table-borderless">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Picture URL</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        [#list ingredients as ingredient]
+                        <tr>
+                            <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
+                                                 style="border-radius: 50%; width: 50px; height: 50px"/></td>
+                            <td scope="row">${ingredient.name}</td>
 
-                <td scope="row">
-                <a class="btn btn-primary" role="button"
-                href="/ingredient/delete?id=${ingredient.id?c}">Delete</a>
+                            <td scope="row">
+                                <a class="btn btn-primary" role="button"
+                                   href="/ingredient/delete?id=${ingredient.id?c}">Delete</a>
 
-                <a class="btn btn-primary" role="button"
-                href="/ingredient/edit?id=${ingredient.id?c}">Edit</a>
-                </td>
-                </tr>
+                                <a class="btn btn-primary" role="button"
+                                   href="/ingredient/edit?id=${ingredient.id?c}">Edit</a>
+                            </td>
+                        </tr>
 
-                </tbody>
-                [/#list]
-                </table>
+                        </tbody>
+                        [/#list]
+                    </table>
+                </div>
+            </div>
+            <div class="footer-basic">
+                <footer>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="/">Home</a></li>
+                        <li class="list-inline-item"><a href="#">Services</a></li>
+                        <li class="list-inline-item"><a href="#">About</a></li>
+                        <li class="list-inline-item"><a href="#">Terms</a></li>
+                        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <p class="copyright">Yumm! 2019</p>
+
+                </footer>
             </div>
         </div>
-        <div class="footer-basic">
-            <footer>
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="/">Home</a></li>
-                    <li class="list-inline-item"><a href="#">Services</a></li>
-                    <li class="list-inline-item"><a href="#">About</a></li>
-                    <li class="list-inline-item"><a href="#">Terms</a></li>
-                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-                </ul>
-                <p class="copyright">Yumm! 2019</p>
-
-            </footer>
-        </div>
-    </div>
     </div>
     [#include '/bootstrap_footer.ftl']
     </body>
