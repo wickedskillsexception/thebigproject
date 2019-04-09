@@ -58,9 +58,7 @@
                         <tr align="center">
                             <th align="center" scope="col">Image</th>
                             <th align="center" scope="col">Name</th>
-                            <th align="center" scope="col">Preparation</th>
-                            <th align="center" scope="col">Preparation time</th>
-                            <th align="center" scope="col">Smart points</th>
+
                             <th align="center" scope="col"></th>
                         </tr>
                         </thead>
@@ -70,10 +68,10 @@
                             <td scope="row"><img src="${recipe.image}" alt="Avatar"
                                                  style="border-radius: 50%; width: 50px; height: 50px"/></td>
                             <td align="center" scope="row">${recipe.name}</td>
-                            <td align="center" scope="row">${recipe.preparation}</td>
-                            <td align="center" scope="row">${recipe.preparationTime}</td>
-                            <td align="center" scope="row">${recipe.smartPoints}</td>
+
                             <td align="center" scope="row">
+                                <a class="btn btn-primary" role="button"
+                                   href="/recipe/view?id=${recipe.id?c}">View</a>
                                 <a class="btn btn-primary" role="button"
                                    href="/recipe/delete?id=${recipe.id?c}">Delete</a>
 
