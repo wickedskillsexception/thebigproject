@@ -1,7 +1,7 @@
 [#ftl]
 [#import "/spring.ftl" as spring /]
 <head>
-    <title>User</title>
+    <title>Recipe suggestions</title>
     [#include '../bootstrap_header.ftl']
 </head>
 
@@ -39,11 +39,9 @@
         </nav>
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">You have ${ingredients?size} ingredients to choose from.
-                    <a href="/ingredient" class="btn btn-primary" type="button">Add more ingredients.</a>
-
-                    <a href="................." class="btn btn-primary" type="button">Suggestion</a>
-                 </h5>
+                <h5 class="mb-0">Yummy recipes: ${suggestions?size}
+                    <a href="/recipe/add" class="btn btn-primary" type="button">Add</a>
+                </h5>
             </div>
             <div class="card-body">
 
@@ -57,24 +55,28 @@
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-borderless">
                         <thead>
-                        <tr>
-                            <th scope="col">Picture</th>
-                            <th scope="col">Name</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                        <tr align="center">
+                            <th align="center" scope="col">Image</th>
+                            <th align="center" scope="col">Name</th>
+                            <th align="center" scope="col">Match Percent</th>
+
+                            <th align="center" scope="col"></th>
                         </tr>
                         </thead>
-
-                        <tbody>
-                        [#list ingredients as ingredient]
+                        <tbody style="align-content: center">
+                        [#list suggestions as suggestion]
                         <tr>
-                            <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
+                            <td scope="row"><img src="${suggestion.recipe.image}" alt="Avatar"
                                                  style="border-radius: 50%; width: 50px; height: 50px"/></td>
-                            <td scope="row">${ingredient.name}</td>
+                            <td align="center" scope="row">${suggestion.recipe.name}</td>
 
-                            <td scope="row">
+                            <td align="center" scope="row">${suggestion.matchPercent}</td>
+
+                            <td align="center" scope="row">
+
                                 <a class="btn btn-primary" role="button"
-                                   href="/ingredient/delete?id=${ingredient.id?c}">Delete</a>
+                                   href="/recipe/view?id=${recipe.id?c}">View</a>
+
                             </td>
                         </tr>
 
@@ -93,7 +95,6 @@
                         <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
                     </ul>
                     <p class="copyright">Yumm! 2019</p>
-
                 </footer>
             </div>
         </div>
