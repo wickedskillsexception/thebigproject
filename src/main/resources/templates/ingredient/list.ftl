@@ -59,6 +59,7 @@
                             <th scope="col">Picture</th>
                             <th scope="col">Name</th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
 
@@ -68,6 +69,12 @@
                             <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
                                                  style="border-radius: 50%; width: 50px; height: 50px"/></td>
                             <td scope="row">${ingredient.name}</td>
+
+                            <td scope="row">
+                                <a class="btn btn-primary" role="button"
+                                   href="/fridgeingredient/add?id=${ingredient.id?c}">Add to fridge</a>
+
+                            </td>
 
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
