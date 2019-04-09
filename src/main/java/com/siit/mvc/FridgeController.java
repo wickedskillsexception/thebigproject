@@ -1,7 +1,11 @@
 package com.siit.mvc;
 
+import com.siit.thebigproject.dao.sql.SQLRecipesDAO;
 import com.siit.thebigproject.domain.Fridge;
+import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.Suggestion;
 import com.siit.thebigproject.exceptions.ValidationException;
+import com.siit.thebigproject.service.CoreApp;
 import com.siit.thebigproject.service.FridgeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +21,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/fridge")
@@ -27,6 +32,12 @@ public class FridgeController {
 
     @Autowired
     private FridgeService fridgeService;
+    @Autowired
+    CoreApp runCoreApp;
+    @Autowired
+    SQLRecipesDAO sqlRecipesDAO;
+
+
 
     @RequestMapping("")
     public ModelAndView list() {
@@ -43,6 +54,15 @@ public class FridgeController {
     public ModelAndView add() {
         ModelAndView modelAndView = new ModelAndView("fridge/add");
         modelAndView.addObject("fridge", new Fridge());
+        return modelAndView;
+    }
+
+    @RequestMapping("/suggestions")
+    public ModelAndView getSuggestions(Long id) {
+        ModelAndView modelAndView = new ModelAndView("fridge/suggestions");
+        Map<Double, Recipe> matches = runCoreApp.recipeMatcher(fridgeService.get(id), sqlRecipesDAO.getAll());
+        List<Suggestion> suggestions = runCoreApp.createSuggestions(matches, fridgeService.get(id));
+        modelAndView.addObject("suggestions", suggestions);
         return modelAndView;
     }
 

@@ -36,7 +36,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
     }
 
     @Override
-    public Collection<Recipe> getAll(){
+    public List<Recipe> getAll(){
         return jdbcTemplate.query("select * from recipes", new RecipeMapper());
     }
 

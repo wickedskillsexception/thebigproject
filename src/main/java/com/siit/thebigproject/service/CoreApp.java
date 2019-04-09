@@ -1,6 +1,9 @@
 package com.siit.thebigproject.service;
 
+import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
 import com.siit.thebigproject.domain.*;
+import org.apache.commons.collections4.ListUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
@@ -8,6 +11,8 @@ import static com.siit.thebigproject.domain.ApplicationConstants.MAX_SUGGESTIONS
 import static com.siit.thebigproject.domain.ApplicationConstants.MINIMUM_RECIPE_MATCH_PERCENT;
 
 public class CoreApp {
+    @Autowired
+    SQLIngredientsDAO sqlIngredientsDAO;
 
     /// compute and send reply to servlet
 
@@ -33,7 +38,7 @@ public class CoreApp {
 
             for (RecipeIngredient recipeIngredient : recipeIngredients) {
                 for (FridgeIngredient userIngredient : usersIngredients) {
-                    if (recipeIngredient.equals(userIngredient)) {
+                    if (recipeIngredient.getIngredientId() == userIngredient.getIngredientId()) {
                         matchPercent += 100 / divider; //* 0.7; how important the ingredients are to overall matching
 
 //                        if (userIngredient.getQuantity() >= recipeIngredient.getQuantity()) {
@@ -54,13 +59,18 @@ public class CoreApp {
 //            System.out.println("Precent matched: + " + key + "%.\n" + "Recipe " + matchedRecipes.get(key).toString());
 //        }
 
-         return matchedRecipes;
+        return matchedRecipes;
     }
 
-    public List<Suggestion> createSuggestions(Map<Double, Recipe> matchedRecipes, Fridge userFridge){
+    public List<Suggestion> createSuggestions(Map<Double, Recipe> matchedRecipes, Fridge userFridge) {
+
 
         List<Suggestion> suggestions = new ArrayList<>();
         //limit maximum suggestions
+
+        if (matchedRecipes == null) {
+            return null;
+        }
 
         Map<Double, Recipe> bestMatches = matchedRecipes.entrySet().stream()
                 .limit(MAX_SUGGESTIONS)
@@ -69,16 +79,39 @@ public class CoreApp {
         //check for missing ingredients
 
         bestMatches.entrySet().forEach(entry ->
-                 {
+                {
                     Suggestion suggestion = new Suggestion();
                     suggestion.setMatchPercent(entry.getKey());
+                    suggestion.setRecipe(entry.getValue());
 
                     List<RecipeIngredient> recipeIngredients = entry.getValue().getIngredientsList();
+                    if (suggestion.getMatchPercent() >= 99.9) {
+                        suggestion.setHasAllIngredients(true);
+                        suggestion.setMissingIngredients(null);
+                        suggestions.add(suggestion);
+                    } else {
 
-                    for (RecipeIngredient ingredient : recipeIngredients){
-                        for(FridgeIngredient fridgeIngredient : userFridge.getIngredientList()){
+                        suggestion.setHasAllIngredients(false);
 
+                        ArrayList<Long> userIngredientsIds = new ArrayList<>();
+                        for (FridgeIngredient ingredient : userFridge.getIngredientList()) {
+                            userIngredientsIds.add(ingredient.getIngredientId());
                         }
+
+                        ArrayList<Long> recipeIngredientsIds = new ArrayList<>();
+                        for (RecipeIngredient recipeIngredient : recipeIngredients) {
+                            recipeIngredientsIds.add(recipeIngredient.getIngredientId());
+                        }
+
+                        List<Long> missinIngredientsIds = ListUtils.subtract(recipeIngredientsIds, userIngredientsIds);
+
+                        Set<Ingredient> missingIngredients = new TreeSet<>();
+
+                        for (Long id : missinIngredientsIds) {
+                            missingIngredients.add(sqlIngredientsDAO.getById(id));
+                        }
+
+                        suggestion.setMissingIngredients(missingIngredients);
 
                     }
 
@@ -86,12 +119,7 @@ public class CoreApp {
                 }
         );
 
-
-
-
-
         return suggestions;
-
     }
 
 
