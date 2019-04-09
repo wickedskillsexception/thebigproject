@@ -72,11 +72,6 @@
                             <td align="center" scope="row">${recipe.preparationTime}</td>
                         </tr>
 
-                        [#--<tr>--]
-                            [#--<td align="center" scope="col">Ingredients</td>--]
-                            [#--<td align="center" scope="row">${recipe.ingredientsList}</td>--]
-                        [#--</tr>--]
-
                         <tr>
                             <td align="center" scope="col">Preparation</td>
                             <td align="center" scope="row">${recipe.preparation}</td>
