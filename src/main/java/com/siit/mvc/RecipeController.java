@@ -47,12 +47,13 @@ public class RecipeController {
     }
 
     @RequestMapping("/view")
-    public ModelAndView view(Long recipeId) {
-        Recipe recipe = recipeService.get(1l);
+    public ModelAndView view(Long id) {
+        Recipe recipe = recipeService.get(id);
         ModelAndView modelAndView = new ModelAndView("recipe/view");
         modelAndView.addObject("recipe", recipe);
         return modelAndView;
     }
+
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
         Recipe recipe = recipeService.get(id);

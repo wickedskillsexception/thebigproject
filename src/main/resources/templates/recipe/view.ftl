@@ -45,13 +45,18 @@
                     [#list errors as error]
                         <span style="color:red"> ${error}</span>
                         <br>
-                    [/#list]
+
                 [/#if]
 
-             [#if recipe??]
-             <h1 style="color: white">
-                           ${recipe.name}
-                           [/#if]
+          ${recipe}
+
+                                 <tr>
+                                     <td scope="row"><img src="${recipe.image}" alt="Avatar"
+                                     style="border-radius: 50%; width: 50px; height: 50px"/></td>
+                                     <td align="center" scope="row">${recipe.name}</td>
+                                     <td align="center" scope="row">${recipe.preparation}</td>
+                                     <td align="center" scope="row">${recipe.preparationTime}</td>
+                                     <td align="center" scope="row">${recipe.smartPoints}</td>
 
             </div>
             <div class="footer-basic">
