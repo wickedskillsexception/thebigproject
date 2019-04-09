@@ -60,15 +60,15 @@
                 </div>
                 <div class="row articles">
                     <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index1.jpg' /]" /></a>
-                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
-                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
+                        <h3 class="name" style="color: #ffffff;">Hello Sunshine</h3>
+                        <p class="description" style="color: #ffffff;">From salads and light soups to grilled meats and fish, make the most of summer produce with Yumm! healthy BBQ, picnic and al fresco recipes.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
                     <div
                             class="col-sm-6 col-md-4 item"><img class="img-fluid"src="[@spring.url '/images/index3.jpg' /]" /></a>
-                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
-                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
+                        <h3 class="name" style="color: #ffffff;">Good food, good friends, good times with Yumm!</h3>
+                        <p class="description" style="color: #ffffff;">Food. We all eat it, we all depend on it. It has a huge impact on all our lives and on our health whether we realize it or not. Food is often what binds and brings both family and friends together. So bring joy with our recipes !</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
                     <div class="col-sm-6 col-md-4 item"><img class="img-fluid" src="[@spring.url '/images/index2.jpg' /]" /></a>
-                        <h3 class="name" style="color: #ffffff;">Article Title</h3>
-                        <p class="description" style="color: #ffffff;">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
+                        <h3 class="name" style="color: #ffffff;">Umm noodle soup I mean soup</h3>
+                        <p class="description" style="color: #ffffff;">Soup is winter's answer to salad. And while the super creamy ones that come in a bread bowl taste amazing, they won't help any healthy eating goals. When you're trying to stick to a diet but need a nice, warm bowl of broth, these hearty and healthy soups will fill you up. For even more diet-friendly recipes, check out our suggestions</p><a href="#" class="action"><i class="fa fa-arrow-circle-right"></i></a></div>
                 </div>
             </div>
         </div>
