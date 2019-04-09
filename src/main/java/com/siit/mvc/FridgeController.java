@@ -52,7 +52,7 @@ public class FridgeController {
 
     @RequestMapping("")
     public ModelAndView list(Long id) {
-        ModelAndView result = new ModelAndView("ingredient/list");
+        ModelAndView result = new ModelAndView("fridge/listIngredients");
 
         Collection<FridgeIngredient> fridgeIngredients = fridgeIngredientService.getByFridgeId(1l);
         Collection<Ingredient> ingredients = new ArrayList<>();
