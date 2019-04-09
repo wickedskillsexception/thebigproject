@@ -27,7 +27,7 @@ public class FridgeService {
 
 
     public boolean delete(Long id) {
-        LOGGER.debug("Deleting myFridge with id: " + id);
+        LOGGER.debug("Deleting fridge with id: " + id);
         Fridge fridge = null;
         fridge = fridgesDAO.getById(id);
 
@@ -35,7 +35,7 @@ public class FridgeService {
     }
 
     public Fridge get(Long id) {
-        LOGGER.debug("Getting myFridge with id: " + id);
+        LOGGER.debug("Getting fridge with id: " + id);
 
         return fridgesDAO.getById(id);
 

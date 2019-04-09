@@ -56,7 +56,7 @@ public class FridgeIngredientController {
     @RequestMapping("/delete")
     public String delete(long id) {
         fridgeIngredientService.delete(id);
-        return "redirect:/myFridge";
+        return "redirect:/fridge";
     }
 
     @RequestMapping("/save")
