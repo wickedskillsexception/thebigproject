@@ -50,18 +50,12 @@
                 <div class="panel-body" style="width: 500px;">
                     <form method="post" action="/fridge/save">
                         <h2 class="text-center" style=" color: #fdfffb;">Add fridge</h2>
-                        [#--<div class="form-group"><input class="form-control" type="text" name="fullName"--]
-                        [#--placeholder="Full Name" value="${theUser.fullName!''}"/></div>--]
-                        <div class="form-group"><input class="form-control" type="text" name="username"
-                                                       placeholder="Username" value="${theUser.username!''}"/></div>
-                        <div class=" form-group"><input class="form-control" type="text" name="password"
-                                                        placeholder="Password" value="${theUser.password!''}"/></div>
-                        <div class="form-group"><input class="form-control is-invalid" type="text" name="email"
-                                                       placeholder="Email" value="${theUser.email!''}"/></div>
+                        <div class="form-group"><input class="form-control is-invalid" type="text" name="userId"
+                                                       placeholder="UserId" value="${fridge.userId!''}"/></div>
 
                         <div class="form-group">
-                            [#if theUser.id??]
-                                <input name="id" type="hidden" value="${theUser.id?c}"/>
+                            [#if fridge.id??]
+                                <input name="id" type="hidden" value="${fridge.id?c}"/>
                             [/#if]
                             <button class="btn btn-primary" type="submit">save</button>
                         </div>
