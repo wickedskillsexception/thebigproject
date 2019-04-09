@@ -1,8 +1,12 @@
 package com.siit.mvc;
 
+import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.FridgeIngredient;
+import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import com.siit.thebigproject.service.FridgeIngredientService;
+import com.siit.thebigproject.service.FridgeService;
+import com.siit.thebigproject.service.IngredientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,12 @@ public class FridgeIngredientController {
     @Autowired
     private FridgeIngredientService fridgeIngredientService;
 
+    @Autowired
+    private IngredientService ingredientService;
+
+    @Autowired
+    private FridgeService fridgeService;
+
     @RequestMapping("")
     public ModelAndView list() {
         ModelAndView result = new ModelAndView("fridgeIngredient/list");
@@ -35,12 +45,13 @@ public class FridgeIngredientController {
     }
 
     @RequestMapping("/add")
-    public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("fridgeIngredient/add");
-        modelAndView.addObject("fridgeIngredient", new FridgeIngredient());
-        return modelAndView;
+    public String add(Long id) throws ValidationException {
+        Ingredient ingredient = ingredientService.get(id);
+        Fridge fridge = fridgeService.get(1l);
+        FridgeIngredient fridgeIngredient = new FridgeIngredient(1l, id);
+        fridgeIngredientService.save(fridgeIngredient);
+        return "redirect:/ingredient";
     }
-
 
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
