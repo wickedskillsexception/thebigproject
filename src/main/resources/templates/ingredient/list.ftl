@@ -56,9 +56,9 @@
                     <table class="table table-striped table-hover table-borderless">
                         <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <th scope="col">Picture</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Picture URL</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
 
