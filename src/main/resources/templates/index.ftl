@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="[@spring.url '/css/bootstrap.min.css' /]" rel="stylesheet">
     <link href="[@spring.url '/css/pages.css' /]" rel="stylesheet">
@@ -36,10 +36,11 @@
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
-
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/recipe">Recipes</a></li>
                         </ul>
-                        [#if user??] <div style="float: right; color: grey"><b>Hello, ${user}!    </b></div>
-                                                      [/#if]
+                        [#if user??]
+                            <div style="float: right; color: grey"><b>Hello, ${user}!</b></div>
+                        [/#if]
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                                               href="/logout">Logout</a></span>
 
@@ -50,8 +51,8 @@
                 [/#if]
             </div>
         </nav>
-        <div class="article-list">
-            <div class="card">
+        <div class="article-list" style="height: auto">
+            <div class="card" style="height: auto">
                 <div class="intro">
                     <h1><br/></h1>
                     <h2 class="text-center" style="color: #ffffff;">Hey there!</h2>
@@ -72,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer-basic">
+        <div class="footer-basic" >
             <footer>
                 <ul class="list-inline">
                     <li class="list-inline-item"><a href="/">Home</a></li>
