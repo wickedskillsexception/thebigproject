@@ -22,6 +22,7 @@
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/recipe">Recipes</a></li>
                         </ul>
                         [#if user??]
                             <div style="float: right; color: grey"><b>Hello, ${user}!    </b></div>
@@ -53,7 +54,7 @@
 
 
                 <div class="table-responsive">
-                    <table class="table-borderless">
+                    <table class="table table-striped table-hover table-borderless">
                         <thead>
                         <tr>
                             <th scope="col"></th>
