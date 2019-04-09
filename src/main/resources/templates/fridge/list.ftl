@@ -23,8 +23,9 @@
                                                                         href="/ingredient">Ingredients</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">Fridge</a></li>
                         </ul>
-                        [#if user??] <div style="float: right; color: grey"><b>Hello, ${user}!    </b></div>
-                                                      [/#if]
+                        [#if user??]
+                            <div style="float: right; color: grey"><b>Hello, ${user}!    </b></div>
+                        [/#if]
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                                               href="/logout">Logout</a></span>
 
@@ -37,8 +38,8 @@
         </nav>
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">User size:${users?size}
-                    <a href="/user/add" class="btn btn-primary" type="button">Add</a>
+                <h5 class="mb-0">Fridge size:${fridges?size}
+                    <a href="/fridge/add" class="btn btn-primary" type="button">Add</a>
                 </h5>
             </div>
             <div class="card-body">
@@ -55,26 +56,20 @@
                     <table class="table-borderless">
                         <thead>
                         <tr>
-                            [#--<th scope="col">Full Name</th>--]
-                            <th scope="col">Username</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">User ID</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        [#list users as theUser]
+                        [#list fridges as fridge]
                         <tr>
-                            [#--<td scope="row" >${theUser.fullName}</td>--]
-                            <td scope="row" >${theUser.username}</td>
-                            <td>${theUser.password}</td>
-                            <td scope="row">${theUser.email}</td>
+                            <td scope="row" >${fridge.userId}</td>
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
-                                   href="/user/delete?id=${theUser.id?c}">Delete</a>
+                                   href="/fridge/delete?id=${fridge.id?c}">Delete</a>
 
                                 <a class="btn btn-primary" role="button"
-                                   href="/user/edit?id=${theUser.id?c}">Edit</a>
+                                   href="/fridge/edit?id=${fridge.id?c}">Edit</a>
                             </td>
                         </tr>
 
