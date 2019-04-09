@@ -39,9 +39,6 @@
         </nav>
         <div class="card">
             <div class="card-header">
-                [#--<h5 class="mb-0">Recipe size:${recipes?size}--]
-                [#--<a href="/recipe/add" class="btn btn-primary" type="button">Add</a>--]
-                [#--</h5>--]
             </div>
             <div class="card-body">
 
@@ -54,25 +51,34 @@
 
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-borderless">
-                        <thead>
                         <tr align="center">
-                            <th align="center" scope="col">Image</th>
-                            <th align="center" scope="col">Name</th>
-                            <th align="center" scope="col">Preparation</th>
-                            <th align="center" scope="col">Preparation time</th>
-                            <th align="center" scope="col">Smart points</th>
-
+                            <th align="center" scope="col"></th>
+                            <th align="center" scope="col"></th>
                         </tr>
-                        </thead>
+
+
+
                         <tbody style="align-content: center">
 
-                        ${recipe}
+                        <input name="id" type="hidden" value="${recipe}"/>
                         <tr>
                             <td scope="row"><img src="${recipe.image}" alt="Avatar"
                                                  style="border-radius: 50%; width: 50px; height: 50px"/></td>
                             <td align="center" scope="row">${recipe.name}</td>
+
+                        </tr>
+                        <tr>
+                            <td align="center" scope="col">Preparation</td>
                             <td align="center" scope="row">${recipe.preparation}</td>
+                        </tr>
+
+                        <tr>
+                            <td align="center" scope="col">Preparation time</td>
                             <td align="center" scope="row">${recipe.preparationTime}</td>
+                        </tr>
+
+                        <tr>
+                            <td align="center" scope="col">Smart points</td>
                             <td align="center" scope="row">${recipe.smartPoints}</td>
                         </tr>
 
