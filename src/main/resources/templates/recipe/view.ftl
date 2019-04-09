@@ -38,11 +38,7 @@
             </div>
         </nav>
         <div class="card">
-            <div class="card-header">
-                [#--<h5 class="mb-0">Recipe size:${recipes?size}--]
-                [#--<a href="/recipe/add" class="btn btn-primary" type="button">Add</a>--]
-                [#--</h5>--]
-            </div>
+
             <div class="card-body">
 
                 [#if errors??]
@@ -52,43 +48,11 @@
                     [/#list]
                 [/#if]
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless">
-                        <thead>
-                        <tr align="center">
-                            [#--<th align="center" scope="col">Image</th>--]
-                            <th align="center" scope="col">Name</th>
-                            <th align="center" scope="col">Preparation</th>
-                            <th align="center" scope="col">Preparation time</th>
-                            <th align="center" scope="col">Smart points</th>
-                            [#--<th align="center" scope="col"></th>--]
-                        </tr>
-                        </thead>
-                        <tbody style="align-content: center">
-                        [#list recipes as recipe]
+             [#if recipe??]
+             <h1 style="color: white">
+                           ${recipe.name}
+                           [/#if]
 
-
-                        <tr>
-                            [#--<td scope="row"><img src="${recipe.image}" alt="Avatar"--]
-                            [#--style="border-radius: 50%; width: 50px; height: 50px"/></td>--]
-                            <td align="center" scope="row">${recipe.name}</td>
-                            <td align="center" scope="row">${recipe.preparation}</td>
-                            <td align="center" scope="row">${recipe.preparationTime}</td>
-                            <td align="center" scope="row">${recipe.smartPoints}</td>
-                            [#--<td align="center" scope="row">--]
-                            [#--<a class="btn btn-primary" role="button"--]
-                            [#--href="/recipe/delete?id=${recipe.id?c}">Delete</a>--]
-
-                            [#--<a class="btn btn-primary" role="button"--]
-                            [#--href="/recipe/edit?id=${recipe.id?c}">Edit</a>--]
-                            [#--</td>--]
-                        </tr>
-
-                        </tbody>
-
-                        [/#list]
-                    </table>
-                </div>
             </div>
             <div class="footer-basic">
                 <footer>
@@ -107,3 +71,5 @@
     [#include '/bootstrap_footer.ftl']
     </body>
 [/#escape]
+
+

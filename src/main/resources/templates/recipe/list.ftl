@@ -70,11 +70,11 @@
                             <td align="center" scope="row">${recipe.name}</td>
 
                             <td align="center" scope="row">
+
                                 <a class="btn btn-primary" role="button"
                                    href="/recipe/view?id=${recipe.id?c}">View</a>
                                 <a class="btn btn-primary" role="button"
                                    href="/recipe/delete?id=${recipe.id?c}">Delete</a>
-
                                 <a class="btn btn-primary" role="button"
                                    href="/recipe/edit?id=${recipe.id?c}">Edit</a>
                             </td>
