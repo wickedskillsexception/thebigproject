@@ -56,6 +56,7 @@
                     <table class="table-borderless">
                         <thead>
                         <tr>
+                            <th scope="col"></th>
                             <th scope="col">User ID</th>
                             <th scope="col"></th>
                         </tr>
@@ -63,6 +64,8 @@
                         <tbody>
                         [#list fridges as fridge]
                         <tr>
+                            <td scope="row"><img src="[@spring.url '/images/fridge.png' /]" alt="Avatar"
+                                                 style="-moz-border-radius: 50px; width: 50px; height: 50px"/></td>
                             <td scope="row" >${fridge.userId}</td>
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
