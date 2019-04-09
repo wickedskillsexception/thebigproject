@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -46,9 +47,10 @@ public class RecipeController {
     }
 
     @RequestMapping("/view")
-    public ModelAndView view() {
+    public ModelAndView view(Long recipeId) {
+        Recipe recipe = recipeService.get(recipeId);
         ModelAndView modelAndView = new ModelAndView("recipe/view");
-        modelAndView.addObject("recipe", new Recipe());
+        modelAndView.addObject("recipe", recipe);
         return modelAndView;
     }
     @RequestMapping("/edit")
