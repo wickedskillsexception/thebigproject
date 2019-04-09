@@ -20,12 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/fridgeingredient")
+@RequestMapping("/fridgeIngredient")
 public class FridgeIngredientController {
     private static Logger LOGGER = LoggerFactory.getLogger("FridgeIngredientController");
 
@@ -53,11 +54,15 @@ public class FridgeIngredientController {
     public String add(Long id, String user_email) throws ValidationException {
         User user = userService.getByEmail(user_email);
         Fridge fridge = fridgeService.getByUserId(user.getId());
-        Ingredient ingredient = ingredientService.get(id);
         FridgeIngredient fridgeIngredient = new FridgeIngredient(fridge.getId(), id);
+
+        if (fridgeIngredientService.checkIfExists(fridgeIngredient))
+            return "redirect:/ingredient";
+
         fridgeIngredientService.save(fridgeIngredient);
         return "redirect:/ingredient";
     }
+
 
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
@@ -81,7 +86,7 @@ public class FridgeIngredientController {
         if (!bindingResult.hasErrors()) {
             try {
                 fridgeIngredientService.save(fridgeIngredient);
-                RedirectView redirectView = new RedirectView("/fridgeingredient");
+                RedirectView redirectView = new RedirectView("/fridgeIngredient");
                 modelAndView.setView(redirectView);
             } catch (ValidationException ex) {
 

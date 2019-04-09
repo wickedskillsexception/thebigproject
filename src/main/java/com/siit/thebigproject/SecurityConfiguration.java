@@ -73,8 +73,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/recipe/delete").hasRole("ADMIN")
 //                .antMatchers("/recipe`/save").hasRole("ADMIN")
 //
-//                .antMatchers("/fridgeingredient").hasRole("ADMIN")
-//                .antMatchers("/recipeingredient").hasRole("ADMIN")
+//                .antMatchers("/fridgeIngredient").hasRole("ADMIN")
+//                .antMatchers("/recipeIngredient").hasRole("ADMIN")
 
 
                 .anyRequest().authenticated()

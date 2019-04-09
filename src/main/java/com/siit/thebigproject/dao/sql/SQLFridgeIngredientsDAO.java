@@ -65,21 +65,19 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
                 }
             });
         } else {
-            boolean exists = false;
-            if (!exists) {
-                sql = "insert into fridge_ingredients (fridge_id, ingredient_id) "
-                        + "values (?, ?) returning id";
+            sql = "insert into fridge_ingredients (fridge_id, ingredient_id) "
+                    + "values (?, ?) returning id";
 
-                newId = jdbcTemplate.queryForObject(sql, new Object[]{
-                        model.getFridgeId(),
-                        model.getIngredientId()
-                }, new RowMapper<Long>() {
-                    public Long mapRow(ResultSet rs, int arg1) throws SQLException {
-                        return rs.getLong(1);
-                    }
-                });
-            }
+            newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                    model.getFridgeId(),
+                    model.getIngredientId()
+            }, new RowMapper<Long>() {
+                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                    return rs.getLong(1);
+                }
+            });
         }
+
         model.setId(newId);
 
         return model;
@@ -96,7 +94,7 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
     public boolean deleteByIds(long fridge_id, long ingredient_id) {
         Collection<FridgeIngredient> all = getAll();
         long id = -1;
-        for (FridgeIngredient f: all) {
+        for (FridgeIngredient f : all) {
             if (f.getFridgeId() == fridge_id && f.getIngredientId() == ingredient_id) {
                 id = f.getId();
             }

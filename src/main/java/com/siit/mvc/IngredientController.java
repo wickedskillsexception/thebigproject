@@ -31,8 +31,6 @@ public class IngredientController {
     @RequestMapping("")
     public ModelAndView list() {
         ModelAndView result = new ModelAndView("ingredient/list");
-
-
         Collection<Ingredient> ingredients = ingredientService.listAll();
         result.addObject("ingredients", ingredients);
 

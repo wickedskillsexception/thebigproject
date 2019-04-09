@@ -60,6 +60,7 @@ public class FridgeController {
             Ingredient in = ingredientService.get(f.getIngredientId());
             ingredients.add(in);
         }
+
         result.addObject("ingredients", ingredients);
 
         return result;

@@ -2,10 +2,8 @@ package com.siit.thebigproject.service;
 
 
 import com.siit.thebigproject.dao.sql.SQLFridgeIngredientsDAO;
-import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.FridgeIngredient;
 import com.siit.thebigproject.exceptions.ValidationException;
-import org.h2.message.DbException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,21 @@ public class FridgeIngredientService {
 
     }
 
+    public boolean checkIfExists(FridgeIngredient fridgeIngredient) {
+        boolean exists = false;
+        Collection<FridgeIngredient> all = fridgeIngredientsDAO.getAll();
+        for(FridgeIngredient f: all){
+            if(fridgeIngredient.getFridgeId() == f.getFridgeId() && fridgeIngredient.getIngredientId() == f.getIngredientId()){
+                exists = true;
+            }
+        }
+        return exists;
+    }
+
+    public FridgeIngredient add(FridgeIngredient fridgeIngredient) {
+        return fridgeIngredientsDAO.update(fridgeIngredient);
+    }
+
     public boolean deleteByIds(Long fridge_id, long ingredient_id) {
         return fridgeIngredientsDAO.deleteByIds(fridge_id, ingredient_id);
 
@@ -47,7 +60,7 @@ public class FridgeIngredientService {
         return fridgeIngredientsDAO.getById(id);
     }
 
-    public List<FridgeIngredient> getByFridgeId(Long id){
+    public List<FridgeIngredient> getByFridgeId(Long id) {
         return fridgeIngredientsDAO.getByFridgeId(id);
     }
 
@@ -64,7 +77,7 @@ public class FridgeIngredientService {
         if (!errors.isEmpty()) {
             throw new ValidationException(errors.toArray(new String[]{}));
         }
-            fridgeIngredientsDAO.update(fridgeIngredient);
+        fridgeIngredientsDAO.update(fridgeIngredient);
     }
 
     public SQLFridgeIngredientsDAO getFridgeIngredientsDAO() {
