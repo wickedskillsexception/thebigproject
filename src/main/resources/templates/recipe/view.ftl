@@ -57,7 +57,6 @@
                         </tr>
 
 
-
                         <tbody style="align-content: center">
 
                         <input name="id" type="hidden" value="${recipe}"/>
@@ -67,14 +66,26 @@
                             <td align="center" scope="row">${recipe.name}</td>
 
                         </tr>
+
+                        <tr>
+                            <td align="center" scope="col">Preparation time</td>
+                            <td align="center" scope="row">${recipe.preparationTime}</td>
+                        </tr>
+
+                        [#--<tr>--]
+                            [#--<td align="center" scope="col">Ingredients</td>--]
+                            [#--<td align="center" scope="row">${recipe.ingredientsList}</td>--]
+                        [#--</tr>--]
+
                         <tr>
                             <td align="center" scope="col">Preparation</td>
                             <td align="center" scope="row">${recipe.preparation}</td>
                         </tr>
 
+
                         <tr>
-                            <td align="center" scope="col">Preparation time</td>
-                            <td align="center" scope="row">${recipe.preparationTime}</td>
+                            <td align="center" scope="col">Recipe Type</td>
+                            <td align="center" scope="row">${recipe.recipeTypes}</td>
                         </tr>
 
                         <tr>
