@@ -1,6 +1,7 @@
 package com.siit.mvc;
 
 import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.User;
 import com.siit.thebigproject.exceptions.ValidationException;
 import com.siit.thebigproject.service.RecipeService;
 import org.slf4j.Logger;
@@ -44,7 +45,12 @@ public class RecipeController {
         return modelAndView;
     }
 
-
+    @RequestMapping("/view")
+    public ModelAndView view() {
+        ModelAndView modelAndView = new ModelAndView("recipe/view");
+        modelAndView.addObject("recipe", new Recipe());
+        return modelAndView;
+    }
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
         Recipe recipe = recipeService.get(id);
