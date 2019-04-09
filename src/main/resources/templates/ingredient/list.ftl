@@ -56,6 +56,7 @@
                     <table class="table table-striped table-hover table-borderless">
                         <thead>
                         <tr>
+                            <th scope="col"></th>
                             <th scope="col">Name</th>
                             <th scope="col">Picture URL</th>
                         </tr>
@@ -63,6 +64,7 @@
                         <tbody>
                         [#list ingredients as ingredient]
                         <tr>
+                            <td scope="row"><input type="checkbox" /></td>
                             <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
                                                  style="border-radius: 50%; width: 50px; height: 50px"/></td>
                             <td scope="row">${ingredient.name}</td>
