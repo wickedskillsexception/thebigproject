@@ -8,4 +8,5 @@ public interface FridgeIngredientsDAO extends BaseDAO<FridgeIngredient> {
 
     public boolean deleteByFridgeId(long fridgeId);
     public Collection<FridgeIngredient> getByFridgeId(long fridgeId);
+    public boolean deleteByIngredientId(long ingredientId);
 }

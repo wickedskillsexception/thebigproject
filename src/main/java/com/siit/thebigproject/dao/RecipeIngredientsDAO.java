@@ -8,4 +8,5 @@ public interface RecipeIngredientsDAO {
 
     public boolean deleteByRecipeId(long fridgeId);
     public Collection<RecipeIngredient> getByRecipeId(long fridgeId);
+    public boolean deleteByIngredientId(long ingredientId);
 }

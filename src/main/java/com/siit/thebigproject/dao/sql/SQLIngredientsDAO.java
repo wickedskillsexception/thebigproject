@@ -18,6 +18,12 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private SQLRecipeIngredientsDAO sqlRecipeIngredientsDAO;
+
+    @Autowired
+    private SQLFridgeIngredientsDAO sqlFridgeIngredientsDAO;
+
     public SQLIngredientsDAO(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
@@ -72,6 +78,8 @@ public class SQLIngredientsDAO extends SQLBaseDAO<Ingredient> implements BaseDAO
 
     @Override
     public boolean delete(Ingredient ingredient) {
+        sqlFridgeIngredientsDAO.deleteByIngredientId(ingredient.getId());
+        sqlRecipeIngredientsDAO.deleteByIngredientId(ingredient.getId());
         return jdbcTemplate.update("delete from ingredients where id = ?", ingredient.getId()) > 0;
     }
 

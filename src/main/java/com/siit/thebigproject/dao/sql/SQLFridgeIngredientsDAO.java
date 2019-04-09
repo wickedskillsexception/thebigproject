@@ -42,6 +42,12 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
     public boolean deleteByFridgeId(long fridgeId) {
         return jdbcTemplate.update("delete from fridge_ingredients where fridge_id = ?", fridgeId) > 0;
     }
+
+    @Override
+    public boolean deleteByIngredientId(long ingredientId) {
+        return jdbcTemplate.update("delete from fridge_ingredients where ingredient_id = ?", ingredientId) > 0;
+    }
+
     @Override
     public FridgeIngredient update(FridgeIngredient model) {
         String sql = "";

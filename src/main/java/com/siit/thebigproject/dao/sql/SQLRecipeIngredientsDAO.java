@@ -89,6 +89,11 @@ public class SQLRecipeIngredientsDAO extends SQLBaseDAO<RecipeIngredient> implem
 
     }
 
+    @Override
+    public boolean deleteByIngredientId(long ingredientId) {
+        return jdbcTemplate.update("delete from recipe_ingredients where ingredient_id = ?", ingredientId) > 0;
+    }
+
     private static class RecipeIngredientMapper implements RowMapper<RecipeIngredient> {
 
         @Override

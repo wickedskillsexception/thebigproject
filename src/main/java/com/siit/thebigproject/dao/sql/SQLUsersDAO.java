@@ -69,6 +69,7 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
                     return rs.getLong(1);
                 }
             });
+
             model.setId(newId);
             Fridge fridge = new Fridge();
             fridge.setUserId(newId);
