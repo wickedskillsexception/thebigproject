@@ -46,7 +46,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
         String sql = "";
         Long newId = null;
         if (model.getId() > 0) {
-            sql = "UPDATE recipes SET name = ?, preparation = ?, preparation_time = ?, image = ?, smartPoints = ?  " +
+            sql = "UPDATE recipes SET name = ?, preparation = ?, preparation_time = ?, image = ?, smartPoints = ?, recipe_types  " +
                     "WHERE id = ? returning id";
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     model.getName(),
@@ -54,6 +54,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
                     model.getPreparationTime(),
                     model.getImage(),
                     model.getSmartPoints(),
+                    model.getRecipeTypes(),
                     model.getId()
 
             }, new RowMapper<Long>() {
@@ -63,7 +64,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
             });
         } else {
             sql = "INSERT INTO recipes(name, preparation, preparation_time, " +
-                    " image, smart_points) values( ?, ?, ?, ?, ?) returning id;";
+                    " image, smart_points, recipe_types) values( ?, ?, ?, ?, ?, ?) returning id;";
 
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     model.getName(),
@@ -71,6 +72,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
                     model.getPreparationTime(),
                     model.getImage(),
                     model.getSmartPoints(),
+                    model.getRecipeTypes()
 
             }, new RowMapper<Long>() {
                 public Long mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -106,6 +108,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
             recipe.setPreparationTime(rs.getInt("preparation_time"));
             recipe.setImage(rs.getString("image"));
             recipe.setSmartPoints(rs.getInt("smart_points"));
+            recipe.setRecipeTypes(rs.getString("recipe_types"));
             return recipe;
         }
 
