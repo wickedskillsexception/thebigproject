@@ -28,7 +28,7 @@ public class FridgeIngredientService {
 
 
     public boolean delete(Long id) {
-        LOGGER.debug("Deleting fridge ingredient with id: " + id);
+        LOGGER.debug("Deleting myFridge ingredient with id: " + id);
         FridgeIngredient fridgeIngredient = null;
         fridgeIngredient = fridgeIngredientsDAO.getById(id);
 
@@ -37,7 +37,7 @@ public class FridgeIngredientService {
     }
 
     public FridgeIngredient get(Long id) {
-        LOGGER.debug("Getting fridge ingredient with id: " + id);
+        LOGGER.debug("Getting myFridge ingredient with id: " + id);
         return fridgeIngredientsDAO.getById(id);
     }
 

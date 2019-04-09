@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/fridge")
+@RequestMapping("/myFridge")
 public class FridgeController {
 
 
@@ -30,7 +30,7 @@ public class FridgeController {
 
     @RequestMapping("")
     public ModelAndView list() {
-        ModelAndView result = new ModelAndView("fridge/list");
+        ModelAndView result = new ModelAndView("myFridge/list");
 
 
         Collection<Fridge> fridges = fridgeService.listAll();
@@ -41,8 +41,8 @@ public class FridgeController {
 
     @RequestMapping("/add")
     public ModelAndView add() {
-        ModelAndView modelAndView = new ModelAndView("fridge/add");
-        modelAndView.addObject("fridge", new Fridge());
+        ModelAndView modelAndView = new ModelAndView("myFridge/add");
+        modelAndView.addObject("myFridge", new Fridge());
         return modelAndView;
     }
 
@@ -50,15 +50,15 @@ public class FridgeController {
     @RequestMapping("/edit")
     public ModelAndView edit(Long id) {
         Fridge fridge = fridgeService.get(id);
-        ModelAndView modelAndView = new ModelAndView("fridge/add");
-        modelAndView.addObject("fridge", fridge);
+        ModelAndView modelAndView = new ModelAndView("myFridge/add");
+        modelAndView.addObject("myFridge", fridge);
         return modelAndView;
     }
 
     @RequestMapping("/delete")
     public String delete(long id) {
         fridgeService.delete(id);
-        return "redirect:/fridge";
+        return "redirect:/myFridge";
     }
 
     @RequestMapping("/save")
@@ -69,7 +69,7 @@ public class FridgeController {
         if (!bindingResult.hasErrors()) {
             try {
                 fridgeService.save(fridge);
-                RedirectView redirectView = new RedirectView("/fridge");
+                RedirectView redirectView = new RedirectView("/myFridge");
                 modelAndView.setView(redirectView);
             } catch (ValidationException ex) {
 
@@ -77,9 +77,9 @@ public class FridgeController {
 
                 List<String> errors = new LinkedList<>();
                 errors.add(ex.getMessage());
-                modelAndView = new ModelAndView("fridge/add");
+                modelAndView = new ModelAndView("myFridge/add");
                 modelAndView.addObject("errors", errors);
-                modelAndView.addObject("fridge", fridge);
+                modelAndView.addObject("myFridge", fridge);
             }
 
         } else {
@@ -90,9 +90,9 @@ public class FridgeController {
                 errors.add(error.getField() + ":" + error.getCode());
             }
 
-            modelAndView = new ModelAndView("fridge/add");
+            modelAndView = new ModelAndView("myFridge/add");
             modelAndView.addObject("errors", errors);
-            modelAndView.addObject("fridge", fridge);
+            modelAndView.addObject("myFridge", fridge);
         }
 
         return modelAndView;
