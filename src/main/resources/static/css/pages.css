@@ -7,11 +7,15 @@ html, body {
 }
 
 footer{
-    position: relative;
+    position: inherit;
+}
+.footer-basic{
+    position: inherit;
 }
 .container {
     height: 100%;
     align-content: center;
+    margin: 0 auto;
     }
 
 .card {
@@ -56,4 +60,5 @@ td{
 .card-header{
     background-color:rgba(255,255,255,0.03);
 }
+
 
