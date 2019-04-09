@@ -4,12 +4,14 @@ import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
 import com.siit.thebigproject.domain.*;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 import static com.siit.thebigproject.domain.ApplicationConstants.MAX_SUGGESTIONS;
 import static com.siit.thebigproject.domain.ApplicationConstants.MINIMUM_RECIPE_MATCH_PERCENT;
 
+@Service
 public class CoreApp {
     @Autowired
     SQLIngredientsDAO sqlIngredientsDAO;
