@@ -31,8 +31,13 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
     }
 
     @Override
-    public Collection<User> getAll(){
+    public Collection<User> getAll() {
         return jdbcTemplate.query("select * from users", new UserMapper());
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        return jdbcTemplate.queryForObject("select * from users where email=?", new UserMapper(), email);
     }
 
     @Override
@@ -86,12 +91,12 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
     }
 
     @Override
-    public User getById(Long id){
+    public User getById(Long id) {
         return jdbcTemplate.queryForObject("select * from users where id = ?", new UserMapper(), id);
     }
 
     @Override
-    public boolean delete(User user){
+    public boolean delete(User user) {
         sqlFridgesDAO.deleteByUserId(user.getId());
         sqlUserRolesDAO.deleteByUserId(user.getId());
         return jdbcTemplate.update("delete from users where username = ?", user.getId()) > 0;

@@ -5,5 +5,6 @@ import com.siit.thebigproject.domain.Fridge;
 public interface FridgesDAO extends BaseDAO<Fridge> {
 
     public boolean deleteByUserId(long id);
+    public Fridge getByUserId(Long id);
 
 }

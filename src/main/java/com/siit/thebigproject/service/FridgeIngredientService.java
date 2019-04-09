@@ -37,6 +37,11 @@ public class FridgeIngredientService {
 
     }
 
+    public boolean deleteByIds(Long fridge_id, long ingredient_id) {
+        return fridgeIngredientsDAO.deleteByIds(fridge_id, ingredient_id);
+
+    }
+
     public FridgeIngredient get(Long id) {
         LOGGER.debug("Getting fridge ingredient with id: " + id);
         return fridgeIngredientsDAO.getById(id);

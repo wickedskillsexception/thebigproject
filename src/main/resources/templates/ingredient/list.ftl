@@ -21,7 +21,7 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge">MyFridge</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge?user_email=${user}">MyFridge</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/recipe">Recipes</a></li>
                         </ul>
                         [#if user??]
@@ -72,7 +72,7 @@
 
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
-                                   href="/fridgeingredient/add?id=${ingredient.id?c}">Add to fridge</a>
+                                   href="/fridgeingredient/add?id=${ingredient.id?c}&user_email=${user}">Add to fridge</a>
 
                             </td>
 

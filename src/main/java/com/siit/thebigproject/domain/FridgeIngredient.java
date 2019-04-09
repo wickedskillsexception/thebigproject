@@ -1,5 +1,7 @@
 package com.siit.thebigproject.domain;
 
+import java.util.Objects;
+
 public class FridgeIngredient extends ObjectId {
 
     private long fridgeId;
@@ -35,5 +37,19 @@ public class FridgeIngredient extends ObjectId {
                 "fridgeId=" + fridgeId +
                 ", ingredientId=" + ingredientId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FridgeIngredient that = (FridgeIngredient) o;
+        return fridgeId == that.fridgeId &&
+                ingredientId == that.ingredientId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fridgeId, ingredientId);
     }
 }

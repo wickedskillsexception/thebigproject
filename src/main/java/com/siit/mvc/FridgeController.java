@@ -1,16 +1,9 @@
 package com.siit.mvc;
 
 import com.siit.thebigproject.dao.sql.SQLRecipesDAO;
-import com.siit.thebigproject.domain.Fridge;
-import com.siit.thebigproject.domain.Recipe;
-import com.siit.thebigproject.domain.Suggestion;
-import com.siit.thebigproject.domain.FridgeIngredient;
-import com.siit.thebigproject.domain.Ingredient;
+import com.siit.thebigproject.domain.*;
 import com.siit.thebigproject.exceptions.ValidationException;
-import com.siit.thebigproject.service.CoreApp;
-import com.siit.thebigproject.service.FridgeIngredientService;
-import com.siit.thebigproject.service.FridgeService;
-import com.siit.thebigproject.service.IngredientService;
+import com.siit.thebigproject.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +30,15 @@ public class FridgeController {
 
     @Autowired
     private FridgeService fridgeService;
-    @Autowired
-    CoreApp runCoreApp;
-    @Autowired
-    SQLRecipesDAO sqlRecipesDAO;
 
+    @Autowired
+    private UserService userService;
 
+    @Autowired
+    private CoreApp runCoreApp;
+
+    @Autowired
+    private SQLRecipesDAO sqlRecipesDAO;
 
     @Autowired
     private FridgeIngredientService fridgeIngredientService;
@@ -51,10 +47,13 @@ public class FridgeController {
     private IngredientService ingredientService;
 
     @RequestMapping("")
-    public ModelAndView list(Long id) {
+    public ModelAndView list(String user_email) {
         ModelAndView result = new ModelAndView("fridge/listIngredients");
 
-        Collection<FridgeIngredient> fridgeIngredients = fridgeIngredientService.getByFridgeId(1l);
+        User user = userService.getByEmail(user_email);
+        Fridge fridge = fridgeService.getByUserId(user.getId());
+
+        Collection<FridgeIngredient> fridgeIngredients = fridgeIngredientService.getByFridgeId(fridge.getId());
         Collection<Ingredient> ingredients = new ArrayList<>();
 
         for (FridgeIngredient f: fridgeIngredients) {
@@ -94,6 +93,14 @@ public class FridgeController {
     @RequestMapping("/delete")
     public String delete(long id) {
         fridgeService.delete(id);
+        return "redirect:/fridge";
+    }
+
+    @RequestMapping("/deleteIngredient")
+    public String deleteIngredient(Long ingredient_id, String user_email) {
+        User user = userService.getByEmail(user_email);
+        Fridge fridge = fridgeService.getByUserId(user.getId());
+        fridgeIngredientService.deleteByIds(fridge.getId(), ingredient_id);
         return "redirect:/fridge";
     }
 

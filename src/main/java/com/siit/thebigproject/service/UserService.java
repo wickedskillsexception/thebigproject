@@ -40,6 +40,10 @@ public class UserService {
         return usersDAO.getById(id);
     }
 
+    public User getByEmail(String email){
+        return usersDAO.getByEmail(email);
+    }
+
     public void save(User user) throws ValidationException {
         LOGGER.debug("Saving: " + user);
         List<String> errors = new LinkedList<>();

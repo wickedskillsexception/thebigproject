@@ -2,13 +2,11 @@ package com.siit.thebigproject.dao.sql;
 
 import com.siit.thebigproject.dao.FridgeIngredientsDAO;
 import com.siit.thebigproject.domain.FridgeIngredient;
-import com.siit.thebigproject.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -23,7 +21,7 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public SQLFridgeIngredientsDAO(DataSource dataSource){
+    public SQLFridgeIngredientsDAO(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -67,17 +65,20 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
                 }
             });
         } else {
-            sql = "insert into fridge_ingredients (fridge_id, ingredient_id) "
-                    + "values (?, ?) returning id";
+            boolean exists = false;
+            if (!exists) {
+                sql = "insert into fridge_ingredients (fridge_id, ingredient_id) "
+                        + "values (?, ?) returning id";
 
-            newId = jdbcTemplate.queryForObject(sql, new Object[]{
-                    model.getFridgeId(),
-                    model.getIngredientId()
-            }, new RowMapper<Long>() {
-                public Long mapRow(ResultSet rs, int arg1) throws SQLException {
-                    return rs.getLong(1);
-                }
-            });
+                newId = jdbcTemplate.queryForObject(sql, new Object[]{
+                        model.getFridgeId(),
+                        model.getIngredientId()
+                }, new RowMapper<Long>() {
+                    public Long mapRow(ResultSet rs, int arg1) throws SQLException {
+                        return rs.getLong(1);
+                    }
+                });
+            }
         }
         model.setId(newId);
 
@@ -90,8 +91,22 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
         return jdbcTemplate.update("delete from fridge_ingredients where id = ?", model.getId()) > 0;
     }
 
+    @Transactional
     @Override
-    public List<FridgeIngredient> getByFridgeId(long fridgeId){
+    public boolean deleteByIds(long fridge_id, long ingredient_id) {
+        Collection<FridgeIngredient> all = getAll();
+        long id = -1;
+        for (FridgeIngredient f: all) {
+            if (f.getFridgeId() == fridge_id && f.getIngredientId() == ingredient_id) {
+                id = f.getId();
+            }
+            break;
+        }
+        return jdbcTemplate.update("delete from fridge_ingredients where id = ?", id) > 0;
+    }
+
+    @Override
+    public List<FridgeIngredient> getByFridgeId(long fridgeId) {
         return jdbcTemplate.query("select * from fridge_ingredients where fridge_id = ?",
                 new FridgeIngredientMapper(), fridgeId);
     }

@@ -41,6 +41,11 @@ public class FridgeService {
 
     }
 
+    public Fridge getByUserId(Long id){
+        return fridgesDAO.getByUserId(id);
+
+    }
+
     public void save(Fridge fridge) throws ValidationException {
         LOGGER.debug("Saving: " + fridge);
         List<String> errors = new LinkedList<>();
