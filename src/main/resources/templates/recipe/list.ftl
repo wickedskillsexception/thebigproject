@@ -39,7 +39,7 @@
         </nav>
         <div class="card" style="height:auto; min-height: 1000px">
             <div class="card-header">
-                <h5 class="mb-0">Recipe size:${recipes?size}
+                <h5 class="mb-0">You have :${recipes?size} recipes to choose from!
                     <a href="/recipe/add" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Add</a>
                 </h5>
             </div>
