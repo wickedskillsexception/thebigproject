@@ -1,9 +1,11 @@
-package com.siit.thebigproject.service;
+package com.siit.thebigproject.service.RecipeServiceTest;
 
 import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;
 import com.siit.thebigproject.domain.RecipeIngredient;
 import com.siit.thebigproject.exceptions.ValidationException;
+import com.siit.thebigproject.service.IngredientService;
+import com.siit.thebigproject.service.RecipeService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
