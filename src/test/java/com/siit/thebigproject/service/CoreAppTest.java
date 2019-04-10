@@ -1,53 +1,60 @@
-//package com.siit.thebigproject.service;
-//
-//import com.siit.thebigproject.domain.Fridge;
-//import com.siit.thebigproject.domain.Recipe;
-//
-//import com.siit.thebigproject.domain.RecipeIngredient;
-//import org.junit.Test;
-//
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
-//
-//public class CoreAppTest extends CoreApp {
-//
-//    @Test
-//    public void recipeMatcher() {
-//
-//
-//        Fridge userFridge = new Fridge();
-//
-//        List<Recipe> recipeList = new ArrayList<>();
-//
-//
-//        Recipe sarmale = new Recipe();
-//        sarmale.setName("Sarmale");
-//        sarmale.setRecipeTypes(Arrays.asList("Vegan"));
-//        List<RecipeIngredient> ingredienteSarmale = new ArrayList<>();
-//
-//        ingredienteSarmale.add(new RecipeIngredient(1, "ceapa", "grams", 1));
-//        ingredienteSarmale.add(new RecipeIngredient(1, "carne porc", "grams", 500));
-//        ingredienteSarmale.add(new RecipeIngredient(1, "orez", "grams", 200));
-//        sarmale.setIngredientsList(ingredienteSarmale);
-//
-//        Recipe pilaf = new Recipe();
-//        pilaf.setName("Pilaf");
-//        List<RecipeIngredient> ingredientePilaf = new ArrayList<>();
-//
-//        ingredientePilaf.add(new RecipeIngredient(2, "carne porc", "grams", 500));
-//        ingredientePilaf.add(new RecipeIngredient(2, "orez", "grams", 200));
-//        pilaf.setIngredientsList(ingredientePilaf);
-//
-//        recipeList.add(sarmale);
-//        recipeList.add(pilaf);
-//
-//        userFridge.setIngredientList(ingredienteSarmale);
-//
-//        CoreApp coreApp = new CoreApp();
-//
-//        coreApp.recipeMatcher(userFridge, recipeList);
-//
-//
-//    }
-//}
+package com.siit.thebigproject.service;
+
+import com.siit.thebigproject.dao.FridgeIngredientsDAO;
+import com.siit.thebigproject.dao.RecipesDAO;
+import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
+import com.siit.thebigproject.domain.*;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class CoreAppTest extends CoreApp {
+
+    @Autowired
+    FridgeIngredientsDAO fridgeIngredientsDAO;
+    RecipesDAO recipesDAO;
+
+
+    @Test
+    public void recipeMatcherTest() {
+
+
+
+        Fridge userFridge = new Fridge();
+
+        Ingredient ceapa = new Ingredient();
+        ceapa.setId(1);
+
+        Ingredient varza = new Ingredient();
+        varza.setId(2);
+
+
+        List<FridgeIngredient> ingredientList = new ArrayList<>();
+        ingredientList.add(fridgeIngredientsDAO.getById(ceapa.getId()));
+        ingredientList.add(fridgeIngredientsDAO.getById(varza.getId()));
+
+        userFridge.setIngredientList(ingredientList);
+
+
+        List<Recipe> recipeList = recipesDAO.getAll().stream().collect(Collectors.toList());
+
+        CoreApp coreApp = new CoreApp();
+
+
+        Map <Double, Recipe> matches = coreApp.recipeMatcher(userFridge, recipeList);
+
+        String a = Arrays.toString(matches.entrySet().toArray());
+        System.out.println(a);
+
+
+
+
+    }
+
+}
