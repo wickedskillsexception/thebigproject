@@ -37,7 +37,7 @@
                 [/#if]
             </div>
         </nav>
-        <div class="card">
+        <div class="card" style="height:auto; min-height: 1000px">
             <div class="card-header">
             </div>
             <div class="card-body">

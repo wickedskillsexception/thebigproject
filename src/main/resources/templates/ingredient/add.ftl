@@ -61,7 +61,7 @@
                             [#if ingredient.id??]
                                 <input name="id" type="hidden" value="${ingredient.id?c}"/>
                             [/#if]
-                            <button class="btn btn-primary" type="submit">save</button>
+                            <button class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="submit">save</button>
                         </div>
                     </form>
                 </div>

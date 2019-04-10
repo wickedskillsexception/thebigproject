@@ -37,10 +37,10 @@
                 [/#if]
             </div>
         </nav>
-        <div class="card">
+        <div class="card" style="height:auto; min-height: 1000px">
             <div class="card-header">
                 <h5 class="mb-0">User size:${users?size}
-                    <a href="/user/add" class="btn btn-primary" type="button">Add</a>
+                    <a href="/user/add" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Add</a>
                 </h5>
             </div>
             <div class="card-body">
@@ -71,10 +71,10 @@
                             <td align="center" scope="row">${theUser.password}</td>
                             <td align="center" scope="row">${theUser.email}</td>
                             <td align="center" scope="row">
-                                <a class="btn btn-primary" role="button"
+                                <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);" role="button"
                                    href="/user/delete?id=${theUser.id?c}">Delete</a>
 
-                                <a class="btn btn-primary" role="button"
+                                <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);" role="button"
                                    href="/user/edit?id=${theUser.id?c}">Edit</a>
                             </td>
                         </tr>

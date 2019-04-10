@@ -3,6 +3,7 @@
 <head>
     <title>User</title>
     [#include '../bootstrap_header.ftl']
+
 </head>
 
 [#escape x as x?html]
@@ -21,7 +22,9 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge?user_email=${user}">MyFridge</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link"
+                                                                        href="/fridge?user_email=${user}">MyFridge</a>
+                            </li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/recipe">Recipes</a></li>
                         </ul>
                         [#if user??]
@@ -37,10 +40,10 @@
                 [/#if]
             </div>
         </nav>
-        <div class="card">
+        <div class="card" style="height:auto; min-height: 1000px">
             <div class="card-header">
                 <h5 class="mb-0">Ingredients size:${ingredients?size}
-                    <a href="/ingredient/add" class="btn btn-primary" type="button">Add</a>
+                    <a href="/ingredient/add" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Add</a>
                 </h5>
             </div>
             <div class="card-body">
@@ -51,10 +54,9 @@
                         <br>
                     [/#list]
                 [/#if]
-
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless">
-                        <thead>
+                    <table id="example" class="table table-striped table-hover table-borderless ">
+                        <thead style="text-align: center">
                         <tr>
                             <th scope="col">Picture</th>
                             <th scope="col">Name</th>
@@ -65,28 +67,30 @@
 
                         <tbody>
                         [#list ingredients as ingredient]
-                        <tr>
-                            <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
-                                                 style="border-radius: 50%; width: 50px; height: 50px"/></td>
-                            <td scope="row">${ingredient.name}</td>
+                            <tr>
+                                <td scope="row"><img src="${ingredient.pictureUrl}" alt="Avatar"
+                                                     style="border-radius: 50%; width: 50px; height: 50px"/></td>
+                                <td scope="row">${ingredient.name}</td>
 
-                            <td scope="row">
-                                <a class="btn btn-primary" role="button"
-                                   href="/fridgeIngredient/addIngredient?id=${ingredient.id?c}&user_email=${user}">Add to fridge</a>
+                                <td scope="row">
+                                    <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);" role="button"
+                                       href="/fridgeIngredient/addIngredient?id=${ingredient.id?c}&user_email=${user}">Add
+                                        to fridge</a>
 
-                            </td>
+                                </td>
 
-                            <td scope="row">
-                                <a class="btn btn-primary" role="button"
-                                   href="/ingredient/delete?id=${ingredient.id?c}">Delete</a>
+                                <td scope="row">
+                                    <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);" role="button"
+                                       href="/ingredient/delete?id=${ingredient.id?c}">Delete</a>
 
-                                <a class="btn btn-primary" role="button"
-                                   href="/ingredient/edit?id=${ingredient.id?c}">Edit</a>
-                            </td>
-                        </tr>
-
-                        </tbody>
+                                    <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);" role="button"
+                                       href="/ingredient/edit?id=${ingredient.id?c}">Edit</a>
+                                </td>
+                            </tr>
                         [/#list]
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -106,5 +110,13 @@
         </div>
     </div>
     [#include '../bootstrap_footer.ftl']
+
+
     </body>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
 [/#escape]

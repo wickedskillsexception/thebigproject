@@ -1,6 +1,9 @@
 [#ftl]
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <link href="[@spring.url '/js/jquery.min.js' /]" rel="stylesheet">
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="[@spring.url '/js/bootstrap.min.js' /] "></script>
