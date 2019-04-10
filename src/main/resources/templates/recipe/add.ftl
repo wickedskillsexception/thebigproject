@@ -58,8 +58,8 @@
                                                        placeholder="Preparation" value="${recipe.preparation!''}"/></div>
                         <div class="form-group"><input class="form-control" type="text" name="preparationTime"
                                                        placeholder="Preparation time" value="${recipe.preparationTime!''}"/></div>
-                        <div class=" form-group"><input class="form-control" type="text" name="recipeType"
-                                                        placeholder="Recipe Type" value="${recipe.recipeTypes!''}"/></div>
+                        <div class="form-group"><input class="form-control" type="text" name="recipeTypes"
+                                                       placeholder="Recipe type" value="${recipe.recipeTypes!''}"/></div>
                         <div class="form-group"><input class="form-control is-invalid" type="text" name="image"
                                                        placeholder="Image" value="${recipe.image!''}"/></div>
                         <div class="form-group"><input class="form-control is-invalid" type="text" name="smartPoints"
