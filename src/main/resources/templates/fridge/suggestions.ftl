@@ -58,6 +58,7 @@
                         <tr align="center">
                             <th align="center" scope="col">Image</th>
                             <th align="center" scope="col">Name</th>
+                            <th align="center" scope="col">Missing Ingredients</th>
                             <th align="center" scope="col">Match Percent</th>
 
                             <th align="center" scope="col"></th>
@@ -70,7 +71,11 @@
                                                  style="border-radius: 50%; width: 50px; height: 50px"/></td>
                             <td align="center" scope="row">${suggestion.recipe.name}</td>
 
+                            <td align="center" scope="row">${suggestion.missingIngredients} </td>
+
                             <td align="center" scope="row">${suggestion.matchPercent}</td>
+
+
 
                             <td align="center" scope="row">
 

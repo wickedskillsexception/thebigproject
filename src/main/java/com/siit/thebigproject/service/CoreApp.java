@@ -113,10 +113,10 @@ public class CoreApp {
 
                         List<Long> missingIngredientsIds = ListUtils.subtract(recipeIngredientsIds, userIngredientsIds);
 
-                        Set<Ingredient> missingIngredients = new HashSet<>();
+                        String missingIngredients = "Missing: " ;
 
                         for (Long id : missingIngredientsIds) {
-                            missingIngredients.add(sqlIngredientsDAO.getById(id));
+                            missingIngredients += sqlIngredientsDAO.getById(id).getName() + "; ";
                         }
 
                         suggestion.setMissingIngredients(missingIngredients);

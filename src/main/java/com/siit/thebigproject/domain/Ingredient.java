@@ -9,6 +9,11 @@ public class Ingredient extends ObjectId {
 
     private String pictureUrl;
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     public Ingredient() {
     }
 
@@ -32,15 +37,6 @@ public class Ingredient extends ObjectId {
 
     public String getPictureUrl() {
         return pictureUrl;
-    }
-
-    @Override
-    public String toString() {
-        return "Ingredient{" +
-                "id='" + getId() + '\'' +
-                ", name='" + name + '\'' +
-                ", pictureUrl='" + pictureUrl + '\'' +
-                '}';
     }
 
     public Ingredient set(int id, String ingredientName, String ingredientURL) {

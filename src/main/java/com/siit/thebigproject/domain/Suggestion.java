@@ -7,7 +7,7 @@ public class Suggestion extends ObjectId {
     private Recipe recipe;
     private boolean hasAllIngredients;
     private double matchPercent;
-    private Set<Ingredient> missingIngredients;
+    private String missingIngredients;
 
     public Recipe getRecipe() {
         return recipe;
@@ -33,11 +33,11 @@ public class Suggestion extends ObjectId {
         this.matchPercent = matchPercent;
     }
 
-    public Set<Ingredient> getMissingIngredients() {
+    public String getMissingIngredients() {
         return missingIngredients;
     }
 
-    public void setMissingIngredients(Set<Ingredient> missingIngredients) {
+    public void setMissingIngredients(String missingIngredients) {
         this.missingIngredients = missingIngredients;
     }
 }
