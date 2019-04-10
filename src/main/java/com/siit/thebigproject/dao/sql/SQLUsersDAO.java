@@ -99,7 +99,7 @@ public class SQLUsersDAO extends SQLBaseDAO<User> implements UsersDAO {
     public boolean delete(User user) {
         sqlFridgesDAO.deleteByUserId(user.getId());
         sqlUserRolesDAO.deleteByUserId(user.getId());
-        return jdbcTemplate.update("delete from users where username = ?", user.getId()) > 0;
+        return jdbcTemplate.update("delete from users where username = ?", user.getUsername()) > 0;
     }
 
     private static class UserMapper implements RowMapper<User> {
