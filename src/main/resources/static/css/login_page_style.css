@@ -1,7 +1,11 @@
 html, body {
     /*background-image: url();*/
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
     height: 100%;
     scroll: no;
     overflow: hidden;
