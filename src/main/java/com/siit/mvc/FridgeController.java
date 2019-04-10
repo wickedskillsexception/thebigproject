@@ -15,11 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/fridge")
@@ -56,7 +52,7 @@ public class FridgeController {
         Collection<FridgeIngredient> fridgeIngredients = fridgeIngredientService.getByFridgeId(fridge.getId());
         Collection<Ingredient> ingredients = new ArrayList<>();
 
-        for (FridgeIngredient f: fridgeIngredients) {
+        for (FridgeIngredient f : fridgeIngredients) {
             Ingredient in = ingredientService.get(f.getIngredientId());
             ingredients.add(in);
         }
@@ -102,7 +98,7 @@ public class FridgeController {
         User user = userService.getByEmail(user_email);
         Fridge fridge = fridgeService.getByUserId(user.getId());
         fridgeIngredientService.deleteByIds(fridge.getId(), ingredient_id);
-        return "redirect:/fridge";
+        return "redirect:/fridge?user_email=" + user_email;
     }
 
     @RequestMapping("/save")

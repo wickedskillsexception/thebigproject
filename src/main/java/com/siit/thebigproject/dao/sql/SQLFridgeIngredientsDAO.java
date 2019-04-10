@@ -98,7 +98,6 @@ public class SQLFridgeIngredientsDAO extends SQLBaseDAO<FridgeIngredient> implem
             if (f.getFridgeId() == fridge_id && f.getIngredientId() == ingredient_id) {
                 id = f.getId();
             }
-            break;
         }
         return jdbcTemplate.update("delete from fridge_ingredients where id = ?", id) > 0;
     }
