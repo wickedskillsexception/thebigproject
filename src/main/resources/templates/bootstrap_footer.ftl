@@ -6,7 +6,8 @@
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <link href="[@spring.url '/js/jquery.min.js' /]" rel="stylesheet">
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="[@spring.url '/js/bootstrap.min.js' /] "></script>
+<script src="[@spring.url '/js/bootstrap.js' /] "></script>
+<script src="[@spring.url '/js/bootstrap.bundle.js' /] "></script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
