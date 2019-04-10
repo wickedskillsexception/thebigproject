@@ -71,7 +71,6 @@
                             <tr>
                                 <td align="center" scope="row">${theUser.fullName}</td>
                                 <td align="center" scope="row">${theUser.username}</td>
-                                <td align="center" scope="row">${theUser.password}</td>
                                 <td align="center" scope="row">${theUser.email}</td>
                                 <td align="center" scope="row">
                                     <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);"
