@@ -35,11 +35,14 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge?user_email=${user}">Fridge</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link"
+                                                                        href="/fridge?user_email=${user}">Fridge</a>
+                            </li>
 
                         </ul>
-                        [#if user??] <div style="float: right; color: grey"><b>Hello, ${user}!    </b></div>
-                                                      [/#if]
+                        [#if user??]
+                            <div style="float: right; color: grey"><b>Hello, ${user}!</b></div>
+                        [/#if]
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                                               href="/logout">Logout</a></span>
 
@@ -54,7 +57,7 @@
             <h1 class="text-center">
                 <img class="img-fluid" src="[@spring.url '/images/error.png'/]" height="600" width="600"/><br/></a></h1>
             <h1 class="text-center" style="color:white; font-size:300%">
-                 Oops! Something went wrong! <br/> Have some cake instead! <br/>
+                Oops! Something went wrong! <br/> Have some cake instead! <br/>
             </h1>
             [#if applicationError??]
                 ${applicationError.code} - ${applicationError.message}

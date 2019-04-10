@@ -2,7 +2,7 @@
 [#import "/spring.ftl" as spring /]
 <head>
     <title>User</title>
-    [#include '/bootstrap_header.ftl']
+    [#include '../bootstrap_header.ftl']
 </head>
 
 [#escape x as x?html]
@@ -105,6 +105,6 @@
             </div>
         </div>
     </div>
-    [#include '/bootstrap_footer.ftl']
+    [#include '../bootstrap_footer.ftl']
     </body>
 [/#escape]

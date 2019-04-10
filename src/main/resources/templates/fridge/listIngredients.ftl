@@ -42,7 +42,7 @@
                 <h5 class="mb-0">You have ${ingredients?size} ingredients to choose from.
                     <a href="/ingredient" class="btn btn-primary" type="button">Add more ingredients.</a>
 
-                    <a href="................." class="btn btn-primary" type="button">Suggestion</a>
+                    <a href="/fridge/suggestions" class="btn btn-primary" type="button">Suggestion</a>
                  </h5>
             </div>
             <div class="card-body">

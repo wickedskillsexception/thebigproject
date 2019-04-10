@@ -2,7 +2,7 @@
 [#import "/spring.ftl" as spring /]
 <head>
     <title>User</title>
-    [#include '/bootstrap_header.ftl']
+    [#include '../bootstrap_header.ftl']
 </head>
 
 [#escape x as x?html]
@@ -52,17 +52,17 @@
                     [/#list]
                 [/#if]
 
+                </table>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless">
+                    <table  id="dtBasicExample" class="table table-striped table-hover table-borderless table-sm">
                         <thead>
                         <tr align="center">
                             <th align="center" scope="col">Image</th>
                             <th align="center" scope="col">Name</th>
-
                             <th align="center" scope="col"></th>
                         </tr>
                         </thead>
-                        <tbody style="align-content: center">
+                        <tbody id= "myPager" style="align-content: center">
                         [#list recipes as recipe]
                         <tr>
                             <td scope="row"><img src="${recipe.image}" alt="Avatar"
@@ -79,11 +79,14 @@
                                    href="/recipe/edit?id=${recipe.id?c}">Edit</a>
                             </td>
                         </tr>
-
                         </tbody>
+                        <tfoot>
+
+                        </tfoot>
                         [/#list]
                     </table>
                 </div>
+
             </div>
             <div class="footer-basic">
                 <footer>
@@ -97,8 +100,9 @@
                     <p class="copyright">Yumm! 2019</p>
                 </footer>
             </div>
+
         </div>
     </div>
-    [#include '/bootstrap_footer.ftl']
+    [#include '../bootstrap_footer.ftl']
     </body>
 [/#escape]
