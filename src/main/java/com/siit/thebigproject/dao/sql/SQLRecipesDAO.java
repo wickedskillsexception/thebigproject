@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -27,7 +26,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
     private SQLRecipeIngredientsDAO sqlRecipeIngredientsDAO;
 
     @Override
-    public Recipe getById(Long id){
+    public Recipe getById(Long id) {
         Recipe recipe = jdbcTemplate.queryForObject("select * from recipes where id = ?",
                 new RecipeMapper(), id);
         List recipeIngredients = sqlRecipeIngredientsDAO.getByRecipeId(id);
@@ -36,7 +35,7 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
     }
 
     @Override
-    public List<Recipe> getAll(){
+    public List<Recipe> getAll() {
         return jdbcTemplate.query("select * from recipes", new RecipeMapper());
     }
 
@@ -86,14 +85,18 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
     }
 
     @Override
-    public boolean deleteById(long recipeId){
-        sqlRecipeIngredientsDAO.deleteByRecipeId(recipeId);
+    public boolean deleteById(long recipeId) {
+        if (getById(recipeId).getIngredientsList().size() > 0) {
+            sqlRecipeIngredientsDAO.deleteByRecipeId(recipeId);
+        }
         return jdbcTemplate.update("delete from recipes where id = ?", recipeId) > 0;
     }
 
     @Override
-    public boolean delete(Recipe recipe){
-        sqlRecipeIngredientsDAO.deleteByRecipeId(recipe.getId());
+    public boolean delete(Recipe recipe) {
+        if (recipe.getIngredientsList().size() > 0) {
+            sqlRecipeIngredientsDAO.deleteByRecipeId(recipe.getId());
+        }
         return jdbcTemplate.update("delete from recipes where id = ?", recipe.getId()) > 0;
     }
 
