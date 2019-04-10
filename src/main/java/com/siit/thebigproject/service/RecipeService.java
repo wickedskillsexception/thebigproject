@@ -52,7 +52,7 @@ public class RecipeService {
             errors.add("Recipe preparation is Empty");
         }
         if (StringUtils.isEmpty(recipe.getPreparationTime())) {
-            errors.add("Recipe prepartion time is Empty");
+            errors.add("Recipe preparation time is Empty");
         }
         if (StringUtils.isEmpty(recipe.getRecipeTypes())) {
             errors.add("Recipe types are Empty");
