@@ -47,12 +47,17 @@ public class UserService {
     public void save(User user) throws ValidationException {
         LOGGER.debug("Saving: " + user);
         List<String> errors = new LinkedList<>();
-
+        if (StringUtils.isEmpty(user.getFullName())) {
+            errors.add("Full Name is Empty");
+        }
         if (StringUtils.isEmpty(user.getUsername())) {
             errors.add("Username is Empty");
         }
         if (StringUtils.isEmpty(user.getPassword())) {
             errors.add("User password is Empty");
+        }
+        if (StringUtils.isEmpty(user.getEmail())) {
+            errors.add("User email is Empty");
         }
         if (!errors.isEmpty()) {
             throw new ValidationException(errors.toArray(new String[]{}));

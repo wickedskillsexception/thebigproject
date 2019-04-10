@@ -7,19 +7,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class User extends ObjectId {
-    @NotEmpty(message = "Please insert the username")
-    @Length(max = 50)
+
     private String username;
 
-    @NotNull
-    @Length (min = 6)
     private String password;
 
-    @NotNull
-    @Email
     private String email;
 
-    @NotNull
     private String fullName;
 
     public String getFullName() {

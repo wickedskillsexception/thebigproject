@@ -42,7 +42,7 @@
                 <h5 class="mb-0">You have ${ingredients?size} ingredients to choose from.
                     <a href="/ingredient" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Add more ingredients</a>
 
-                    <a href="/fridge/suggestions?user_email=${user}" class="btn btn-primary" type="button">Suggestion</a>
+                    <a href="/fridge/suggestions?user_email=${user}" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Suggestion</a>
 
                  </h5>
             </div>
