@@ -45,9 +45,6 @@ public class RecipeService {
         if (StringUtils.isEmpty(recipe.getImage())) {
             errors.add("Recipe image is Empty");
         }
-        if (StringUtils.isEmpty(recipe.getIngredientsList())) {
-            errors.add("Recipe ingredients list is Empty");
-        }
         if (StringUtils.isEmpty(recipe.getPreparation())) {
             errors.add("Recipe preparation is Empty");
         }
@@ -57,6 +54,7 @@ public class RecipeService {
         if (StringUtils.isEmpty(recipe.getRecipeTypes())) {
             errors.add("Recipe types are Empty");
         }
+
         if (StringUtils.isEmpty(recipe.getSmartPoints())) {
             errors.add("Recipe smart points is Empty");
         }

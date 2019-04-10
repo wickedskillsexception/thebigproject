@@ -1,8 +1,10 @@
 package com.siit.mvc;
 
-import com.siit.thebigproject.domain.Recipe;
-import com.siit.thebigproject.domain.User;
+import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
+import com.siit.thebigproject.domain.*;
 import com.siit.thebigproject.exceptions.ValidationException;
+import com.siit.thebigproject.service.IngredientService;
+import com.siit.thebigproject.service.RecipeIngredientService;
 import com.siit.thebigproject.service.RecipeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +29,15 @@ public class RecipeController {
 
     @Autowired
     private RecipeService recipeService;
+
+    @Autowired
+    private RecipeIngredientService recipeIngredientService;
+
+    @Autowired
+    private IngredientService ingredientService;
+
+    @Autowired
+    SQLIngredientsDAO sqlIngredientsDAO;
 
     @RequestMapping("")
     public ModelAndView list() {
@@ -49,6 +60,12 @@ public class RecipeController {
     @RequestMapping("/view")
     public ModelAndView view(Long id) {
         Recipe recipe = recipeService.get(id);
+        List<RecipeIngredient> recipeIngredients = recipeIngredientService.getByRecipeId(id);
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (RecipeIngredient recipeIngredient : recipeIngredients) {
+            ingredients.add(sqlIngredientsDAO.getById(recipeIngredient.getIngredientId()));
+        }
+        recipe.setIngredients(ingredients.toString());
         ModelAndView modelAndView = new ModelAndView("recipe/view");
         modelAndView.addObject("recipe", recipe);
         return modelAndView;
@@ -103,5 +120,9 @@ public class RecipeController {
         }
 
         return modelAndView;
+    }
+
+    public RecipeIngredientService getRecipeIngredientService() {
+        return recipeIngredientService;
     }
 }

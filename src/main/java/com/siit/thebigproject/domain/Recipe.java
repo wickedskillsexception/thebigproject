@@ -9,7 +9,6 @@ import java.util.Objects;
 @Component
 public class Recipe extends ObjectId {
 
-    @NotEmpty(message = "{name.notEmpty}")
     private String name;
     private List<RecipeIngredient> ingredientsList;
     private String preparation;
@@ -17,6 +16,7 @@ public class Recipe extends ObjectId {
     private String recipeTypes;
     private String image;
     private int smartPoints;
+    private String ingredients;
 
     public Recipe() {
     }
@@ -88,17 +88,25 @@ public class Recipe extends ObjectId {
         return smartPoints;
     }
 
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
-                " id='" + getId() + '\'' +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", ingredientsList=" + ingredientsList +
                 ", preparation='" + preparation + '\'' +
                 ", preparationTime=" + preparationTime +
-                ", recipeTypes=" + recipeTypes +
+                ", recipeTypes='" + recipeTypes + '\'' +
                 ", image='" + image + '\'' +
                 ", smartPoints=" + smartPoints +
+                ", ingredients='" + ingredients + '\'' +
                 '}';
     }
 
@@ -113,25 +121,13 @@ public class Recipe extends ObjectId {
                 Objects.equals(ingredientsList, recipe.ingredientsList) &&
                 Objects.equals(preparation, recipe.preparation) &&
                 Objects.equals(recipeTypes, recipe.recipeTypes) &&
-                Objects.equals(image, recipe.image);
+                Objects.equals(image, recipe.image) &&
+                Objects.equals(ingredients, recipe.ingredients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, ingredientsList, preparation, preparationTime, recipeTypes, image, smartPoints);
-    }
-
-    public Recipe set(int id, String name, List<RecipeIngredient> ingredients, String preparation, int preparationTime, String recipeProperties, String image, int smartPoints) {
-        setId(id);
-        this.name = name;
-        this.ingredientsList = ingredientsList;
-        this.preparation = preparation;
-        this.preparationTime = preparationTime;
-        this.recipeTypes = recipeTypes;
-        this.image = image;
-        this.smartPoints = smartPoints;
-
-        return this;
+        return Objects.hash(name, ingredientsList, preparation, preparationTime, recipeTypes, image, smartPoints, ingredients);
     }
 }
 
