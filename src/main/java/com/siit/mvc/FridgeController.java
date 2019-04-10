@@ -42,6 +42,7 @@ public class FridgeController {
     @Autowired
     private IngredientService ingredientService;
 
+
     @RequestMapping("")
     public ModelAndView list(String user_email) {
         ModelAndView result = new ModelAndView("fridge/listIngredients");
@@ -74,8 +75,14 @@ public class FridgeController {
 
         User user = userService.getByEmail(user_email);
         Fridge fridge = fridgeService.getByUserId(user.getId());
-        Map<Double, Recipe> matches = runCoreApp.recipeMatcher(fridge, sqlRecipesDAO.getAll());
-        List<Suggestion> suggestions = runCoreApp.createSuggestions(matches, fridgeService.get(id));
+        List<Recipe> recipesList = sqlRecipesDAO.getAll();
+
+        List<FridgeIngredient> fridgeIngredients = fridgeIngredientService.getByFridgeId(fridge.getId());
+        fridge.setIngredientList(fridgeIngredients);
+
+        Map<Double, Recipe> matches = runCoreApp.recipeMatcher(fridge, recipesList);
+        List<Suggestion> suggestions = runCoreApp.createSuggestions(matches, fridge);
+
         ModelAndView modelAndView = new ModelAndView("fridge/suggestions");
         modelAndView.addObject("suggestions", suggestions);
         return modelAndView;

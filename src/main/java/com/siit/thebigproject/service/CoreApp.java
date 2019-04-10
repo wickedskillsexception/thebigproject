@@ -1,6 +1,7 @@
 package com.siit.thebigproject.service;
 
 import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
+import com.siit.thebigproject.dao.sql.SQLRecipeIngredientsDAO;
 import com.siit.thebigproject.domain.*;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import static com.siit.thebigproject.domain.ApplicationConstants.MINIMUM_RECIPE_
 public class CoreApp {
     @Autowired
     SQLIngredientsDAO sqlIngredientsDAO;
+    @Autowired
+    SQLRecipeIngredientsDAO sqlRecipeIngredientsDAO;
 
     /// compute and send reply to servlet
 
@@ -33,7 +36,8 @@ public class CoreApp {
             double matchPercent = 0;
 
             Recipe currentRecipe = recipeIterator.next();
-            List<RecipeIngredient> recipeIngredients = currentRecipe.getIngredientsList();
+
+            List<RecipeIngredient> recipeIngredients = sqlRecipeIngredientsDAO.getByRecipeId(currentRecipe.getId());;
 
             double userIngredientListSize = usersIngredients.size();
             double divider = (userIngredientListSize <= recipeIngredients.size()) ? userIngredientListSize : recipeIngredients.size();
@@ -84,9 +88,11 @@ public class CoreApp {
                 {
                     Suggestion suggestion = new Suggestion();
                     suggestion.setMatchPercent(entry.getKey());
-                    suggestion.setRecipe(entry.getValue());
+                    Recipe currentRecipe = entry.getValue();
+                    currentRecipe.setIngredientsList(sqlRecipeIngredientsDAO.getByRecipeId(currentRecipe.getId()));
+                    suggestion.setRecipe(currentRecipe);
 
-                    List<RecipeIngredient> recipeIngredients = entry.getValue().getIngredientsList();
+                    List<RecipeIngredient> recipeIngredients = currentRecipe.getIngredientsList();
                     if (suggestion.getMatchPercent() >= 99.9) {
                         suggestion.setHasAllIngredients(true);
                         suggestion.setMissingIngredients(null);
@@ -107,7 +113,7 @@ public class CoreApp {
 
                         List<Long> missinIngredientsIds = ListUtils.subtract(recipeIngredientsIds, userIngredientsIds);
 
-                        Set<Ingredient> missingIngredients = new TreeSet<>();
+                        Set<Ingredient> missingIngredients = new HashSet<>();
 
                         for (Long id : missinIngredientsIds) {
                             missingIngredients.add(sqlIngredientsDAO.getById(id));
