@@ -75,7 +75,7 @@
                             <td align="center" scope="row">
 
                                 <a class="btn btn-primary" role="button" style="background-color: rgb(86, 198, 198);"
-                                   href="/recipe/view?id=${recipe.id?c}">View</a>
+                                   href="/recipe/view?id=${suggestion.recipe.id?c}">View</a>
 
                             </td>
                         </tr>
