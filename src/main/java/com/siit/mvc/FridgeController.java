@@ -70,8 +70,11 @@ public class FridgeController {
     }
 
     @RequestMapping("/suggestions")
-    public ModelAndView getSuggestions(Long id) {
-        Map<Double, Recipe> matches = runCoreApp.recipeMatcher(fridgeService.get(id), sqlRecipesDAO.getAll());
+    public ModelAndView getSuggestions(Long id, String user_email) throws ValidationException {
+
+        User user = userService.getByEmail(user_email);
+        Fridge fridge = fridgeService.getByUserId(user.getId());
+        Map<Double, Recipe> matches = runCoreApp.recipeMatcher(fridge, sqlRecipesDAO.getAll());
         List<Suggestion> suggestions = runCoreApp.createSuggestions(matches, fridgeService.get(id));
         ModelAndView modelAndView = new ModelAndView("fridge/suggestions");
         modelAndView.addObject("suggestions", suggestions);
