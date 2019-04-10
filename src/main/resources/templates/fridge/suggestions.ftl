@@ -71,7 +71,9 @@
                                                  style="border-radius: 50%; width: 50px; height: 50px"/></td>
                             <td align="center" scope="row">${suggestion.recipe.name}</td>
 
+                            [#if suggestion.missingIngredients??]
                             <td align="center" scope="row">${suggestion.missingIngredients} </td>
+                            [/#if]
 
                             <td align="center" scope="row">${suggestion.matchPercent}</td>
 
