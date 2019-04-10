@@ -72,7 +72,7 @@
 
                             <td scope="row">
                                 <a class="btn btn-primary" role="button"
-                                   href="/fridgeIngredient/add?id=${ingredient.id?c}&user_email=${user}">Add to fridge</a>
+                                   href="/fridgeIngredient/addIngredient?id=${ingredient.id?c}&user_email=${user}">Add to fridge</a>
 
                             </td>
 

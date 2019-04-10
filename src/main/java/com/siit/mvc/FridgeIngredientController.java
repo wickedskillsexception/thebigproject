@@ -50,7 +50,15 @@ public class FridgeIngredientController {
         return result;
     }
 
+
     @RequestMapping("/add")
+    public ModelAndView add() {
+        ModelAndView modelAndView = new ModelAndView("fridgeingredient/add");
+        modelAndView.addObject("fridgeingredient", new FridgeIngredient());
+        return modelAndView;
+    }
+
+    @RequestMapping("/addIngredient")
     public String add(Long id, String user_email) throws ValidationException {
         User user = userService.getByEmail(user_email);
         Fridge fridge = fridgeService.getByUserId(user.getId());

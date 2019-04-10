@@ -71,9 +71,9 @@ public class FridgeController {
 
     @RequestMapping("/suggestions")
     public ModelAndView getSuggestions(Long id) {
-        ModelAndView modelAndView = new ModelAndView("fridge/suggestions");
         Map<Double, Recipe> matches = runCoreApp.recipeMatcher(fridgeService.get(id), sqlRecipesDAO.getAll());
         List<Suggestion> suggestions = runCoreApp.createSuggestions(matches, fridgeService.get(id));
+        ModelAndView modelAndView = new ModelAndView("fridge/suggestions");
         modelAndView.addObject("suggestions", suggestions);
         return modelAndView;
     }
