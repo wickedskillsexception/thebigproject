@@ -59,7 +59,6 @@
                             <th scope="col">Picture</th>
                             <th scope="col">Name</th>
                             <th scope="col"></th>
-                            <th scope="col"></th>
                         </tr>
                         </thead>
 
@@ -75,7 +74,6 @@
                                    href="/fridge/deleteIngredient?user_email=${user}&ingredient_id=${ingredient.id?c}">Delete</a>
                             </td>
                         </tr>
-
                         [/#list]
                         </tbody>
                         <tfoot>
