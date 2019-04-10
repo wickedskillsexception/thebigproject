@@ -45,15 +45,15 @@ public class SQLRecipesDAO extends SQLBaseDAO<Recipe> implements RecipesDAO {
         String sql = "";
         Long newId = null;
         if (model.getId() > 0) {
-            sql = "UPDATE recipes SET name = ?, preparation = ?, preparation_time = ?, image = ?, smartPoints = ?, recipe_types  " +
+            sql = "UPDATE recipes SET name = ?, preparation = ?, preparation_time = ?, recipe_types  = ?, image = ?, smart_points = ? " +
                     "WHERE id = ? returning id";
             newId = jdbcTemplate.queryForObject(sql, new Object[]{
                     model.getName(),
                     model.getPreparation(),
                     model.getPreparationTime(),
+                    model.getRecipeTypes(),
                     model.getImage(),
                     model.getSmartPoints(),
-                    model.getRecipeTypes(),
                     model.getId()
 
             }, new RowMapper<Long>() {
