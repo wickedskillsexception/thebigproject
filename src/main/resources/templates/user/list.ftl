@@ -21,12 +21,14 @@
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/user">Users</a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link"
                                                                         href="/ingredient">Ingredients</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="/fridge?user_email=${user}">MyFridge</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link"
+                                                                        href="/fridge?user_email=${user}">MyFridge</a>
+                            </li>
                             <li class="nav-item" role="presentation"><a class="nav-link" href="/recipe">Recipes</a></li>
                         </ul>
-                         [#if user??]
-                             <div style="float: right; color: grey"><b>Hello, ${user}!</b></div>
-                         [/#if]
+                        [#if user??]
+                            <div style="float: right; color: grey"><b>Hello, ${user}!</b></div>
+                        [/#if]
                         <span class="navbar-text actions"> <a class="btn btn-light action-button" role="button"
                                                               href="/logout">Logout</a></span>
 
@@ -40,7 +42,8 @@
         <div class="card" style="height:auto; min-height: 1000px">
             <div class="card-header">
                 <h5 class="mb-0">User size:${users?size}
-                    <a href="/user/add" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Add</a>
+                    <a href="/user/add" class="btn btn-primary" style="background-color: rgb(86, 198, 198);"
+                       type="button">Add</a>
                 </h5>
             </div>
             <div class="card-body">
@@ -53,7 +56,7 @@
                 [/#if]
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless">
+                    <table id="example" class="table table-striped table-hover table-borderless">
                         <thead>
                         <tr align="center">
                             <th align="center" scope="col">Full Name</th>
@@ -65,22 +68,26 @@
                         </thead>
                         <tbody style="align-content: center">
                         [#list users as theUser]
-                        <tr>
-                            <td align="center" scope="row">${theUser.fullName}</td>
-                            <td align="center" scope="row">${theUser.username}</td>
-                            <td align="center" scope="row">${theUser.password}</td>
-                            <td align="center" scope="row">${theUser.email}</td>
-                            <td align="center" scope="row">
-                                <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);" role="button"
-                                   href="/user/delete?id=${theUser.id?c}">Delete</a>
+                            <tr>
+                                <td align="center" scope="row">${theUser.fullName}</td>
+                                <td align="center" scope="row">${theUser.username}</td>
+                                <td align="center" scope="row">${theUser.password}</td>
+                                <td align="center" scope="row">${theUser.email}</td>
+                                <td align="center" scope="row">
+                                    <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);"
+                                       role="button"
+                                       href="/user/delete?id=${theUser.id?c}">Delete</a>
 
-                                <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);" role="button"
-                                   href="/user/edit?id=${theUser.id?c}">Edit</a>
-                            </td>
-                        </tr>
-
-                        </tbody>
+                                    <a class="btn btn-primary" style="background-color: rgb(86, 198, 198);"
+                                       role="button"
+                                       href="/user/edit?id=${theUser.id?c}">Edit</a>
+                                </td>
+                            </tr>
                         [/#list]
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -100,4 +107,12 @@
     </div>
     [#include '../bootstrap_footer.ftl']
     </body>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
 [/#escape]

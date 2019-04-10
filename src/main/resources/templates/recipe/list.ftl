@@ -54,7 +54,7 @@
 
                 </table>
                 <div class="table-responsive">
-                    <table  id="dtBasicExample" class="table table-striped table-hover table-borderless table-sm">
+                    <table id="example" class="table table-striped table-hover table-borderless ">
                         <thead>
                         <tr align="center">
                             <th align="center" scope="col">Image</th>
@@ -79,11 +79,11 @@
                                    href="/recipe/edit?id=${recipe.id?c}">Edit</a>
                             </td>
                         </tr>
+                        [/#list]
                         </tbody>
                         <tfoot>
 
                         </tfoot>
-                        [/#list]
                     </table>
                 </div>
 
@@ -105,4 +105,12 @@
     </div>
     [#include '../bootstrap_footer.ftl']
     </body>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
 [/#escape]

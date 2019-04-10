@@ -55,9 +55,9 @@
                     [/#list]
                 [/#if]
                 <div class="table-responsive">
-                    <table id="example" class="table table-striped table-hover table-borderless ">
-                        <thead style="text-align: center">
-                        <tr>
+                    <table id="example" class="table table-striped table-hover table-borderless">
+                        <thead>
+                        <tr align="center">
                             <th scope="col">Picture</th>
                             <th scope="col">Name</th>
                             <th scope="col"></th>

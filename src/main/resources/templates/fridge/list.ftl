@@ -52,11 +52,10 @@
                     [/#list]
                 [/#if]
 
-
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless">
+                    <table id="example" class="table table-striped table-hover table-borderless">
                         <thead>
-                        <tr>
+                        <tr align="center">
                             <th scope="col"></th>
                             <th scope="col">User ID</th>
                             <th scope="col"></th>
@@ -76,9 +75,10 @@
                                    href="/fridge/edit?id=${fridge.id?c}">Edit</a>
                             </td>
                         </tr>
-
-                        </tbody>
                         [/#list]
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -98,4 +98,9 @@
     </div>
     [#include '../bootstrap_footer.ftl']
     </body>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
 [/#escape]

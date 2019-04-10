@@ -1,7 +1,7 @@
 [#ftl]
 [#import "/spring.ftl" as spring /]
 <head>
-    <title>User</title>
+    <title>Fridge Ingredients</title>
     [#include '../bootstrap_header.ftl']
 </head>
 
@@ -40,24 +40,22 @@
         <div class="card" style="height:auto; min-height: 1000px">
             <div class="card-header">
                 <h5 class="mb-0">You have ${ingredients?size} ingredients to choose from.
-                    <a href="/ingredient" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Add more ingredients.</a>
+                    <a href="/ingredient" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Add more ingredients</a>
 
                     <a href="/fridge/suggestions" class="btn btn-primary" style="background-color: rgb(86, 198, 198);" type="button">Suggestion</a>
                  </h5>
             </div>
             <div class="card-body">
-
                 [#if errors??]
                     [#list errors as error]
                         <span style="color:red"> ${error}</span>
                         <br>
                     [/#list]
                 [/#if]
-
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless">
+                    <table id="example" class="table table-striped table-hover table-borderless">
                         <thead>
-                        <tr>
+                        <tr align="center">
                             <th scope="col">Picture</th>
                             <th scope="col">Name</th>
                             <th scope="col"></th>
@@ -78,8 +76,10 @@
                             </td>
                         </tr>
 
-                        </tbody>
                         [/#list]
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -100,4 +100,11 @@
     </div>
     [#include '../bootstrap_footer.ftl']
     </body>
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
 [/#escape]

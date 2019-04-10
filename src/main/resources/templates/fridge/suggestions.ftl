@@ -53,7 +53,7 @@
                 [/#if]
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover table-borderless">
+                    <table id="example" class="table table-striped table-hover table-borderless ">
                         <thead>
                         <tr align="center">
                             <th align="center" scope="col">Image</th>
@@ -80,8 +80,11 @@
                             </td>
                         </tr>
 
-                        </tbody>
                         [/#list]
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -101,4 +104,9 @@
     </div>
     [#include '../bootstrap_footer.ftl']
     </body>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
 [/#escape]
