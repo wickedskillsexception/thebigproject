@@ -36,8 +36,6 @@ public class RecipeController {
     @Autowired
     private IngredientService ingredientService;
 
-    @Autowired
-    SQLIngredientsDAO sqlIngredientsDAO;
 
     @RequestMapping("")
     public ModelAndView list() {
@@ -63,7 +61,7 @@ public class RecipeController {
         List<RecipeIngredient> recipeIngredients = recipeIngredientService.getByRecipeId(id);
         List<Ingredient> ingredients = new ArrayList<>();
         for (RecipeIngredient recipeIngredient : recipeIngredients) {
-            ingredients.add(sqlIngredientsDAO.getById(recipeIngredient.getIngredientId()));
+            ingredients.add(ingredientService.get(recipeIngredient.getIngredientId()));
         }
         recipe.setIngredients(ingredients.toString());
         ModelAndView modelAndView = new ModelAndView("recipe/view");
