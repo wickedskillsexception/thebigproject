@@ -1,10 +1,12 @@
 html, body {
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-position: center;
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
+    height: 100%;
+    overflow: auto;
     font-family: 'Numans', sans-serif;
 }
 
@@ -13,7 +15,8 @@ footer {
 }
 
 .footer-basic {
-    position: inherit;
+    max-height: 100px;
+    position: -ms-device-fixed;
 }
 
 .container {
@@ -68,4 +71,9 @@ td {
 
 .card-header {
     background-color: rgba(255, 255, 255, 0.03);
+}
+
+.navbar{
+    max-height: 100px;
+    position: -ms-device-fixed;
 }
