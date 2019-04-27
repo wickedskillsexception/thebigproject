@@ -1,3 +1,4 @@
+/*
 package com.siit.thebigproject.service;
 
 import com.siit.thebigproject.recipesmanager.ParseRecipeFromFileToObject;
@@ -20,3 +21,4 @@ public class ParseRecipeFromFileToObjectTest {
     }
 
 }
+*/
