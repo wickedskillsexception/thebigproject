@@ -10,6 +10,10 @@ http://ec2-52-14-119-166.us-east-2.compute.amazonaws.com:8080/
 Log in using adi@gmail.com password 1234. If you get an error just refresh the page.
 Works best with Mozilla Firefox.
 
+Run thru video:
+
+https://youtu.be/mx_ssbj6seI
+
 ## Installation
 
 Clone the project using [git](https://github.com/wickedskillsexception/thebigproject.git) to install Yumm!.
