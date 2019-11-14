@@ -1,7 +1,7 @@
 package com.siit.thebigproject.dao.sql;
 
-import com.siit.thebigproject.domain.ObjectId;
 import com.siit.thebigproject.dao.BaseDAO;
+import com.siit.thebigproject.domain.ObjectId;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;

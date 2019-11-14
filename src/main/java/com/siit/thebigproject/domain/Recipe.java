@@ -1,6 +1,5 @@
 package com.siit.thebigproject.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

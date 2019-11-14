@@ -69,7 +69,7 @@
 
                         <tr>
                             <td align="center" scope="col">Preparation time</td>
-                            <td align="center" scope="row">${recipe.preparationTime}</td>
+                            <td align="center" scope="row">${recipe.preparationTime} min</td>
                         </tr>
 
                         <tr>

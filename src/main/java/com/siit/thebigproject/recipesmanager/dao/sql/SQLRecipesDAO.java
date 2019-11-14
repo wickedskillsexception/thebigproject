@@ -1,12 +1,13 @@
 package com.siit.thebigproject.recipesmanager.dao.sql;
 
-import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.Recipe;
 import com.siit.thebigproject.recipesmanager.db.TheBigProjectDB;
 import com.siit.thebigproject.recipesmanager.db.TheBigProjectDBException;
-import com.sun.org.apache.regexp.internal.RE;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class SQLRecipesDAO {
 

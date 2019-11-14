@@ -1,11 +1,5 @@
 package com.siit.thebigproject.domain;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
-
 public class User extends ObjectId {
 
     private String username;

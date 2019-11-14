@@ -1,6 +1,5 @@
 package com.siit.thebigproject.dao;
 
-import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.FridgeIngredient;
 
 import java.util.Collection;

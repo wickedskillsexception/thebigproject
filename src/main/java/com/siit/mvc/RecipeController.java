@@ -1,7 +1,8 @@
 package com.siit.mvc;
 
-import com.siit.thebigproject.dao.sql.SQLIngredientsDAO;
-import com.siit.thebigproject.domain.*;
+import com.siit.thebigproject.domain.Ingredient;
+import com.siit.thebigproject.domain.Recipe;
+import com.siit.thebigproject.domain.RecipeIngredient;
 import com.siit.thebigproject.exceptions.ValidationException;
 import com.siit.thebigproject.service.IngredientService;
 import com.siit.thebigproject.service.RecipeIngredientService;

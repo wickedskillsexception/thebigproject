@@ -2,7 +2,6 @@ package com.siit.mvc;
 
 import com.siit.thebigproject.domain.Fridge;
 import com.siit.thebigproject.domain.FridgeIngredient;
-import com.siit.thebigproject.domain.Ingredient;
 import com.siit.thebigproject.domain.User;
 import com.siit.thebigproject.exceptions.ValidationException;
 import com.siit.thebigproject.service.FridgeIngredientService;
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;

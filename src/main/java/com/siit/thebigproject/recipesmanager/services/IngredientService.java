@@ -1,7 +1,6 @@
 package com.siit.thebigproject.recipesmanager.services;
 
 import com.siit.thebigproject.domain.Ingredient;
-import com.siit.thebigproject.domain.Recipe;
 import com.siit.thebigproject.recipesmanager.dao.sql.SQLIngredintsDAO;
 import com.siit.thebigproject.recipesmanager.db.TheBigProjectDB;
 import com.siit.thebigproject.recipesmanager.db.TheBigProjectDBException;

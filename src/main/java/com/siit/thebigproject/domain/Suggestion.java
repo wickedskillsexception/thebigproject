@@ -1,7 +1,5 @@
 package com.siit.thebigproject.domain;
 
-import java.util.Set;
-
 public class Suggestion extends ObjectId {
 
     private Recipe recipe;
